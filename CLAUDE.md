@@ -97,6 +97,12 @@ interface Bot {
 }
 ```
 
+## Code Guidelines
+
+- Keep files to less than 250 lines to improve maintainability and readability
+- Separate concerns into dedicated component files
+- Use proper TypeScript interfaces and types in separate files when appropriate
+
 ## Current Issues
 
 - Individual mesh rendering for 500 ports (performance optimization needed)
