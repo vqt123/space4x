@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Space4X is a strategic space game built with React, Three.js, and TypeScript. The game features a 3D universe with autonomous trading entities and will eventually include player interaction.
+Space4X is a strategic 3D space trading game with competitive economics, resource management, and real-time AI competition. Players compete against intelligent bots in a dynamic economy while managing limited action points for maximum profit.
 
 ## Development Commands
 
@@ -23,40 +23,93 @@ npm run preview
 
 ### Core Game Systems
 
-**Universe Generation**: The game generates 500 trading ports randomly distributed within a 100x100x100 unit spherical space using spherical coordinates with uniform volume distribution.
+**Universe Generation**: 500 trading ports randomly distributed within a 100x100x100 unit spherical space. Each port has randomized base profit (40-120 credits), trade costs (10-25 action points), and dynamic efficiency multipliers.
 
-**Autonomous Entities**: Bots are autonomous agents that continuously travel between randomly selected trading ports at 1 unit/second speed. Each bot maintains state for current position, origin port, destination port, and travel progress.
+**Trading Economy**: Complete economic system with diminishing returns, resource constraints, and competitive dynamics. Port efficiency decreases by 15% (player trades) or 10% (bot trades) to prevent camping and encourage strategic movement.
 
-**3D Rendering**: Built on @react-three/fiber (React Three.js) with instanced meshes for performance when rendering hundreds of objects. Currently uses individual meshes for ports due to instanced mesh initialization issues.
+**Competitive AI**: 10 intelligent trading bots (Alpha, Beta, Gamma, etc.) with 300-500 starting action points. Bots make strategic decisions based on resource availability and choose profitable routes while respecting action point constraints.
+
+**Player System**: Blue cone ship with 500 starting action points. Player selects from current port or 3 nearest destinations, with full cost/benefit analysis displayed for strategic decision making.
 
 ### Key Components
 
-- **Scene**: Main 3D scene container that generates the universe and manages lighting
-- **TradingPorts**: Renders 500 ports as green emissive spheres (0.5 radius)
-- **Bots**: Manages autonomous entities as orange cones with real-time movement using useFrame
-- **TravelLine**: Renders semi-transparent orange lines showing bot travel paths
-- **generatePortsInSphere**: Utility for uniform spherical distribution of trading ports
+- **Scene**: Main 3D scene managing universe rendering and entity coordination
+- **TradingPorts**: 500 green spheres (0.5 radius) with economic data and efficiency tracking
+- **Bots**: Intelligent AI traders with resource management and strategic behavior
+- **PlayerShip**: User-controlled entity with action point constraints and profit tracking
+- **GameUI**: Trading terminal with current options, profit analysis, and decision support
+- **Leaderboard**: Real-time ranking system showing player vs bot performance
+- **CameraController**: Center-focused camera system with scroll wheel zoom
+
+### Economic System Architecture
+
+**TradeOption Interface**: Calculates profit, costs, travel time, and profit/action ratios for informed decision making.
+
+**Diminishing Returns**: Port efficiency multipliers decrease with each trade, creating dynamic market conditions and encouraging movement.
+
+**Resource Management**: Action points create strategic constraints, forcing players to optimize route planning and trade timing.
+
+**Competitive Dynamics**: Bots and player compete for high-efficiency ports, creating market pressure and strategic urgency.
 
 ### Technical Details
 
-**Game Loop**: Uses Three.js useFrame hook for real-time animation at 60fps. Bot positions are interpolated using Vector3.lerpVectors() for smooth movement.
+**State Management**: React hooks with proper synchronization to prevent race conditions. Port references are automatically updated across all entities when efficiency changes.
 
-**Camera Setup**: Positioned at [150, 150, 150] with 75° FOV to view the entire universe. OrbitControls allow user navigation with zoom limits (30-400 units).
+**Game Loop**: 60fps animation using Three.js useFrame. Smooth interpolation for movement with collision detection for arrival at destinations.
 
-**Performance**: Currently renders ports as individual meshes (500 React elements) instead of instanced mesh due to initialization timing issues with useLayoutEffect.
+**Camera System**: Custom center-focused controller that keeps player ship centered while always looking toward universe center (0,0,0). Mouse wheel controls zoom distance (10-200 units).
 
-## Known Issues
+**Performance Optimizations**: Bot state persistence prevents reinitialization on port updates. Port reference syncing maintains entity relationships across state changes.
 
-- TradingPorts component has commented-out instanced mesh implementation due to initialization problems
-- Individual mesh rendering for 500 ports may impact performance on lower-end devices
+## Key Interfaces
 
-## Future Development
+```typescript
+interface TradingPort {
+  id: number
+  position: Vector3
+  name: string
+  baseProfit: number
+  currentProfitMultiplier: number
+  tradeCost: number
+}
 
-The codebase is structured to support:
-- Player ship implementation (similar to Bot system)
-- UI overlay for game controls
-- Trading mechanics between ports
-- Navigation system (finding nearest ports)
+interface Player {
+  position: Vector3
+  currentPort: TradingPort
+  destinationPort: TradingPort | null
+  progress: number
+  speed: number
+  isMoving: boolean
+  actionPoints: number
+  totalProfit: number
+}
+
+interface Bot {
+  id: number
+  position: Vector3
+  currentPort: TradingPort
+  destinationPort: TradingPort
+  progress: number
+  speed: number
+  actionPoints: number
+  totalProfit: number
+  name: string
+}
+```
+
+## Current Issues
+
+- Individual mesh rendering for 500 ports (performance optimization needed)
+- Large single-file architecture (needs component separation)
+- Instanced mesh initialization still problematic for port rendering
+
+## Gameplay Flow
+
+1. **Decision Phase**: Player views current port vs 3 nearest destinations with profit/action analysis
+2. **Execution Phase**: Player commits action points for trade or travel
+3. **Competition Phase**: Watch AI bots make their own strategic decisions
+4. **Feedback Phase**: See ranking changes and efficiency updates in real-time
+5. **Strategic Planning**: Adapt strategy based on market conditions and remaining resources
 
 ## Related Documentation
 
