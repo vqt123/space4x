@@ -151,23 +151,40 @@ function TradingPorts({ ports }: { ports: TradingPort[] }) {
   )
 }
 
-function TravelLine({ start, end }: { start: Vector3, end: Vector3 }) {
-  const lineRef = useRef<THREE.BufferGeometry>(null)
+function TravelLine({ start, end, color = "#ff6600", opacity = 0.8 }: { 
+  start: Vector3, 
+  end: Vector3,
+  color?: string,
+  opacity?: number
+}) {
+  const lineRef = useRef<THREE.Line>(null)
   
-  useEffect(() => {
-    if (!lineRef.current) return
-    const positions = new Float32Array([
-      start.x, start.y, start.z,
-      end.x, end.y, end.z
-    ])
-    lineRef.current.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-  }, [start, end])
+  const points = useMemo(() => {
+    const points = []
+    points.push(new Vector3(start.x, start.y, start.z))
+    points.push(new Vector3(end.x, end.y, end.z))
+    return points
+  }, [start.x, start.y, start.z, end.x, end.y, end.z])
   
   return (
-    <line>
-      <bufferGeometry ref={lineRef} />
-      <lineBasicMaterial color="#ff6600" opacity={0.3} transparent />
-    </line>
+    <group>
+      <line ref={lineRef}>
+        <bufferGeometry>
+          <bufferAttribute
+            attach="attributes-position"
+            count={points.length}
+            array={new Float32Array(points.flatMap(p => [p.x, p.y, p.z]))}
+            itemSize={3}
+          />
+        </bufferGeometry>
+        <lineBasicMaterial 
+          color={color} 
+          opacity={opacity} 
+          transparent 
+          depthWrite={false}
+        />
+      </line>
+    </group>
   )
 }
 
@@ -384,12 +401,11 @@ function Leaderboard({ player, bots }: { player: Player, bots: Bot[] }) {
   )
 }
 
-function GameUI({ player, ports, onTravel, onTrade, updatePorts }: { 
+function GameUI({ player, ports, onTravel, onTrade }: { 
   player: Player, 
   ports: TradingPort[], 
   onTravel: (destination: TradingPort) => void,
-  onTrade: (option: TradeOption) => void,
-  updatePorts: (newPorts: TradingPort[]) => void
+  onTrade: (option: TradeOption) => void
 }) {
   const tradeOptions = useMemo(() => 
     calculateTradeOptions(player.currentPort, ports), 
@@ -681,6 +697,8 @@ function Scene({ ports, player, setPlayer, setPorts, onBotsUpdate }: {
         <TravelLine 
           start={player.position} 
           end={player.destinationPort.position} 
+          color="#0088ff"
+          opacity={1}
         />
       )}
       
@@ -782,7 +800,6 @@ function App() {
         ports={ports} 
         onTravel={handleTravel} 
         onTrade={handleTrade}
-        updatePorts={setPorts}
       />
       <Leaderboard player={player} bots={bots} />
     </div>
