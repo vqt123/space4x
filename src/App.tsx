@@ -1,13 +1,14 @@
 import { Canvas } from '@react-three/fiber'
 import React, { useState } from 'react'
-import { Bot, TradingPort, Player, TradeOption } from './types'
-import { generatePortsInSphere, calculateTravelCost } from './utils'
+import { Bot, TradingPort, Player, TradeOption, UpgradeHub } from './types'
+import { generatePortsInSphere, generateUpgradeHubs, calculateTravelCost } from './utils'
 import { Scene } from './components/Scene'
 import { GameUI } from './components/GameUI'
 import { Leaderboard } from './components/Leaderboard'
 
 function App() {
   const [ports, setPorts] = useState<TradingPort[]>(() => generatePortsInSphere(500, 50))
+  const [upgradeHubs, setUpgradeHubs] = useState<UpgradeHub[]>(() => generateUpgradeHubs(50, 50))
   const [bots, setBots] = useState<Bot[]>([])
   
   // Initialize player at a random port
@@ -21,7 +22,8 @@ function App() {
       speed: 1,
       isMoving: false,
       actionPoints: 500,
-      totalProfit: 0
+      totalProfit: 0,
+      upgrades: {}
     }
   })
   
@@ -66,6 +68,47 @@ function App() {
     }
   }
   
+  const handleUpgrade = (upgradeId: number) => {
+    const { UPGRADE_DEFINITIONS } = require('./utils')
+    const upgrade = UPGRADE_DEFINITIONS.find((u: any) => u.id === upgradeId)
+    if (upgrade && player.totalProfit >= upgrade.cost) {
+      setPlayer(prevPlayer => ({
+        ...prevPlayer,
+        totalProfit: prevPlayer.totalProfit - upgrade.cost,
+        upgrades: { ...prevPlayer.upgrades, [upgradeId]: 1 }
+      }))
+    }
+  }
+  
+  const handleTravelToHub = (hub: UpgradeHub) => {
+    const distance = player.position.distanceTo(hub.position)
+    const travelCost = calculateTravelCost(distance)
+    
+    if (player.actionPoints >= travelCost) {
+      setPlayer(prevPlayer => ({
+        ...prevPlayer,
+        destinationPort: null, // Clear port destination
+        isMoving: true,
+        progress: 0
+      }))
+      
+      // Create a temporary "port" at the hub location for movement system
+      const tempHubPort: TradingPort = {
+        id: -hub.id, // Negative ID to distinguish from real ports
+        position: hub.position,
+        name: hub.name,
+        baseProfit: 0,
+        currentProfitMultiplier: 1,
+        tradeCost: 0
+      }
+      
+      setPlayer(prevPlayer => ({
+        ...prevPlayer,
+        destinationPort: tempHubPort
+      }))
+    }
+  }
+  
   const handleBotsUpdate = (newBots: Bot[]) => {
     setBots(newBots)
   }
@@ -92,13 +135,16 @@ function App() {
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
       <Canvas camera={{ position: [150, 150, 150], fov: 75 }}>
-        <Scene ports={ports} player={player} setPlayer={setPlayer} setPorts={setPorts} onBotsUpdate={handleBotsUpdate} />
+        <Scene ports={ports} upgradeHubs={upgradeHubs} player={player} setPlayer={setPlayer} setPorts={setPorts} onBotsUpdate={handleBotsUpdate} />
       </Canvas>
       <GameUI 
         player={player} 
         ports={ports} 
+        upgradeHubs={upgradeHubs}
         onTravel={handleTravel} 
         onTrade={handleTrade}
+        onUpgrade={handleUpgrade}
+        onTravelToHub={handleTravelToHub}
       />
       <Leaderboard player={player} bots={bots} />
     </div>

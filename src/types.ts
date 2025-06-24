@@ -21,6 +21,21 @@ export interface Bot {
   name: string
 }
 
+export interface UpgradeHub {
+  id: number
+  position: Vector3
+  name: string
+}
+
+export interface Upgrade {
+  id: number
+  name: string
+  description: string
+  cost: number
+  maxLevel: number
+  type: 'engine' | 'scanner' | 'profit' | 'capacity'
+}
+
 export interface Player {
   position: Vector3
   currentPort: TradingPort
@@ -30,6 +45,7 @@ export interface Player {
   isMoving: boolean
   actionPoints: number
   totalProfit: number
+  upgrades: Record<number, number> // upgradeId -> level
 }
 
 export interface TradeOption {
@@ -39,4 +55,10 @@ export interface TradeOption {
   profit: number
   totalCost: number
   profitPerAction: number
+}
+
+export interface HubTravelOption {
+  hub: UpgradeHub
+  distance: number
+  travelCost: number
 }

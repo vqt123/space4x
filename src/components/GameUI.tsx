@@ -1,19 +1,44 @@
 import { useMemo } from 'react'
-import { Player, TradingPort, TradeOption } from '../types'
-import { calculateTradeOptions } from '../utils'
+import { Player, TradingPort, TradeOption, UpgradeHub, HubTravelOption } from '../types'
+import { calculateTradeOptions, findNearestUpgradeHub, UPGRADE_DEFINITIONS, calculateTravelCost } from '../utils'
 
 interface GameUIProps {
   player: Player
   ports: TradingPort[]
+  upgradeHubs: UpgradeHub[]
   onTravel: (destination: TradingPort) => void
   onTrade: (option: TradeOption) => void
+  onUpgrade?: (upgradeId: number) => void
+  onTravelToHub?: (hub: UpgradeHub) => void
 }
 
-export function GameUI({ player, ports, onTravel, onTrade }: GameUIProps) {
+export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onUpgrade, onTravelToHub }: GameUIProps) {
   const tradeOptions = useMemo(() => 
-    calculateTradeOptions(player.currentPort, ports), 
-    [player.currentPort, ports]
+    calculateTradeOptions(player.currentPort, ports, player.upgrades), 
+    [player.currentPort, ports, player.upgrades]
   )
+  
+  const nearestHub = useMemo(() => 
+    findNearestUpgradeHub(player.position, upgradeHubs),
+    [player.position, upgradeHubs]
+  )
+  
+  const isAtHub = nearestHub && player.position.distanceTo(nearestHub.position) < 2
+  
+  const nextUpgrade = useMemo(() => {
+    const ownedUpgrades = Object.keys(player.upgrades).length
+    return UPGRADE_DEFINITIONS[ownedUpgrades] || null
+  }, [player.upgrades])
+  
+  const hubTravelOption = useMemo((): HubTravelOption | null => {
+    if (!nearestHub) return null
+    const distance = player.position.distanceTo(nearestHub.position)
+    return {
+      hub: nearestHub,
+      distance,
+      travelCost: calculateTravelCost(distance)
+    }
+  }, [nearestHub, player.position])
   
   return (
     <div style={{
@@ -37,6 +62,86 @@ export function GameUI({ player, ports, onTravel, onTrade }: GameUIProps) {
         <div><strong>Total Profit:</strong> {player.totalProfit} credits</div>
         <div><strong>Location:</strong> {player.currentPort.name}</div>
       </div>
+      
+      {/* Upgrade Hub Section */}
+      {nearestHub && (
+        <div style={{ 
+          marginBottom: '20px', 
+          padding: '10px', 
+          background: isAtHub ? 'rgba(68, 136, 255, 0.2)' : 'rgba(68, 136, 255, 0.1)', 
+          borderRadius: '4px',
+          border: isAtHub ? '2px solid #4488ff' : '1px solid rgba(68, 136, 255, 0.3)'
+        }}>
+          <div style={{ color: '#4488ff', fontSize: '14px', fontWeight: 'bold', marginBottom: '5px' }}>
+            🔧 {isAtHub ? 'At Upgrade Hub' : 'Nearest Upgrade Hub'}
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <div><strong>{nearestHub.name}</strong></div>
+              <div style={{ fontSize: '12px', color: '#aaa' }}>
+                Distance: {player.position.distanceTo(nearestHub.position).toFixed(1)} units
+              </div>
+            </div>
+            {!isAtHub && hubTravelOption && onTravelToHub && (
+              <button
+                onClick={() => onTravelToHub(nearestHub)}
+                disabled={player.actionPoints < hubTravelOption.travelCost}
+                style={{
+                  background: player.actionPoints >= hubTravelOption.travelCost ? '#4488ff' : '#666',
+                  color: player.actionPoints >= hubTravelOption.travelCost ? 'white' : '#ccc',
+                  border: 'none',
+                  padding: '6px 12px',
+                  borderRadius: '4px',
+                  cursor: player.actionPoints >= hubTravelOption.travelCost ? 'pointer' : 'not-allowed',
+                  fontSize: '12px'
+                }}
+              >
+                Travel ({hubTravelOption.travelCost} AP)
+              </button>
+            )}
+          </div>
+          
+          {isAtHub && nextUpgrade && (
+            <div style={{ marginTop: '10px', padding: '8px', background: 'rgba(0, 0, 0, 0.3)', borderRadius: '4px' }}>
+              <div style={{ fontSize: '13px', fontWeight: 'bold', color: '#4488ff' }}>
+                Available Upgrade:
+              </div>
+              <div style={{ margin: '5px 0' }}>
+                <strong>{nextUpgrade.name}</strong>
+              </div>
+              <div style={{ fontSize: '11px', color: '#ccc', marginBottom: '8px' }}>
+                {nextUpgrade.description}
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <div style={{ color: '#ff6600' }}>
+                  Cost: {nextUpgrade.cost} credits
+                </div>
+                <button
+                  onClick={() => onUpgrade?.(nextUpgrade.id)}
+                  disabled={!onUpgrade || player.totalProfit < nextUpgrade.cost}
+                  style={{
+                    background: player.totalProfit >= nextUpgrade.cost ? '#4488ff' : '#666',
+                    color: player.totalProfit >= nextUpgrade.cost ? 'white' : '#ccc',
+                    border: 'none',
+                    padding: '6px 12px',
+                    borderRadius: '4px',
+                    cursor: player.totalProfit >= nextUpgrade.cost ? 'pointer' : 'not-allowed',
+                    fontSize: '12px'
+                  }}
+                >
+                  Upgrade
+                </button>
+              </div>
+            </div>
+          )}
+          
+          {isAtHub && !nextUpgrade && (
+            <div style={{ marginTop: '8px', color: '#00ff88', fontSize: '12px' }}>
+              ✅ All upgrades purchased!
+            </div>
+          )}
+        </div>
+      )}
 
       {player.isMoving ? (
         <div style={{ color: '#ff6600' }}>

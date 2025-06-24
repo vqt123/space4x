@@ -73,16 +73,32 @@ Space4X is a strategic 3D space trading game featuring competitive economics, re
 ## Technical Architecture
 
 ### Current Implementation
-- **Framework**: React + Three.js + TypeScript + Vite
-- **State Management**: React hooks with proper synchronization
-- **Rendering**: Individual meshes for ports (500 React components)
-- **Animation**: 60fps movement with smooth interpolation
-- **Camera System**: Custom center-focused controller with zoom
+- **Framework**: React 19.1.0 + TypeScript 5.8.3 + Vite 6.3.5
+- **3D Graphics**: Three.js 0.177.0 + React Three Fiber 9.1.2 + Drei 10.3.0
+- **State Management**: React hooks with proper synchronization across components
+- **Rendering**: Individual mesh components for 500 trading ports
+- **Animation**: 60fps game loop using Three.js useFrame hook
+- **Camera System**: Custom center-focused controller with scroll wheel zoom (10-200 units)
+
+### Component Architecture
+- **App.tsx**: Main orchestrator with state management and event coordination (108 lines)
+- **Scene.tsx**: 3D scene composition and entity rendering (51 lines)
+- **Bots.tsx**: AI trading system with strategic decision-making (179 lines)
+- **GameUI.tsx**: Trading terminal with decision support interface (151 lines)
+- **PlayerMovement.tsx**: Ship movement logic with smooth interpolation (73 lines)
+- **types.ts**: Comprehensive TypeScript interfaces (42 lines)
+- **utils.ts**: Economic calculations and universe generation (86 lines)
 
 ### Performance Optimizations
+- **Component Separation**: Well-organized single-responsibility components
 - **Bot State Persistence**: Prevents reinitialization on port updates
 - **Port Reference Syncing**: Maintains entity relationships across state changes
-- **Efficient Updates**: Minimized re-renders through proper dependency management
+- **Type Safety**: Comprehensive TypeScript interfaces preventing runtime errors
+
+### Current Technical Debt
+- **Rendering Performance**: 500 individual port meshes (needs instanced mesh optimization)
+- **State Updates**: Multiple setPorts calls could cause unnecessary re-renders
+- **Memory Management**: Frequent Vector3 cloning in movement calculations
 
 ## First-Minute Experience
 

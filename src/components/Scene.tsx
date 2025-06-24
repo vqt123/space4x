@@ -1,6 +1,6 @@
 import React from 'react'
 import { Stars } from '@react-three/drei'
-import { Bot, TradingPort, Player } from '../types'
+import { Bot, TradingPort, Player, UpgradeHub } from '../types'
 import { Bots } from './Bots'
 import { PlayerShip } from './PlayerShip'
 import { PlayerMovement } from './PlayerMovement'
@@ -9,13 +9,14 @@ import { TravelLine } from './TravelLine'
 
 interface SceneProps {
   ports: TradingPort[]
+  upgradeHubs: UpgradeHub[]
   player: Player
   setPlayer: React.Dispatch<React.SetStateAction<Player>>
   setPorts: React.Dispatch<React.SetStateAction<TradingPort[]>>
   onBotsUpdate: (bots: Bot[]) => void
 }
 
-export function Scene({ ports, player, setPlayer, setPorts, onBotsUpdate }: SceneProps) {
+export function Scene({ ports, upgradeHubs, player, setPlayer, setPorts, onBotsUpdate }: SceneProps) {
   return (
     <>
       <ambientLight intensity={0.3} />
@@ -27,6 +28,14 @@ export function Scene({ ports, player, setPlayer, setPorts, onBotsUpdate }: Scen
         <mesh key={port.id} position={port.position}>
           <sphereGeometry args={[0.5, 8, 6]} />
           <meshStandardMaterial color="#00ff88" emissive="#00ff88" emissiveIntensity={0.8} />
+        </mesh>
+      ))}
+      
+      {/* Render upgrade hubs as blue cubes */}
+      {upgradeHubs.map(hub => (
+        <mesh key={hub.id} position={hub.position}>
+          <boxGeometry args={[1, 1, 1]} />
+          <meshStandardMaterial color="#4488ff" emissive="#4488ff" emissiveIntensity={0.6} />
         </mesh>
       ))}
       
