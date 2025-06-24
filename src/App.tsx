@@ -20,6 +20,9 @@ interface Bot {
   destinationPort: TradingPort
   progress: number
   speed: number
+  actionPoints: number
+  totalProfit: number
+  name: string
 }
 
 interface Player {
@@ -168,27 +171,62 @@ function TravelLine({ start, end }: { start: Vector3, end: Vector3 }) {
   )
 }
 
-function Bots({ ports, count = 10 }: { ports: TradingPort[], count?: number }) {
+function Bots({ ports, count = 10, setPorts, onBotsUpdate }: { 
+  ports: TradingPort[], 
+  count?: number,
+  setPorts: React.Dispatch<React.SetStateAction<TradingPort[]>>,
+  onBotsUpdate: (bots: Bot[]) => void
+}) {
   const [bots, setBots] = useState<Bot[]>([])
   const meshRef = useRef<THREE.InstancedMesh>(null)
   
   useEffect(() => {
-    const initialBots: Bot[] = []
-    for (let i = 0; i < count; i++) {
-      const startPort = ports[Math.floor(Math.random() * ports.length)]
-      const destPort = ports[Math.floor(Math.random() * ports.length)]
+    // Only initialize bots once when ports are first loaded
+    if (ports.length > 0 && bots.length === 0) {
+      const initialBots: Bot[] = []
+      const botNames = ['Alpha', 'Beta', 'Gamma', 'Delta', 'Epsilon', 'Zeta', 'Eta', 'Theta', 'Iota', 'Kappa']
       
-      initialBots.push({
-        id: i,
-        position: startPort.position.clone(),
-        currentPort: startPort,
-        destinationPort: destPort,
-        progress: 0,
-        speed: 1
-      })
+      for (let i = 0; i < count; i++) {
+        const startPort = ports[Math.floor(Math.random() * ports.length)]
+        const destPort = ports[Math.floor(Math.random() * ports.length)]
+        
+        initialBots.push({
+          id: i,
+          position: startPort.position.clone(),
+          currentPort: startPort,
+          destinationPort: destPort,
+          progress: 0,
+          speed: 1,
+          actionPoints: Math.floor(Math.random() * 200) + 300, // 300-500 starting points
+          totalProfit: 0,
+          name: botNames[i] || `Bot-${i}`
+        })
+      }
+      setBots(initialBots)
     }
-    setBots(initialBots)
-  }, [ports, count])
+  }, [ports.length, count, bots.length])
+  
+  useEffect(() => {
+    onBotsUpdate(bots)
+  }, [bots, onBotsUpdate])
+  
+  // Update bot port references when ports change (but don't reinitialize bots)
+  useEffect(() => {
+    if (bots.length > 0) {
+      setBots(prevBots => 
+        prevBots.map(bot => {
+          const updatedCurrentPort = ports.find(p => p.id === bot.currentPort.id) || bot.currentPort
+          const updatedDestinationPort = ports.find(p => p.id === bot.destinationPort.id) || bot.destinationPort
+          
+          return {
+            ...bot,
+            currentPort: updatedCurrentPort,
+            destinationPort: updatedDestinationPort
+          }
+        })
+      )
+    }
+  }, [ports])
   
   useFrame((_, delta) => {
     setBots(prevBots => {
@@ -200,13 +238,62 @@ function Bots({ ports, count = 10 }: { ports: TradingPort[], count?: number }) {
         let newProgress = bot.progress + progressDelta
         
         if (newProgress >= 1) {
-          const newDestination = ports[Math.floor(Math.random() * ports.length)]
-          return {
-            ...bot,
-            position: bot.destinationPort.position.clone(),
-            currentPort: bot.destinationPort,
-            destinationPort: newDestination,
-            progress: 0
+          // Bot arrived at destination - calculate costs and profits
+          const destination = bot.destinationPort
+          const travelCost = calculateTravelCost(distance)
+          const totalCost = travelCost + destination.tradeCost
+          const profit = calculateTradeProfit(destination)
+          
+          // Only trade if bot can afford it
+          if (bot.actionPoints >= totalCost) {
+            // Reduce port profit after bot trades
+            setPorts(prevPorts => 
+              prevPorts.map(port => 
+                port.id === destination.id 
+                  ? { ...port, currentProfitMultiplier: port.currentProfitMultiplier * 0.9 } // Bots cause 10% reduction
+                  : port
+              )
+            )
+            
+            // Find a new profitable destination
+            const affordablePorts = ports.filter(port => {
+              const dist = destination.position.distanceTo(port.position)
+              const cost = calculateTravelCost(dist) + port.tradeCost
+              return port.id !== destination.id && bot.actionPoints - totalCost >= cost
+            })
+            
+            const newDestination = affordablePorts.length > 0 
+              ? affordablePorts[Math.floor(Math.random() * affordablePorts.length)]
+              : ports[Math.floor(Math.random() * ports.length)]
+            
+            return {
+              ...bot,
+              position: destination.position.clone(),
+              currentPort: destination,
+              destinationPort: newDestination,
+              progress: 0,
+              actionPoints: bot.actionPoints - totalCost,
+              totalProfit: bot.totalProfit + profit
+            }
+          } else {
+            // Bot can't afford to trade, just pick a closer destination
+            const nearbyPorts = ports
+              .filter(port => port.id !== destination.id)
+              .sort((a, b) => 
+                destination.position.distanceTo(a.position) - 
+                destination.position.distanceTo(b.position)
+              )
+              .slice(0, 3)
+            
+            const newDestination = nearbyPorts[Math.floor(Math.random() * nearbyPorts.length)]
+            
+            return {
+              ...bot,
+              position: destination.position.clone(),
+              currentPort: destination,
+              destinationPort: newDestination,
+              progress: 0
+            }
           }
         }
         
@@ -251,6 +338,49 @@ function Bots({ ports, count = 10 }: { ports: TradingPort[], count?: number }) {
         />
       ))}
     </>
+  )
+}
+
+function Leaderboard({ player, bots }: { player: Player, bots: Bot[] }) {
+  const allPlayers = [
+    { name: 'You', profit: player.totalProfit, actionPoints: player.actionPoints, isPlayer: true },
+    ...bots.map(bot => ({ name: bot.name, profit: bot.totalProfit, actionPoints: bot.actionPoints, isPlayer: false }))
+  ].sort((a, b) => b.profit - a.profit)
+
+  return (
+    <div style={{
+      position: 'absolute',
+      top: 20,
+      right: 20,
+      background: 'rgba(0, 0, 0, 0.9)',
+      color: 'white',
+      padding: '15px',
+      borderRadius: '8px',
+      fontFamily: 'monospace',
+      minWidth: '250px'
+    }}>
+      <h3 style={{ margin: '0 0 10px 0', color: '#00ff88' }}>Leaderboard</h3>
+      {allPlayers.map((player, index) => (
+        <div key={player.name} style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: '5px 0',
+          borderBottom: index < allPlayers.length - 1 ? '1px solid #333' : 'none',
+          background: player.isPlayer ? 'rgba(0, 255, 136, 0.1)' : 'transparent',
+          margin: '0 -5px',
+          paddingLeft: '5px',
+          paddingRight: '5px'
+        }}>
+          <span style={{ color: player.isPlayer ? '#00ff88' : 'white' }}>
+            #{index + 1} {player.name}
+          </span>
+          <div style={{ textAlign: 'right', fontSize: '12px' }}>
+            <div style={{ color: '#00ff88' }}>{player.profit} credits</div>
+            <div style={{ color: '#ff6600' }}>{player.actionPoints} AP</div>
+          </div>
+        </div>
+      ))}
+    </div>
   )
 }
 
@@ -339,6 +469,9 @@ function GameUI({ player, ports, onTravel, onTrade, updatePorts }: {
                       <div>⚡ Cost: <span style={{ color: '#ff6600' }}>{option.totalCost}</span> action points</div>
                       <div style={{ fontWeight: 'bold', color: '#ffff00' }}>
                         📊 Profit/Action: {option.profitPerAction.toFixed(2)}
+                      </div>
+                      <div style={{ fontSize: '11px', color: '#888' }}>
+                        Efficiency: {(option.port.currentProfitMultiplier * 100).toFixed(0)}%
                       </div>
                     </div>
                   </div>
@@ -513,11 +646,12 @@ function PlayerMovement({ player, setPlayer, setPorts }: {
   return null
 }
 
-function Scene({ ports, player, setPlayer, setPorts }: { 
+function Scene({ ports, player, setPlayer, setPorts, onBotsUpdate }: { 
   ports: TradingPort[], 
   player: Player, 
   setPlayer: React.Dispatch<React.SetStateAction<Player>>,
-  setPorts: React.Dispatch<React.SetStateAction<TradingPort[]>>
+  setPorts: React.Dispatch<React.SetStateAction<TradingPort[]>>,
+  onBotsUpdate: (bots: Bot[]) => void
 }) {
   
   return (
@@ -537,7 +671,7 @@ function Scene({ ports, player, setPlayer, setPorts }: {
         </mesh>
       ))}
       
-      <Bots ports={ports} count={10} />
+      <Bots ports={ports} count={10} setPorts={setPorts} onBotsUpdate={onBotsUpdate} />
       <PlayerShip player={player} />
       <PlayerMovement player={player} setPlayer={setPlayer} setPorts={setPorts} />
       <CameraController player={player} />
@@ -557,6 +691,7 @@ function Scene({ ports, player, setPlayer, setPorts }: {
 
 function App() {
   const [ports, setPorts] = useState<TradingPort[]>(() => generatePortsInSphere(500, 50))
+  const [bots, setBots] = useState<Bot[]>([])
   
   // Initialize player at a random port
   const [player, setPlayer] = useState<Player>(() => {
@@ -590,14 +725,7 @@ function App() {
   
   const handleTrade = (option: TradeOption) => {
     if (player.actionPoints >= option.totalCost) {
-      // Update player profit and action points
-      setPlayer(prevPlayer => ({
-        ...prevPlayer,
-        totalProfit: prevPlayer.totalProfit + option.profit,
-        actionPoints: prevPlayer.actionPoints - option.totalCost
-      }))
-      
-      // Reduce port profit (diminishing returns)
+      // Reduce port profit (diminishing returns) FIRST
       setPorts(prevPorts => 
         prevPorts.map(port => 
           port.id === option.port.id 
@@ -605,13 +733,49 @@ function App() {
             : port
         )
       )
+      
+      // Then update player profit and action points
+      setPlayer(prevPlayer => {
+        // Update current port reference to the modified port
+        const updatedCurrentPort = ports.find(p => p.id === prevPlayer.currentPort.id) || prevPlayer.currentPort
+        
+        return {
+          ...prevPlayer,
+          totalProfit: prevPlayer.totalProfit + option.profit,
+          actionPoints: prevPlayer.actionPoints - option.totalCost,
+          currentPort: { ...updatedCurrentPort, currentProfitMultiplier: updatedCurrentPort.currentProfitMultiplier * 0.85 }
+        }
+      })
     }
   }
+  
+  const handleBotsUpdate = (newBots: Bot[]) => {
+    setBots(newBots)
+  }
+  
+  // Update player's port references when ports change
+  React.useEffect(() => {
+    setPlayer(prevPlayer => {
+      const updatedCurrentPort = ports.find(p => p.id === prevPlayer.currentPort.id)
+      const updatedDestinationPort = prevPlayer.destinationPort 
+        ? ports.find(p => p.id === prevPlayer.destinationPort!.id) 
+        : null
+      
+      if (updatedCurrentPort) {
+        return {
+          ...prevPlayer,
+          currentPort: updatedCurrentPort,
+          destinationPort: updatedDestinationPort || prevPlayer.destinationPort
+        }
+      }
+      return prevPlayer
+    })
+  }, [ports])
   
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
       <Canvas camera={{ position: [150, 150, 150], fov: 75 }}>
-        <Scene ports={ports} player={player} setPlayer={setPlayer} setPorts={setPorts} />
+        <Scene ports={ports} player={player} setPlayer={setPlayer} setPorts={setPorts} onBotsUpdate={handleBotsUpdate} />
       </Canvas>
       <GameUI 
         player={player} 
@@ -620,6 +784,7 @@ function App() {
         onTrade={handleTrade}
         updatePorts={setPorts}
       />
+      <Leaderboard player={player} bots={bots} />
     </div>
   )
 }
