@@ -19,6 +19,15 @@ interface Bot {
   speed: number
 }
 
+interface Player {
+  position: Vector3
+  currentPort: TradingPort
+  destinationPort: TradingPort | null
+  progress: number
+  speed: number
+  isMoving: boolean
+}
+
 function generatePortsInSphere(count: number, radius: number): TradingPort[] {
   const ports: TradingPort[] = []
   
@@ -45,6 +54,17 @@ function generatePortsInSphere(count: number, radius: number): TradingPort[] {
   }
   
   return ports
+}
+
+function findNearestPorts(currentPort: TradingPort, allPorts: TradingPort[], count: number = 3): TradingPort[] {
+  return allPorts
+    .filter(port => port.id !== currentPort.id)
+    .map(port => ({
+      ...port,
+      distance: currentPort.position.distanceTo(port.position)
+    }))
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, count)
 }
 
 function TradingPorts({ ports }: { ports: TradingPort[] }) {
@@ -175,8 +195,152 @@ function Bots({ ports, count = 10 }: { ports: TradingPort[], count?: number }) {
   )
 }
 
-function Scene() {
-  const ports = useMemo(() => generatePortsInSphere(500, 50), [])
+function GameUI({ player, ports, onTravel }: { 
+  player: Player, 
+  ports: TradingPort[], 
+  onTravel: (destination: TradingPort) => void 
+}) {
+  const nearestPorts = useMemo(() => 
+    findNearestPorts(player.currentPort, ports), 
+    [player.currentPort, ports]
+  )
+  
+  return (
+    <div style={{
+      position: 'absolute',
+      top: 20,
+      left: 20,
+      background: 'rgba(0, 0, 0, 0.8)',
+      color: 'white',
+      padding: '20px',
+      borderRadius: '8px',
+      fontFamily: 'monospace',
+      minWidth: '300px'
+    }}>
+      <h3 style={{ margin: '0 0 15px 0', color: '#00ff88' }}>Navigation</h3>
+      
+      <div style={{ marginBottom: '20px' }}>
+        <strong>Current Location:</strong><br/>
+        {player.currentPort.name}<br/>
+        <small style={{ color: '#aaa' }}>
+          Position: ({player.currentPort.position.x.toFixed(1)}, {player.currentPort.position.y.toFixed(1)}, {player.currentPort.position.z.toFixed(1)})
+        </small>
+      </div>
+
+      {player.isMoving ? (
+        <div style={{ color: '#ff6600' }}>
+          <strong>Traveling to {player.destinationPort?.name}</strong><br/>
+          <div style={{ 
+            background: '#333', 
+            height: '10px', 
+            borderRadius: '5px', 
+            overflow: 'hidden',
+            margin: '10px 0'
+          }}>
+            <div style={{
+              background: '#ff6600',
+              height: '100%',
+              width: `${player.progress * 100}%`,
+              transition: 'width 0.1s'
+            }} />
+          </div>
+          Progress: {(player.progress * 100).toFixed(1)}%
+        </div>
+      ) : (
+        <div>
+          <strong>Nearest Destinations:</strong>
+          {nearestPorts.map((port: any) => (
+            <div key={port.id} style={{ 
+              margin: '10px 0', 
+              padding: '10px', 
+              background: 'rgba(255, 255, 255, 0.1)',
+              borderRadius: '4px'
+            }}>
+              <div style={{ marginBottom: '5px' }}>
+                <strong>{port.name}</strong><br/>
+                <small style={{ color: '#aaa' }}>
+                  Distance: {port.distance.toFixed(1)} units ({port.distance.toFixed(1)}s travel time)
+                </small>
+              </div>
+              <button 
+                onClick={() => onTravel(port)}
+                style={{
+                  background: '#0088ff',
+                  color: 'white',
+                  border: 'none',
+                  padding: '5px 15px',
+                  borderRadius: '4px',
+                  cursor: 'pointer'
+                }}
+              >
+                Travel
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
+function PlayerShip({ player }: { player: Player }) {
+  const meshRef = useRef<THREE.Mesh>(null)
+  
+  useEffect(() => {
+    if (!meshRef.current) return
+    meshRef.current.position.copy(player.position)
+  }, [player.position])
+  
+  return (
+    <mesh ref={meshRef} position={player.position}>
+      <coneGeometry args={[1, 2, 6]} />
+      <meshStandardMaterial color="#0088ff" emissive="#0088ff" emissiveIntensity={0.5} />
+    </mesh>
+  )
+}
+
+function PlayerMovement({ player, setPlayer }: { player: Player, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) {
+  useFrame((_, delta) => {
+    if (player.isMoving && player.destinationPort) {
+      setPlayer(prevPlayer => {
+        const distance = prevPlayer.currentPort.position.distanceTo(prevPlayer.destinationPort!.position)
+        const travelTime = distance / prevPlayer.speed
+        const progressDelta = delta / travelTime
+        
+        let newProgress = prevPlayer.progress + progressDelta
+        
+        if (newProgress >= 1) {
+          // Arrived at destination
+          return {
+            ...prevPlayer,
+            position: prevPlayer.destinationPort!.position.clone(),
+            currentPort: prevPlayer.destinationPort!,
+            destinationPort: null,
+            progress: 0,
+            isMoving: false
+          }
+        }
+        
+        // Update position during travel
+        const newPosition = new Vector3().lerpVectors(
+          prevPlayer.currentPort.position,
+          prevPlayer.destinationPort!.position,
+          newProgress
+        )
+        
+        return {
+          ...prevPlayer,
+          position: newPosition,
+          progress: newProgress
+        }
+      })
+    }
+  })
+  
+  return null
+}
+
+function Scene({ ports, player, setPlayer }: { ports: TradingPort[], player: Player, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) {
   
   return (
     <>
@@ -196,6 +360,16 @@ function Scene() {
       ))}
       
       <Bots ports={ports} count={10} />
+      <PlayerShip player={player} />
+      <PlayerMovement player={player} setPlayer={setPlayer} />
+      
+      {/* Player travel line */}
+      {player.isMoving && player.destinationPort && (
+        <TravelLine 
+          start={player.position} 
+          end={player.destinationPort.position} 
+        />
+      )}
       
       <Stars radius={300} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
     </>
@@ -203,10 +377,34 @@ function Scene() {
 }
 
 function App() {
+  const ports = useMemo(() => generatePortsInSphere(500, 50), [])
+  
+  // Initialize player at a random port
+  const [player, setPlayer] = useState<Player>(() => {
+    const startPort = ports[Math.floor(Math.random() * ports.length)]
+    return {
+      position: startPort.position.clone(),
+      currentPort: startPort,
+      destinationPort: null,
+      progress: 0,
+      speed: 1,
+      isMoving: false
+    }
+  })
+  
+  const handleTravel = (destination: TradingPort) => {
+    setPlayer(prevPlayer => ({
+      ...prevPlayer,
+      destinationPort: destination,
+      progress: 0,
+      isMoving: true
+    }))
+  }
+  
   return (
-    <div style={{ width: '100vw', height: '100vh' }}>
+    <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
       <Canvas camera={{ position: [150, 150, 150], fov: 75 }}>
-        <Scene />
+        <Scene ports={ports} player={player} setPlayer={setPlayer} />
         <OrbitControls 
           enablePan={true}
           enableZoom={true}
@@ -215,6 +413,7 @@ function App() {
           maxDistance={400}
         />
       </Canvas>
+      <GameUI player={player} ports={ports} onTravel={handleTravel} />
     </div>
   )
 }
