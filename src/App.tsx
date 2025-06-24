@@ -1,5 +1,5 @@
-import { Canvas, useFrame } from '@react-three/fiber'
-import { OrbitControls, Stars } from '@react-three/drei'
+import { Canvas, useFrame, useThree } from '@react-three/fiber'
+import { Stars } from '@react-three/drei'
 import { Vector3 } from 'three'
 import * as THREE from 'three'
 import React, { useMemo, useRef, useState, useEffect, useLayoutEffect } from 'react'
@@ -299,6 +299,39 @@ function PlayerShip({ player }: { player: Player }) {
   )
 }
 
+function CameraController({ player }: { player: Player }) {
+  const { camera, gl } = useThree()
+  const [zoom, setZoom] = useState(50)
+  
+  useEffect(() => {
+    const handleWheel = (event: WheelEvent) => {
+      event.preventDefault()
+      setZoom(prevZoom => Math.max(10, Math.min(200, prevZoom + event.deltaY * 0.1)))
+    }
+    
+    gl.domElement.addEventListener('wheel', handleWheel, { passive: false })
+    return () => gl.domElement.removeEventListener('wheel', handleWheel)
+  }, [gl])
+  
+  useFrame(() => {
+    // Calculate direction from player to universe center (0,0,0)
+    const universeCenter = new Vector3(0, 0, 0)
+    const playerToCenter = universeCenter.clone().sub(player.position).normalize()
+    
+    // Position camera behind player, in the direction away from universe center
+    const cameraOffset = playerToCenter.clone().multiplyScalar(-zoom)
+    const targetPosition = player.position.clone().add(cameraOffset)
+    
+    // Smoothly move camera to target position
+    camera.position.lerp(targetPosition, 0.05)
+    
+    // Look toward the universe center (through the player)
+    camera.lookAt(universeCenter)
+  })
+  
+  return null
+}
+
 function PlayerMovement({ player, setPlayer }: { player: Player, setPlayer: React.Dispatch<React.SetStateAction<Player>> }) {
   useFrame((_, delta) => {
     if (player.isMoving && player.destinationPort) {
@@ -362,6 +395,7 @@ function Scene({ ports, player, setPlayer }: { ports: TradingPort[], player: Pla
       <Bots ports={ports} count={10} />
       <PlayerShip player={player} />
       <PlayerMovement player={player} setPlayer={setPlayer} />
+      <CameraController player={player} />
       
       {/* Player travel line */}
       {player.isMoving && player.destinationPort && (
@@ -405,13 +439,6 @@ function App() {
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
       <Canvas camera={{ position: [150, 150, 150], fov: 75 }}>
         <Scene ports={ports} player={player} setPlayer={setPlayer} />
-        <OrbitControls 
-          enablePan={true}
-          enableZoom={true}
-          enableRotate={true}
-          minDistance={30}
-          maxDistance={400}
-        />
       </Canvas>
       <GameUI player={player} ports={ports} onTravel={handleTravel} />
     </div>
