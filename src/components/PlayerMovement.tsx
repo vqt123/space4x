@@ -33,9 +33,12 @@ export function PlayerMovement({ player, setPlayer, setPorts }: PlayerMovementPr
           // Check if this is a hub (negative ID) or a port
           if (destination.id < 0) {
             // Traveling to upgrade hub - just deduct travel cost, no trading
+            // Find the nearest actual port to set as current port
+            const nearestPort = prevPlayer.currentPort // Keep the last port as reference
             return {
               ...prevPlayer,
               position: destination.position.clone(),
+              currentPort: nearestPort, // Keep reference to last port
               destinationPort: null,
               progress: 0,
               isMoving: false,

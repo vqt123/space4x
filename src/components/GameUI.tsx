@@ -24,6 +24,7 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onUpgrad
   )
   
   const isAtHub = nearestHub && player.position.distanceTo(nearestHub.position) < 2
+  const isAtPort = player.currentPort && player.position.distanceTo(player.currentPort.position) < 2
   
   const nextUpgrade = useMemo(() => {
     const ownedUpgrades = Object.keys(player.upgrades).length
@@ -162,21 +163,48 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onUpgrad
           </div>
           Progress: {(player.progress * 100).toFixed(1)}%
         </div>
+      ) : !isAtPort && !isAtHub ? (
+        <div style={{ color: '#ff6600', fontSize: '14px', textAlign: 'center', padding: '20px' }}>
+          <strong>🚀 In Transit</strong><br/>
+          <div style={{ fontSize: '12px', color: '#aaa', marginTop: '5px' }}>
+            Travel to a location to trade or upgrade
+          </div>
+        </div>
       ) : (
         <div>
-          <h4 style={{ color: '#00ff88', margin: '15px 0 10px 0' }}>Trade Options:</h4>
+          {isAtHub && (
+            <div style={{ 
+              marginBottom: '15px', 
+              padding: '10px', 
+              background: 'rgba(68, 136, 255, 0.1)', 
+              borderRadius: '4px',
+              border: '1px solid rgba(68, 136, 255, 0.3)',
+              textAlign: 'center'
+            }}>
+              <div style={{ color: '#4488ff', fontSize: '14px', fontWeight: 'bold' }}>
+                🔧 At Upgrade Hub - View Nearby Ports
+              </div>
+              <div style={{ fontSize: '12px', color: '#aaa', marginTop: '2px' }}>
+                Travel to a port to trade
+              </div>
+            </div>
+          )}
+          <h4 style={{ color: '#00ff88', margin: '15px 0 10px 0' }}>
+            {isAtHub ? 'Nearby Trade Options:' : 'Trade Options:'}
+          </h4>
           {tradeOptions.map((option, index) => {
             const isCurrentPort = index === 0
             const canAfford = player.actionPoints >= option.totalCost
+            const canTrade = isAtPort && !isAtHub
             
             return (
               <div key={option.port.id} style={{ 
                 margin: '10px 0', 
                 padding: '12px', 
-                background: isCurrentPort ? 'rgba(0, 255, 136, 0.15)' : 'rgba(255, 255, 255, 0.1)',
-                border: isCurrentPort ? '1px solid #00ff88' : '1px solid transparent',
+                background: isCurrentPort && !isAtHub ? 'rgba(0, 255, 136, 0.15)' : 'rgba(255, 255, 255, 0.1)',
+                border: isCurrentPort && !isAtHub ? '1px solid #00ff88' : '1px solid transparent',
                 borderRadius: '6px',
-                opacity: canAfford ? 1 : 0.6
+                opacity: canTrade && canAfford ? 1 : 0.6
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                   <div style={{ flex: 1 }}>
@@ -200,7 +228,7 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onUpgrad
                     </div>
                   </div>
                   <div>
-                    {isCurrentPort ? (
+                    {isCurrentPort && !isAtHub ? (
                       <button 
                         onClick={() => onTrade(option)}
                         disabled={!canAfford}
@@ -219,17 +247,17 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onUpgrad
                     ) : (
                       <button 
                         onClick={() => onTravel(option.port)}
-                        disabled={!canAfford}
+                        disabled={!canTrade || !canAfford}
                         style={{
-                          background: canAfford ? '#0088ff' : '#666',
-                          color: canAfford ? 'white' : '#ccc',
+                          background: canTrade && canAfford ? '#0088ff' : '#666',
+                          color: canTrade && canAfford ? 'white' : '#ccc',
                           border: 'none',
                           padding: '8px 16px',
                           borderRadius: '4px',
-                          cursor: canAfford ? 'pointer' : 'not-allowed'
+                          cursor: canTrade && canAfford ? 'pointer' : 'not-allowed'
                         }}
                       >
-                        Travel & Trade
+                        {isAtHub ? 'Travel to Port' : 'Travel & Trade'}
                       </button>
                     )}
                   </div>
