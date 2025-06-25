@@ -166,6 +166,7 @@ export interface GameStateUpdate {
   players: PlayerState[]
   bots: BotState[]
   ports: PortState[]
+  hubs: HubState[]
   leaderboard: LeaderboardEntry[]
 }
 
@@ -208,6 +209,12 @@ export interface PortState {
   remainingCargo: number
   maxCargo: number
   efficiency: number
+}
+
+export interface HubState {
+  id: number
+  position: [number, number, number]
+  name: string
 }
 
 /**

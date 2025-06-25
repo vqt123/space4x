@@ -18,6 +18,7 @@ export class WebSocketClient {
       players: new Map(),
       bots: new Map(),
       ports: new Map(),
+      hubs: new Map(),
       leaderboard: []
     }
   }
@@ -151,6 +152,12 @@ export class WebSocketClient {
     this.gameState.ports.clear()
     for (const port of update.ports) {
       this.gameState.ports.set(port.id, port)
+    }
+    
+    // Update hubs
+    this.gameState.hubs.clear()
+    for (const hub of update.hubs) {
+      this.gameState.hubs.set(hub.id, hub)
     }
     
     // Update leaderboard

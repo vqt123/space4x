@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { ClientGameState, PlayerState, BotState, PortState } from '../types/ClientTypes'
+import { ClientGameState, PlayerState, BotState, PortState, HubState } from '../types/ClientTypes'
 
 /**
  * Pure Three.js renderer for Space4X client
@@ -14,7 +14,7 @@ export class ThreeRenderer {
   private portMeshes: Map<number, THREE.Mesh> = new Map()
   private playerMeshes: Map<string, THREE.Mesh> = new Map()
   private botMeshes: Map<number, THREE.Mesh> = new Map()
-  // private hubMeshes: THREE.Mesh[] = []
+  private hubMeshes: Map<number, THREE.Mesh> = new Map()
   private travelLines: Map<string, THREE.Line> = new Map()
   
   // Materials (reused)
@@ -30,7 +30,7 @@ export class ThreeRenderer {
   private coneGeometry: THREE.ConeGeometry
   
   // Camera control
-  private cameraDistance: number = 20
+  private cameraDistance: number = 80
   private cameraTarget: THREE.Vector3 = new THREE.Vector3()
   
   constructor(canvas: HTMLCanvasElement) {
@@ -40,7 +40,7 @@ export class ThreeRenderer {
     
     // Create scene
     this.scene = new THREE.Scene()
-    this.scene.background = new THREE.Color(0x00ff00) // Bright green like working test
+    this.scene.background = new THREE.Color(0x000011) // Dark space background
     
     // Ensure canvas has dimensions
     const width = canvas.clientWidth || canvas.offsetWidth || 800
@@ -50,7 +50,7 @@ export class ThreeRenderer {
     
     // Create camera - simple setup like working test
     this.camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
-    this.camera.position.set(0, 0, 5)  // Simple z=5 position like working test
+    this.camera.position.set(0, 0, 50)  // Better distance for space view
     this.camera.lookAt(0, 0, 0)
     
     console.log('Camera positioned at:', this.camera.position)
@@ -74,10 +74,9 @@ export class ThreeRenderer {
     // Ensure renderer uses the full canvas
     this.renderer.setPixelRatio(window.devicePixelRatio || 1)
     
-    // Test immediate rendering with bright background
-    this.renderer.setClearColor(0x00ff00, 1) // Bright green
+    // Set space background
+    this.renderer.setClearColor(0x000011, 1) // Dark space
     this.renderer.clear()
-    console.log('Cleared renderer to green')
     
     this.renderer.setSize(width, height)
     this.renderer.shadowMap.enabled = true
@@ -88,9 +87,9 @@ export class ThreeRenderer {
     console.log('Renderer capabilities:', this.renderer.capabilities)
     
     // Create reusable geometries
-    this.sphereGeometry = new THREE.SphereGeometry(0.5, 8, 6)
-    this.boxGeometry = new THREE.BoxGeometry(1, 1, 1)
-    this.coneGeometry = new THREE.ConeGeometry(0.5, 2, 8)
+    this.sphereGeometry = new THREE.SphereGeometry(2, 8, 6)  // Larger ports
+    this.boxGeometry = new THREE.BoxGeometry(4, 4, 4)  // Larger hubs
+    this.coneGeometry = new THREE.ConeGeometry(1.5, 4, 8)  // Larger ships
     
     // Create reusable materials
     this.portMaterial = new THREE.MeshStandardMaterial({
@@ -122,7 +121,6 @@ export class ThreeRenderer {
     this.setupLighting()
     this.setupStars()
     this.setupEventListeners()
-    this.addTestObjects()
     
     console.log('ThreeRenderer initialized with', this.scene.children.length, 'objects')
   }
@@ -154,7 +152,7 @@ export class ThreeRenderer {
    */
   private setupStars(): void {
     const starsGeometry = new THREE.BufferGeometry()
-    const starsCount = 5000
+    const starsCount = 800
     const positions = new Float32Array(starsCount * 3)
     
     for (let i = 0; i < starsCount * 3; i += 3) {
@@ -167,7 +165,7 @@ export class ThreeRenderer {
     
     const starsMaterial = new THREE.PointsMaterial({
       color: 0xffffff,
-      size: 2,
+      size: 0.8,
       sizeAttenuation: true
     })
     
@@ -187,8 +185,8 @@ export class ThreeRenderer {
     // Handle mouse wheel for zoom
     this.canvas.addEventListener('wheel', (event) => {
       event.preventDefault()
-      this.cameraDistance += event.deltaY * 0.01
-      this.cameraDistance = Math.max(5, Math.min(50, this.cameraDistance))
+      this.cameraDistance += event.deltaY * 0.05
+      this.cameraDistance = Math.max(20, Math.min(200, this.cameraDistance))
     })
   }
   
@@ -221,6 +219,7 @@ export class ThreeRenderer {
     this.updatePorts(gameState.ports)
     this.updatePlayers(gameState.players)
     this.updateBots(gameState.bots)
+    this.updateHubs(gameState.hubs)
     this.updateCamera(gameState)
   }
   
@@ -343,6 +342,39 @@ export class ThreeRenderer {
   }
   
   /**
+   * Update hub meshes
+   */
+  private updateHubs(hubs: Map<number, HubState>): void {
+    // Add/update hub meshes
+    for (const [hubId, hub] of hubs) {
+      let mesh = this.hubMeshes.get(hubId)
+      
+      if (!mesh) {
+        mesh = new THREE.Mesh(this.boxGeometry, this.hubMaterial.clone())
+        mesh.castShadow = true
+        mesh.receiveShadow = true
+        this.scene.add(mesh)
+        this.hubMeshes.set(hubId, mesh)
+      }
+      
+      // Update position
+      mesh.position.set(hub.position[0], hub.position[1], hub.position[2])
+      
+      // Rotate slowly for visual effect
+      mesh.rotation.x += 0.01
+      mesh.rotation.y += 0.01
+    }
+    
+    // Remove old hub meshes
+    for (const [hubId, mesh] of this.hubMeshes) {
+      if (!hubs.has(hubId)) {
+        this.scene.remove(mesh)
+        this.hubMeshes.delete(hubId)
+      }
+    }
+  }
+  
+  /**
    * Update travel line for moving entities
    */
   private updateTravelLine(entityId: string, player: PlayerState): void {
@@ -398,60 +430,8 @@ export class ThreeRenderer {
     // Simple render like working test
     this.renderer.render(this.scene, this.camera)
     
-    // Minimal debug logging
-    if (Math.random() < 0.001) { // Log occasionally
-      console.log('RENDER: Scene objects:', this.scene.children.length, 
-                  'Canvas:', this.canvas.width, 'x', this.canvas.height)
-    }
   }
   
-  /**
-   * Add test objects to verify rendering works
-   */
-  private addTestObjects(): void {
-    console.log('Adding test objects to scene')
-    
-    // Add a MASSIVE bright yellow cube directly in front of camera
-    const giantCube = new THREE.Mesh(
-      new THREE.BoxGeometry(10, 10, 10),
-      new THREE.MeshBasicMaterial({ 
-        color: 0xffff00,
-        wireframe: false
-      })
-    )
-    giantCube.position.set(0, 0, 0)
-    this.scene.add(giantCube)
-    console.log('Added giant yellow cube at origin')
-    
-    // Add a huge bright test cube at origin
-    const testCube = new THREE.Mesh(
-      new THREE.BoxGeometry(6, 6, 6),
-      new THREE.MeshBasicMaterial({ 
-        color: 0xff0000,
-        wireframe: true
-      })
-    )
-    testCube.position.set(0, 0, 0)
-    this.scene.add(testCube)
-    console.log('Added red wireframe cube at origin')
-    
-    // Add some closer test spheres
-    const positions = [
-      [-3, 0, 0], [3, 0, 0], [0, -3, 0], [0, 3, 0], [0, 0, -3], [0, 0, 3]
-    ]
-    
-    positions.forEach((pos, i) => {
-      const sphere = new THREE.Mesh(
-        new THREE.SphereGeometry(1.5, 8, 6),
-        new THREE.MeshBasicMaterial({ 
-          color: 0x00ff88
-        })
-      )
-      sphere.position.set(pos[0], pos[1], pos[2])
-      this.scene.add(sphere)
-    })
-    console.log('Added 6 green spheres around origin')
-  }
 
   /**
    * Start the render loop
@@ -469,6 +449,12 @@ export class ThreeRenderer {
    * Clean up resources
    */
   dispose(): void {
+    // Clean up hub meshes
+    for (const mesh of this.hubMeshes.values()) {
+      this.scene.remove(mesh)
+    }
+    this.hubMeshes.clear()
+    
     // Dispose of geometries
     this.sphereGeometry.dispose()
     this.boxGeometry.dispose()

@@ -8,6 +8,7 @@ import {
   PlayerState,
   BotState,
   PortState,
+  HubState,
   LeaderboardEntry,
   PlayerAction,
   ActionResult
@@ -173,6 +174,7 @@ export class GameWorld {
       players: this.serializePlayers(tick),
       bots: this.serializeBots(),
       ports: this.serializePorts(),
+      hubs: this.serializeHubs(),
       leaderboard: this.leaderboard
     }
     
@@ -417,6 +419,17 @@ export class GameWorld {
       remainingCargo: port.remainingCargo,
       maxCargo: port.maxCargo,
       efficiency: port.remainingCargo / port.maxCargo
+    }))
+  }
+  
+  /**
+   * Serialize hubs for network transmission
+   */
+  private serializeHubs(): HubState[] {
+    return this.upgradeHubs.map(hub => ({
+      id: hub.id,
+      position: hub.position.toArray(),
+      name: hub.name
     }))
   }
   

@@ -175,7 +175,7 @@ function NewApp() {
               Strategic 3D space trading with competitive AI
             </p>
             <div style={{ marginBottom: '20px', color: '#666', fontSize: '12px' }}>
-              Client v1.0.19 | Server v1.0.1
+              Client v1.0.22 | Server v1.0.1
             </div>
             
             <div style={{ marginBottom: '20px' }}>
@@ -253,26 +253,6 @@ function NewApp() {
           )}
       
       
-      {/* Debug overlay */}
-      <div style={{
-        position: 'absolute',
-        top: 10,
-        left: 10,
-        background: 'rgba(0, 0, 0, 0.7)',
-        color: 'white',
-        padding: '10px',
-        borderRadius: '4px',
-        fontFamily: 'monospace',
-        fontSize: '12px'
-      }}>
-        <div>Connected: {gameState.connected ? 'YES' : 'NO'}</div>
-        <div>Canvas: {canvasRef.current ? 'YES' : 'NO'}</div>
-        <div>GameClient: {gameClientRef.current ? 'YES' : 'NO'}</div>
-        <div>Tick: {gameState.tick}</div>
-        <div>Ports: {gameState.ports.size}</div>
-        <div>Player ID: {gameState.myPlayerId || 'None'}</div>
-      </div>
-      
       {/* Game UI */}
       <NewGameUI
         player={myPlayer}
@@ -290,40 +270,6 @@ function NewApp() {
         myPlayerId={gameState.myPlayerId}
       />
       
-          {/* Debug info */}
-          {true && (
-            <div style={{
-              position: 'absolute',
-              bottom: 20,
-              left: 20,
-              background: 'rgba(0, 0, 0, 0.7)',
-              color: 'white',
-              padding: '10px',
-              borderRadius: '4px',
-              fontFamily: 'monospace',
-              fontSize: '12px'
-            }}>
-              <div>Tick: {gameState.tick}</div>
-              <div>Players: {gameState.players.size}</div>
-              <div>Bots: {gameState.bots.size}</div>
-              <div>Ports: {gameState.ports.size}</div>
-              <button 
-                onClick={handleDisconnect}
-                style={{
-                  marginTop: '5px',
-                  padding: '4px 8px',
-                  background: '#ff4444',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '2px',
-                  fontSize: '10px',
-                  cursor: 'pointer'
-                }}
-              >
-                Disconnect
-              </button>
-            </div>
-          )}
         </>
       )}
     </div>

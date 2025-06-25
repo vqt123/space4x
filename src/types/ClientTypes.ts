@@ -41,6 +41,12 @@ export interface PortState {
   efficiency: number
 }
 
+export interface HubState {
+  id: number
+  position: [number, number, number]
+  name: string
+}
+
 export interface LeaderboardEntry {
   rank: number
   name: string
@@ -65,6 +71,7 @@ export interface GameStateUpdate {
   players: PlayerState[]
   bots: BotState[]
   ports: PortState[]
+  hubs: HubState[]
   leaderboard: LeaderboardEntry[]
 }
 
@@ -91,6 +98,7 @@ export interface ClientGameState {
   players: Map<string, PlayerState>
   bots: Map<number, BotState>
   ports: Map<number, PortState>
+  hubs: Map<number, HubState>
   leaderboard: LeaderboardEntry[]
   myPlayerId?: string
 }
