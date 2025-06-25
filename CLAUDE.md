@@ -11,6 +11,31 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This ensures continuity if work is interrupted and maintains clear documentation of the system architecture.
 
+## CLIENT-SERVER DEVELOPMENT WORKFLOW
+
+**Current Priority**: Converting from single-client to client-server architecture
+
+### Server Development (Node.js + TypeScript)
+```bash
+cd server/
+npm run dev        # Start server with hot reload
+npm run build      # Build server for production
+npm test           # Run server-side tests
+```
+
+### Client Development (Pure Three.js + React UI)
+```bash
+cd client/         # After conversion from current src/
+npm run dev        # Start client development server  
+npm run build      # Build client for production
+```
+
+### Development Order
+1. **Server First**: Implement server-side game logic with 100ms ticks
+2. **Client Second**: Convert existing React Three Fiber to pure Three.js
+3. **Integration**: Connect client and server via WebSocket
+4. **Testing**: Multi-client testing and performance validation
+
 ## Code Guidelines
 
 - **CRITICAL**: Keep files to less than 250 lines to improve maintainability and readability
@@ -26,8 +51,9 @@ For game mechanics, rules, and configuration details, see DESIGN.md.
 
 ## Development Commands
 
+### Legacy Commands (Pre-Conversion)
 ```bash
-# Start development server
+# Start development server (React Three Fiber client)
 npm run dev
 
 # Build for production
@@ -37,30 +63,63 @@ npm run build
 npm run preview
 ```
 
+### Server Commands (After Conversion)
+```bash
+cd server/
+npm install
+npm run dev        # Development with hot reload
+npm run build      # Production build
+npm start          # Start production server
+npm test           # Run tests
+```
+
+### Client Commands (After Conversion)
+```bash
+cd client/
+npm install  
+npm run dev        # Development server
+npm run build      # Production build
+npm run preview    # Preview production build
+```
+
 ## Architecture
 
-### Technical Stack
+### Current Technical Stack (Legacy - Pre-Conversion)
 - **Framework**: React + TypeScript + Vite
 - **3D Graphics**: Three.js + React Three Fiber + Drei
 - **State Management**: React hooks
 
-### Key Components
+### Target Technical Stack (Client-Server)
+- **Server**: Node.js + TypeScript + Socket.io + Express
+- **Client**: Pure Three.js + React UI + WebSocket
+- **Communication**: WebSocket with 100ms server ticks
+- **State Authority**: Server-side validation and game loop
 
-- **Scene**: Main 3D scene managing universe rendering and entity coordination
-- **TradingPorts**: Trading port entities with economic data
-- **Bots**: AI trader implementation
-- **PlayerShip**: User-controlled entity
-- **GameUI**: Trading terminal interface
-- **Leaderboard**: Real-time ranking system
-- **CameraController**: Center-focused camera system
+### Server Components (Target)
+- **GameWorld**: Central authoritative game state management
+- **GameLoop**: 100ms tick-based server updates (10 TPS)  
+- **TickManager**: Precise timing and tick counting
+- **Systems**: Movement, Trading, Economy, Cooldown (5-tick = 500ms)
+- **Entities**: Server-side Player, Bot, TradingPort, Leaderboard
+- **Network**: Socket.io WebSocket management and message routing
+- **Bot AI**: Server-side intelligent trading with proper cooldowns
+
+### Client Components (Target)
+- **ThreeRenderer**: Pure Three.js 3D scene (no React Three Fiber)
+- **GameClient**: WebSocket communication with server
+- **UI Components**: React for interface only (GameUI, Leaderboard)
+- **Interpolation**: Smooth movement between server updates
+- **Prediction**: Client-side input responsiveness
 
 ### Technical Details
 
-**State Management**: React hooks with proper synchronization to prevent race conditions. Port references are automatically updated across all entities when efficiency changes.
+**Server Authority**: All game logic runs on server with 100ms ticks. Clients are thin visualization layers.
 
-**Game Loop**: 60fps animation using Three.js useFrame. Smooth interpolation for movement with collision detection for arrival at destinations.
+**Tick System**: Server operates on precise 100ms intervals. Actions have 5-tick (500ms) cooldowns.
 
-**Camera System**: Custom center-focused controller that keeps player ship centered while always looking toward universe center (0,0,0). Mouse wheel controls zoom distance.
+**Communication**: WebSocket messages every 100ms with game state updates. Clients send action requests.
+
+**Rendering**: Client-side 60fps Three.js rendering independent of server tick rate with smooth interpolation.
 
 ## Key Interfaces
 

@@ -1,74 +1,132 @@
 # Space4X - Development Roadmap & TODO
 
-## Current Implementation: Ship Types & Cargo Economy System
+## Current Priority: Client-Server Architecture Conversion
 
-### Phase 1: Core Ship System ⏳
+### Phase 1: Server Foundation 🚀 (IN PROGRESS)
 
-#### High Priority
-- [ ] **Ship Type Definitions**: Create ship interfaces and data structures
-- [ ] **Player Ship State**: Add ship type to player interface and initialization
-- [ ] **Ship-Based Travel Costs**: Implement travel cost multipliers per ship type
-- [ ] **Cargo Capacity System**: Add cargo capacity to ship definitions
+#### High Priority - Week 1
+- [x] **Architecture Documentation**: Update DESIGN.md with client-server specs
+- [ ] **TODO Roadmap**: Document conversion phases and milestones  
+- [ ] **Development Workflow**: Update CLAUDE.md with server/client workflow
+- [ ] **Server Directory**: Create server project structure
+- [ ] **Server Dependencies**: Set up package.json with Socket.io, Express, TypeScript
+- [ ] **Core Game Loop**: Implement 100ms tick-based server game loop
+- [ ] **Tick Manager**: Precise timing and tick counting system
+- [ ] **Server Types**: Migrate and adapt game interfaces for server use
 
-#### Medium Priority  
-- [ ] **Port Cargo Tracking**: Replace efficiency multiplier with cargo capacity system
-- [ ] **Cargo Depletion Logic**: Ships extract cargo equal to their capacity per trade
-- [ ] **Dynamic Port Efficiency**: efficiency = remaining_cargo / 5000
-- [ ] **Cargo Regeneration**: Ports slowly regenerate cargo over time
+#### Medium Priority - Week 1-2
+- [ ] **Game State Management**: Central GameWorld class for all entity state
+- [ ] **Systems Architecture**: Modular systems (Movement, Trading, Economy, Cooldown)
+- [ ] **Bot Migration**: Move bot AI logic from client to server
+- [ ] **5-Tick Cooldowns**: Implement 500ms (5 server ticks) action cooldowns
+- [ ] **WebSocket Server**: Socket.io server with player connection handling
+- [ ] **Message Protocol**: Define client-server communication interface
+- [ ] **Server-side Leaderboard**: Real-time ranking calculation and management
 
-### Phase 2: Ship Purchasing & Upgrades 🚀
+### Phase 2: Client Conversion 🎯 (UPCOMING)
 
-#### High Priority
-- [ ] **Ship Purchase Interface**: Add ship buying options at upgrade hubs
-- [ ] **Ship Cost System**: Define credit costs for each ship type
-- [ ] **Ship Switching Logic**: Allow player to change ships at hubs
+#### High Priority - Week 2-3
+- [ ] **Remove React Three Fiber**: Strip out RTF and Drei dependencies
+- [ ] **Pure Three.js Renderer**: Direct Three.js scene management
+- [ ] **WebSocket Client**: Client-side Socket.io integration
+- [ ] **Game State Interpolation**: Smooth movement between server updates
+- [ ] **Client Prediction**: Responsive input handling with lag compensation
 
-#### Medium Priority
-- [ ] **Bot Ship Variety**: Assign different ship types to AI bots
-- [ ] **Ship Visual Differentiation**: Different 3D models/colors per ship type
-- [ ] **Ship Stats Display**: Show current ship info in UI
+#### Medium Priority - Week 3
+- [ ] **UI Separation**: React components for interface only (no game logic)
+- [ ] **Message Handling**: Client-side server message processing
+- [ ] **Visual Feedback**: Client-side cooldown and action validation
+- [ ] **Performance Optimization**: Efficient rendering and state updates
 
-### Phase 3: Enhanced Competition 🎯
+### Phase 3: Integration & Testing 🧪 (UPCOMING)
 
-#### Low Priority
-- [ ] **Bot Ship Strategy**: Bots choose optimal ship types for their strategies
-- [ ] **Advanced Cargo Logic**: Multiple cargo types and specializations
-- [ ] **Ship Progression Path**: Clear upgrade pathway from Scout → Mega Freighter
+#### High Priority - Week 3-4
+- [ ] **Full Integration**: Connect client and server systems
+- [ ] **Multiplayer Testing**: Multiple client connections
+- [ ] **State Synchronization**: Ensure client-server consistency
+- [ ] **Error Handling**: Disconnection and reconnection logic
 
-## Ship Type Specifications
+#### Medium Priority - Week 4
+- [ ] **Performance Tuning**: Optimize tick rate and message frequency
+- [ ] **Security Validation**: Server-side action validation
+- [ ] **Admin Tools**: Server monitoring and management
+- [ ] **Documentation**: Complete setup and deployment guides
 
-### Merchant Freighter (Starting Ship)
-- **Cargo Capacity**: 100 units
-- **Travel Cost Multiplier**: 1.0x (base)
-- **Purchase Cost**: N/A (starting ship)
-- **Strategy**: Balanced early-game trading
+## Technical Specifications
 
-### Scout Courier
-- **Cargo Capacity**: 50 units  
-- **Travel Cost Multiplier**: 0.7x (30% faster)
-- **Purchase Cost**: 5,000 credits
-- **Strategy**: Quick runs, exploration, low-efficiency ports
+### Server Requirements
+- **Node.js**: 18+ with TypeScript support
+- **Game Loop**: 100ms ticks (10 TPS)
+- **Action Cooldown**: 500ms (5 ticks)
+- **WebSocket**: Socket.io for real-time communication
+- **State Authority**: Server validates all player actions
+- **Bot AI**: Server-side intelligent trading with proper cooldowns
 
-### Heavy Hauler
-- **Cargo Capacity**: 300 units
-- **Travel Cost Multiplier**: 1.5x (50% slower)
-- **Purchase Cost**: 15,000 credits
-- **Strategy**: High-efficiency ports, fewer but bigger trades
+### Client Requirements
+- **3D Rendering**: Pure Three.js (remove React Three Fiber)
+- **UI Framework**: React for interface components only
+- **Communication**: WebSocket client for server sync
+- **Rendering**: 60fps independent of server tick rate
+- **Interpolation**: Smooth movement between server updates
 
-### Mega Freighter
-- **Cargo Capacity**: 500 units
-- **Travel Cost Multiplier**: 2.0x (100% slower)
-- **Purchase Cost**: 40,000 credits
-- **Strategy**: Dominating high-value routes, end-game optimization
+### Message Protocol
+```typescript
+// Client → Server
+interface PlayerAction {
+  type: 'TRADE' | 'TRAVEL' | 'UPGRADE_CARGO'
+  targetId?: number
+}
 
-## Implementation Notes
+// Server → Client (every 100ms)
+interface GameStateUpdate {
+  tick: number
+  timestamp: number
+  players: PlayerState[]
+  bots: BotState[]
+  ports: PortState[]
+  leaderboard: LeaderboardEntry[]
+}
+```
 
-- Replace current `currentProfitMultiplier` system with `remainingCargo` tracking
-- Ship travel costs = `base_distance_cost * ship_travel_multiplier`
-- Profit per trade = `min(ship_cargo_capacity, port_remaining_cargo) * base_profit_per_unit`
-- Port efficiency display = `(remaining_cargo / 5000) * 100%`
-- Cargo regeneration = +100 units per game cycle (when framecount % 60 === 0)
+## Legacy Implementation Notes (Pre-Conversion)
 
-## Current System Integration
+### Completed Ship System Features
+- **Ship Types**: Merchant Freighter, Scout Courier, Heavy Hauler, Mega Freighter
+- **Cargo System**: Ship-based cargo capacity and port cargo depletion
+- **Travel Costs**: Ship-dependent travel cost multipliers
+- **Upgrade Hubs**: Cargo hold upgrades and ship purchasing locations
+- **Dynamic Economy**: Port efficiency based on remaining cargo
 
-This builds on the existing upgrade hub system - players can now purchase ships AND trade optimization upgrades at the same locations, creating strategic decision points about resource allocation.
+### System Integration Points
+- Ship selection affects travel costs and cargo capacity
+- Port efficiency drives strategic decisions about routes
+- Upgrade hubs serve as strategic decision points for resource allocation
+- Bot AI respects cooldowns and makes strategic trading decisions
+
+## Development Environment
+
+### Repository Structure (Target)
+```
+space4x/
+├── client/          # Pure Three.js + React UI
+├── server/          # Node.js + Socket.io game server  
+├── shared/          # Common types and constants
+└── docs/           # Architecture and setup documentation
+```
+
+### Current Structure (Legacy)
+```
+space4x/
+├── src/            # React Three Fiber application
+├── DESIGN.md       # Updated with client-server architecture
+├── TODO.md         # This conversion roadmap
+└── CLAUDE.md       # Development workflow (to be updated)
+```
+
+## Success Metrics
+- [ ] Multiple clients can connect simultaneously
+- [ ] Server maintains 100ms tick rate under load
+- [ ] Client renders at 60fps with smooth interpolation
+- [ ] All game mechanics work identically to single-player version
+- [ ] Server-side bot AI behaves strategically with proper cooldowns
+- [ ] Leaderboard updates in real-time across all clients

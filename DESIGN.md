@@ -91,33 +91,63 @@ Space4X is a strategic 3D space trading game featuring competitive economics, re
 
 ## Technical Architecture
 
-### Current Implementation
-- **Framework**: React 19.1.0 + TypeScript 5.8.3 + Vite 6.3.5
-- **3D Graphics**: Three.js 0.177.0 + React Three Fiber 9.1.2 + Drei 10.3.0
-- **State Management**: React hooks with proper synchronization across components
-- **Rendering**: Individual mesh components for 500 trading ports
-- **Animation**: 60fps game loop using Three.js useFrame hook
-- **Camera System**: Custom center-focused controller with scroll wheel zoom (10-200 units)
+### Target Client-Server Implementation
+- **Server**: Node.js + TypeScript + Socket.io
+- **Client**: Pure Three.js + React UI + WebSocket
+- **Game Loop**: 100ms server ticks (10 TPS)
+- **Action Cooldown**: 500ms (5 server ticks)
+- **Communication**: WebSocket with real-time state sync
+- **Authority**: Server-side game state and validation
 
-### Component Architecture
-- **App.tsx**: Main orchestrator with state management and event coordination (108 lines)
-- **Scene.tsx**: 3D scene composition and entity rendering (51 lines)
-- **Bots.tsx**: AI trading system with strategic decision-making (179 lines)
-- **GameUI.tsx**: Trading terminal with decision support interface (151 lines)
-- **PlayerMovement.tsx**: Ship movement logic with smooth interpolation (73 lines)
-- **types.ts**: Comprehensive TypeScript interfaces (42 lines)
-- **utils.ts**: Economic calculations and universe generation (86 lines)
+### Server Architecture
+- **GameLoop**: 100ms tick-based authoritative game state
+- **TickManager**: Precise timing and tick counting system
+- **GameWorld**: Central state management for all entities
+- **Systems**: Modular game logic (Movement, Trading, Economy, Cooldown)
+- **Entities**: Server-side Player, Bot, TradingPort, Leaderboard
+- **Network**: Socket.io WebSocket management and message routing
+- **Bot AI**: Server-side intelligent trading behavior with 5-tick cooldowns
 
-### Performance Optimizations
-- **Component Separation**: Well-organized single-responsibility components
-- **Bot State Persistence**: Prevents reinitialization on port updates
-- **Port Reference Syncing**: Maintains entity relationships across state changes
-- **Type Safety**: Comprehensive TypeScript interfaces preventing runtime errors
+### Client Architecture
+- **ThreeRenderer**: Pure Three.js 3D scene (no React Three Fiber)
+- **GameClient**: WebSocket communication with server
+- **Interpolation**: Smooth movement between server updates
+- **UI Layer**: React components for interface only (no game logic)
+- **Prediction**: Client-side movement prediction for responsiveness
 
-### Current Technical Debt
-- **Rendering Performance**: 500 individual port meshes (needs instanced mesh optimization)
-- **State Updates**: Multiple setPorts calls could cause unnecessary re-renders
-- **Memory Management**: Frequent Vector3 cloning in movement calculations
+### Message Protocol
+```typescript
+// Client to Server
+interface PlayerAction {
+  type: 'TRADE' | 'TRAVEL' | 'UPGRADE_CARGO'
+  targetId?: number
+}
+
+// Server to Client (every 100ms)
+interface GameStateUpdate {
+  tick: number
+  timestamp: number
+  players: PlayerState[]
+  bots: BotState[]
+  ports: PortState[]
+  leaderboard: LeaderboardEntry[]
+}
+```
+
+### Server Performance Specifications
+- **Tick Rate**: 100ms (10 TPS)
+- **Action Validation**: 5-tick cooldown enforcement
+- **Max Concurrent Players**: 50+
+- **Bot AI**: Strategic decisions every tick with cooldown respect
+- **Leaderboard**: Real-time server-side ranking calculation
+- **State Broadcasting**: Delta updates to minimize bandwidth
+
+### Client Performance Specifications
+- **Rendering**: 60fps Three.js rendering independent of server ticks
+- **Interpolation**: Smooth movement between 100ms server updates
+- **Prediction**: Client-side position prediction for input responsiveness
+- **UI**: React components for trading interface and leaderboard display
+- **Memory**: Minimal client state (server is single source of truth)
 
 ## First-Minute Experience
 
