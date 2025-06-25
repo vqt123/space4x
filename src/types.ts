@@ -30,6 +30,7 @@ export interface Bot {
   name: string
   shipType: ShipType
   cargoHolds: number
+  lastActionTime?: number
 }
 
 export interface UpgradeHub {

@@ -23,13 +23,13 @@ npm run preview
 
 ### Core Game Systems
 
-**Universe Generation**: 500 trading ports randomly distributed within a 100x100x100 unit spherical space. Each port has randomized base profit (40-120 credits), trade costs (10-25 action points), and dynamic efficiency multipliers.
+**Universe Generation**: 500 trading ports randomly distributed within a 100x100x100 unit spherical space. Each port starts with 1000-3000 cargo holds that deplete as traders extract resources.
 
-**Trading Economy**: Complete economic system with diminishing returns, resource constraints, and competitive dynamics. Port efficiency decreases by 15% (player trades) or 10% (bot trades) to prevent camping and encourage strategic movement.
+**Trading Economy**: Cargo-based economy where port efficiency = remainingCargo/maxCargo. At 100% efficiency, traders earn 100 credits per cargo hold. All trades cost a fixed 10 action points. Ports change color based on efficiency: green (75-100%), yellow (50-75%), orange (25-50%), red (0-25%).
 
-**Competitive AI**: 10 intelligent trading bots (Alpha, Beta, Gamma, etc.) with 300-500 starting action points. Bots make strategic decisions based on resource availability and choose profitable routes while respecting action point constraints.
+**Competitive AI**: 10 intelligent trading bots (Alpha, Beta, Gamma, etc.) with 500 starting action points and 25 cargo holds. Bots trade at ports until efficiency drops below 50% (orange), then move to the nearest port. All actions have a 0.5 second cooldown.
 
-**Player System**: Blue cone ship with 500 starting action points. Player selects from current port or 3 nearest destinations, with full cost/benefit analysis displayed for strategic decision making.
+**Player System**: Blue cone ship with 500 starting action points, 50 cargo holds (upgradeable to 200), and separate credits/totalProfit tracking. Players can always travel to the 3 nearest ports or upgrade cargo holds at blue cube hubs. Movement speed is 3x faster than original.
 
 ### Key Components
 
@@ -43,13 +43,15 @@ npm run preview
 
 ### Economic System Architecture
 
-**TradeOption Interface**: Calculates profit, costs, travel time, and profit/action ratios for informed decision making.
+**Cargo-Based Trading**: Ports have 1000-3000 cargo holds. Each cargo hold traded yields efficiency × 100 credits (100 credits at 100% efficiency, 50 at 50%, etc).
 
-**Diminishing Returns**: Port efficiency multipliers decrease with each trade, creating dynamic market conditions and encouraging movement.
+**Fixed Trade Cost**: All trades cost exactly 10 action points, simplifying economic calculations.
 
-**Resource Management**: Action points create strategic constraints, forcing players to optimize route planning and trade timing.
+**Efficiency System**: Port efficiency = remainingCargo / maxCargo. Visual indicators: Green (75-100%), Yellow (50-75%), Orange (25-50%), Red (0-25%).
 
-**Competitive Dynamics**: Bots and player compete for high-efficiency ports, creating market pressure and strategic urgency.
+**Credits vs Total Profit**: Credits are spendable currency for upgrades. Total Profit tracks lifetime earnings for leaderboard ranking.
+
+**Cargo Hold Upgrades**: Players can upgrade from 50 to 200 cargo holds at upgrade hubs. Cost increases exponentially: 1000 × 1.1^upgradeNumber.
 
 ### Technical Details
 
@@ -68,9 +70,8 @@ interface TradingPort {
   id: number
   position: Vector3
   name: string
-  baseProfit: number
-  currentProfitMultiplier: number
-  tradeCost: number
+  remainingCargo: number
+  maxCargo: number
 }
 
 interface Player {
@@ -81,7 +82,10 @@ interface Player {
   speed: number
   isMoving: boolean
   actionPoints: number
+  credits: number
   totalProfit: number
+  cargoHolds: number
+  shipType: ShipType
 }
 
 interface Bot {
@@ -94,6 +98,9 @@ interface Bot {
   actionPoints: number
   totalProfit: number
   name: string
+  shipType: ShipType
+  cargoHolds: number
+  lastActionTime?: number
 }
 ```
 

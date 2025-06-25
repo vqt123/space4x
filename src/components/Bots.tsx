@@ -32,7 +32,7 @@ export function Bots({ ports, count = 10, setPorts, onBotsUpdate }: BotsProps) {
           currentPort: startPort,
           destinationPort: startPort, // Start at same port (not traveling)
           progress: 0,
-          speed: 1,
+          speed: 3,
           actionPoints: 500, // Same as player
           totalProfit: 0,
           name: botNames[i] || `Bot-${i}`,
@@ -67,10 +67,16 @@ export function Bots({ ports, count = 10, setPorts, onBotsUpdate }: BotsProps) {
   }, [ports])
   
   useFrame((_, delta) => {
+    const currentTime = Date.now()
+    
     setBots(prevBots => {
       return prevBots.map(bot => {
+        // Check cooldown (0.5 seconds = 500ms)
+        const timeSinceLastAction = currentTime - (bot.lastActionTime || 0)
+        const canAct = timeSinceLastAction >= 500
+        
         // If bot is not moving, check if it should trade or move
-        if (bot.currentPort.id === bot.destinationPort.id) {
+        if (bot.currentPort.id === bot.destinationPort.id && canAct) {
           const currentPort = ports.find(p => p.id === bot.currentPort.id) || bot.currentPort
           const efficiency = currentPort.remainingCargo / currentPort.maxCargo
           
@@ -91,7 +97,8 @@ export function Bots({ ports, count = 10, setPorts, onBotsUpdate }: BotsProps) {
               ...bot,
               currentPort: currentPort,
               actionPoints: bot.actionPoints - FIXED_TRADE_COST,
-              totalProfit: bot.totalProfit + profit
+              totalProfit: bot.totalProfit + profit,
+              lastActionTime: currentTime
             }
           } else {
             // Find closest port to move to
@@ -111,7 +118,8 @@ export function Bots({ ports, count = 10, setPorts, onBotsUpdate }: BotsProps) {
               return {
                 ...bot,
                 destinationPort: closestPort,
-                progress: 0
+                progress: 0,
+                lastActionTime: currentTime
               }
             }
           }

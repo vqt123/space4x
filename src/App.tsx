@@ -20,7 +20,7 @@ function App() {
       currentPort: startPort,
       destinationPort: null,
       progress: 0,
-      speed: 1,
+      speed: 3,
       isMoving: false,
       actionPoints: 500,
       credits: 0,
