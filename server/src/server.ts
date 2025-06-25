@@ -157,7 +157,7 @@ class Space4XServer {
       
       // Start the HTTP server
       this.server.listen(this.port, () => {
-        console.log(`🚀 Space4X server running on port ${this.port}`)
+        console.log(`🚀 Space4X server v1.0.1 running on port ${this.port}`)
         console.log(`📊 Health check: http://localhost:${this.port}/health`)
         console.log(`📈 Stats: http://localhost:${this.port}/stats`)
         console.log(`🎮 WebSocket server ready for connections`)

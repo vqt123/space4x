@@ -1,5 +1,16 @@
 # CLAUDE.md
 
+**CRITICAL**: NEVER use `cd` with `&&` in background processes - it locks up the terminal. Use separate commands:
+```bash
+# WRONG - locks terminal:
+cd server && npm run dev > /dev/null 2>&1 &
+
+# CORRECT - use full paths or separate commands:
+nohup npm --prefix server run dev > server.log 2>&1 &
+# OR
+bash -c "cd server && npm run dev" > server.log 2>&1 &
+```
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## CRITICAL DEVELOPMENT WORKFLOW - ALWAYS FOLLOW
@@ -67,7 +78,7 @@ npm run preview
 ```bash
 cd server/
 npm install
-npm run dev        # Development with hot reload
+npm run dev > /dev/null 2>&1 &        # Development with hot reload (background)
 npm run build      # Production build
 npm start          # Start production server
 npm test           # Run tests

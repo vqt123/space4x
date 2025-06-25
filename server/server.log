@@ -1,0 +1,782 @@
+
+> space4x-server@1.0.0 dev
+> tsx watch src/server.ts
+
+Initializing game world...
+Initializing game world...
+Initialized: 500 ports, 50 hubs, 10 bots
+Game world initialized
+Starting Space4X server game loop...
+TickManager started with 100ms intervals
+🚀 Space4X server running on port 3001
+📊 Health check: http://localhost:3001/health
+📈 Stats: http://localhost:3001/stats
+🎮 WebSocket server ready for connections
+Bot Alpha traded at Port G6 for 2500 profit
+Bot Beta traded at Port G20 for 2500 profit
+Bot Gamma traded at Port B24 for 2500 profit
+Bot Delta traded at Port P13 for 2500 profit
+Bot Epsilon traded at Port B4 for 2500 profit
+Bot Zeta traded at Port A25 for 2500 profit
+Bot Eta traded at Port D7 for 2500 profit
+Bot Theta traded at Port M20 for 2500 profit
+Bot Iota traded at Port C8 for 2500 profit
+Bot Kappa traded at Port J4 for 2500 profit
+Bot Alpha traded at Port G6 for 2475 profit
+Bot Beta traded at Port G20 for 2474 profit
+Bot Gamma traded at Port B24 for 2478 profit
+Bot Delta traded at Port P13 for 2479 profit
+Bot Epsilon traded at Port B4 for 2478 profit
+Bot Zeta traded at Port A25 for 2455 profit
+Bot Eta traded at Port D7 for 2478 profit
+Bot Theta traded at Port M20 for 2468 profit
+Bot Iota traded at Port C8 for 2476 profit
+Bot Kappa traded at Port J4 for 2450 profit
+Bot Alpha traded at Port G6 for 2450 profit
+Bot Beta traded at Port G20 for 2449 profit
+Bot Gamma traded at Port B24 for 2457 profit
+Bot Delta traded at Port P13 for 2458 profit
+Bot Epsilon traded at Port B4 for 2457 profit
+Bot Zeta traded at Port A25 for 2411 profit
+Bot Eta traded at Port D7 for 2457 profit
+Bot Theta traded at Port M20 for 2437 profit
+Bot Iota traded at Port C8 for 2452 profit
+Bot Kappa traded at Port J4 for 2401 profit
+Bot Alpha traded at Port G6 for 2426 profit
+Bot Beta traded at Port G20 for 2424 profit
+Bot Gamma traded at Port B24 for 2436 profit
+Bot Delta traded at Port P13 for 2437 profit
+Bot Epsilon traded at Port B4 for 2435 profit
+Bot Zeta traded at Port A25 for 2367 profit
+Bot Eta traded at Port D7 for 2436 profit
+Bot Theta traded at Port M20 for 2406 profit
+Bot Iota traded at Port C8 for 2428 profit
+Bot Kappa traded at Port J4 for 2352 profit
+Bot Alpha traded at Port G6 for 2401 profit
+Bot Beta traded at Port G20 for 2399 profit
+Bot Gamma traded at Port B24 for 2415 profit
+Bot Delta traded at Port P13 for 2416 profit
+Bot Epsilon traded at Port B4 for 2414 profit
+Bot Zeta traded at Port A25 for 2323 profit
+Bot Eta traded at Port D7 for 2414 profit
+Bot Theta traded at Port M20 for 2375 profit
+Bot Iota traded at Port C8 for 2404 profit
+Bot Kappa traded at Port J4 for 2302 profit
+Bot Alpha traded at Port G6 for 2376 profit
+Bot Beta traded at Port G20 for 2374 profit
+Bot Gamma traded at Port B24 for 2394 profit
+Bot Delta traded at Port P13 for 2395 profit
+Bot Epsilon traded at Port B4 for 2393 profit
+Bot Zeta traded at Port A25 for 2279 profit
+Bot Eta traded at Port D7 for 2393 profit
+Bot Theta traded at Port M20 for 2344 profit
+Bot Iota traded at Port C8 for 2380 profit
+Bot Kappa traded at Port J4 for 2253 profit
+Bot Alpha traded at Port G6 for 2352 profit
+Bot Beta traded at Port G20 for 2349 profit
+Bot Gamma traded at Port B24 for 2373 profit
+Bot Delta traded at Port P13 for 2375 profit
+Bot Epsilon traded at Port B4 for 2371 profit
+Bot Zeta traded at Port A25 for 2235 profit
+Bot Eta traded at Port D7 for 2372 profit
+Bot Theta traded at Port M20 for 2313 profit
+Bot Iota traded at Port C8 for 2356 profit
+Bot Kappa traded at Port J4 for 2204 profit
+Bot Alpha traded at Port G6 for 2327 profit
+Bot Beta traded at Port G20 for 2324 profit
+Bot Gamma traded at Port B24 for 2352 profit
+Bot Delta traded at Port P13 for 2354 profit
+Bot Epsilon traded at Port B4 for 2350 profit
+Bot Zeta traded at Port A25 for 2191 profit
+Bot Eta traded at Port D7 for 2350 profit
+Bot Theta traded at Port M20 for 2282 profit
+Bot Iota traded at Port C8 for 2332 profit
+Bot Kappa traded at Port J4 for 2154 profit
+Bot Alpha traded at Port G6 for 2303 profit
+Bot Beta traded at Port G20 for 2299 profit
+Bot Gamma traded at Port B24 for 2331 profit
+Bot Delta traded at Port P13 for 2333 profit
+Bot Epsilon traded at Port B4 for 2329 profit
+Bot Zeta traded at Port A25 for 2147 profit
+Bot Eta traded at Port D7 for 2329 profit
+Bot Theta traded at Port M20 for 2251 profit
+Bot Iota traded at Port C8 for 2308 profit
+Bot Kappa traded at Port J4 for 2105 profit
+Bot Alpha traded at Port G6 for 2278 profit
+Bot Beta traded at Port G20 for 2273 profit
+Bot Gamma traded at Port B24 for 2310 profit
+Bot Delta traded at Port P13 for 2312 profit
+Bot Epsilon traded at Port B4 for 2307 profit
+Bot Zeta traded at Port A25 for 2103 profit
+Bot Eta traded at Port D7 for 2308 profit
+Bot Theta traded at Port M20 for 2220 profit
+Bot Iota traded at Port C8 for 2284 profit
+Bot Kappa traded at Port J4 for 2056 profit
+Bot Alpha traded at Port G6 for 2253 profit
+Bot Beta traded at Port G20 for 2248 profit
+Bot Gamma traded at Port B24 for 2289 profit
+Bot Delta traded at Port P13 for 2291 profit
+Bot Epsilon traded at Port B4 for 2286 profit
+Bot Zeta traded at Port A25 for 2059 profit
+Bot Eta traded at Port D7 for 2286 profit
+Bot Theta traded at Port M20 for 2189 profit
+Bot Iota traded at Port C8 for 2260 profit
+Bot Kappa traded at Port J4 for 2006 profit
+Bot Alpha traded at Port G6 for 2229 profit
+Bot Beta traded at Port G20 for 2223 profit
+Bot Gamma traded at Port B24 for 2268 profit
+Bot Delta traded at Port P13 for 2270 profit
+Bot Epsilon traded at Port B4 for 2264 profit
+Bot Zeta traded at Port A25 for 2015 profit
+Bot Eta traded at Port D7 for 2265 profit
+Bot Theta traded at Port M20 for 2158 profit
+Bot Iota traded at Port C8 for 2236 profit
+Bot Kappa traded at Port J4 for 1957 profit
+Bot Alpha traded at Port G6 for 2204 profit
+Bot Beta traded at Port G20 for 2198 profit
+Bot Gamma traded at Port B24 for 2247 profit
+Bot Delta traded at Port P13 for 2250 profit
+Bot Epsilon traded at Port B4 for 2243 profit
+Bot Zeta traded at Port A25 for 1971 profit
+Bot Eta traded at Port D7 for 2244 profit
+Bot Theta traded at Port M20 for 2127 profit
+Bot Iota traded at Port C8 for 2212 profit
+Bot Kappa traded at Port J4 for 1908 profit
+Bot Alpha traded at Port G6 for 2179 profit
+Bot Beta traded at Port G20 for 2173 profit
+Bot Gamma traded at Port B24 for 2226 profit
+Bot Delta traded at Port P13 for 2229 profit
+Bot Epsilon traded at Port B4 for 2222 profit
+Bot Zeta traded at Port A25 for 1927 profit
+Bot Eta traded at Port D7 for 2223 profit
+Bot Theta traded at Port M20 for 2096 profit
+Bot Iota traded at Port C8 for 2188 profit
+Bot Kappa traded at Port J4 for 1858 profit
+Bot Alpha traded at Port G6 for 2155 profit
+Bot Beta traded at Port G20 for 2148 profit
+Bot Gamma traded at Port B24 for 2205 profit
+Bot Delta traded at Port P13 for 2208 profit
+Bot Epsilon traded at Port B4 for 2200 profit
+Bot Zeta traded at Port A25 for 1882 profit
+Bot Eta traded at Port D7 for 2201 profit
+Bot Theta traded at Port M20 for 2065 profit
+Bot Iota traded at Port C8 for 2164 profit
+Bot Kappa traded at Port J4 for 1809 profit
+Bot Alpha traded at Port G6 for 2130 profit
+Bot Beta traded at Port G20 for 2123 profit
+Bot Gamma traded at Port B24 for 2184 profit
+Bot Delta traded at Port P13 for 2187 profit
+Bot Epsilon traded at Port B4 for 2179 profit
+Bot Zeta traded at Port A25 for 1838 profit
+Bot Eta traded at Port D7 for 2180 profit
+Bot Theta traded at Port M20 for 2034 profit
+Bot Iota traded at Port C8 for 2140 profit
+Bot Kappa traded at Port J4 for 1760 profit
+Bot Alpha traded at Port G6 for 2106 profit
+Bot Beta traded at Port G20 for 2098 profit
+Bot Gamma traded at Port B24 for 2163 profit
+Bot Delta traded at Port P13 for 2166 profit
+Bot Epsilon traded at Port B4 for 2158 profit
+Bot Zeta traded at Port A25 for 1794 profit
+Bot Eta traded at Port D7 for 2159 profit
+Bot Theta traded at Port M20 for 2003 profit
+Bot Iota traded at Port C8 for 2116 profit
+Bot Kappa traded at Port J4 for 1710 profit
+Bot Alpha traded at Port G6 for 2081 profit
+Bot Beta traded at Port G20 for 2072 profit
+Bot Gamma traded at Port B24 for 2142 profit
+Bot Delta traded at Port P13 for 2145 profit
+Bot Epsilon traded at Port B4 for 2136 profit
+Bot Zeta traded at Port A25 for 1750 profit
+Bot Eta traded at Port D7 for 2137 profit
+Bot Theta traded at Port M20 for 1972 profit
+Bot Iota traded at Port C8 for 2092 profit
+Bot Kappa traded at Port J4 for 1661 profit
+Bot Alpha traded at Port G6 for 2056 profit
+Bot Beta traded at Port G20 for 2047 profit
+Bot Gamma traded at Port B24 for 2121 profit
+Bot Delta traded at Port P13 for 2125 profit
+Bot Epsilon traded at Port B4 for 2115 profit
+Bot Zeta traded at Port A25 for 1706 profit
+Bot Eta traded at Port D7 for 2116 profit
+Bot Theta traded at Port M20 for 1941 profit
+Bot Iota traded at Port C8 for 2068 profit
+Bot Kappa traded at Port J4 for 1612 profit
+Bot Alpha traded at Port G6 for 2032 profit
+Bot Beta traded at Port G20 for 2022 profit
+Bot Gamma traded at Port B24 for 2100 profit
+Bot Delta traded at Port P13 for 2104 profit
+Bot Epsilon traded at Port B4 for 2094 profit
+Bot Zeta traded at Port A25 for 1662 profit
+Bot Eta traded at Port D7 for 2095 profit
+Bot Theta traded at Port M20 for 1910 profit
+Bot Iota traded at Port C8 for 2044 profit
+Bot Kappa traded at Port J4 for 1562 profit
+Tick 100: 0 players, 10 bots
+Bot Alpha traded at Port G6 for 2007 profit
+Bot Beta traded at Port G20 for 1997 profit
+Bot Gamma traded at Port B24 for 2079 profit
+Bot Delta traded at Port P13 for 2083 profit
+Bot Epsilon traded at Port B4 for 2072 profit
+Bot Zeta traded at Port A25 for 1618 profit
+Bot Eta traded at Port D7 for 2073 profit
+Bot Theta traded at Port M20 for 1879 profit
+Bot Iota traded at Port C8 for 2020 profit
+Bot Kappa traded at Port J4 for 1513 profit
+Bot Alpha traded at Port G6 for 1983 profit
+Bot Beta traded at Port G20 for 1972 profit
+Bot Gamma traded at Port B24 for 2058 profit
+Bot Delta traded at Port P13 for 2062 profit
+Bot Epsilon traded at Port B4 for 2051 profit
+Bot Zeta traded at Port A25 for 1574 profit
+Bot Eta traded at Port D7 for 2052 profit
+Bot Theta traded at Port M20 for 1848 profit
+Bot Iota traded at Port C8 for 1996 profit
+Bot Kappa traded at Port J4 for 1464 profit
+Bot Alpha traded at Port G6 for 1958 profit
+Bot Beta traded at Port G20 for 1947 profit
+Bot Gamma traded at Port B24 for 2037 profit
+Bot Delta traded at Port P13 for 2041 profit
+Bot Epsilon traded at Port B4 for 2029 profit
+Bot Zeta traded at Port A25 for 1530 profit
+Bot Eta traded at Port D7 for 2031 profit
+Bot Theta traded at Port M20 for 1817 profit
+Bot Iota traded at Port C8 for 1972 profit
+Bot Kappa traded at Port J4 for 1414 profit
+Bot Alpha traded at Port G6 for 1933 profit
+Bot Beta traded at Port G20 for 1922 profit
+Bot Gamma traded at Port B24 for 2016 profit
+Bot Delta traded at Port P13 for 2020 profit
+Bot Epsilon traded at Port B4 for 2008 profit
+Bot Zeta traded at Port A25 for 1486 profit
+Bot Eta traded at Port D7 for 2010 profit
+Bot Theta traded at Port M20 for 1786 profit
+Bot Iota traded at Port C8 for 1949 profit
+Bot Kappa traded at Port J4 for 1365 profit
+Bot Alpha traded at Port G6 for 1909 profit
+Bot Beta traded at Port G20 for 1897 profit
+Bot Gamma traded at Port B24 for 1995 profit
+Bot Delta traded at Port P13 for 2000 profit
+Bot Epsilon traded at Port B4 for 1987 profit
+Bot Zeta traded at Port A25 for 1442 profit
+Bot Eta traded at Port D7 for 1988 profit
+Bot Theta traded at Port M20 for 1755 profit
+Bot Iota traded at Port C8 for 1925 profit
+Bot Kappa traded at Port J4 for 1316 profit
+Bot Alpha traded at Port G6 for 1884 profit
+Bot Beta traded at Port G20 for 1871 profit
+Bot Gamma traded at Port B24 for 1974 profit
+Bot Delta traded at Port P13 for 1979 profit
+Bot Epsilon traded at Port B4 for 1965 profit
+Bot Zeta traded at Port A25 for 1398 profit
+Bot Eta traded at Port D7 for 1967 profit
+Bot Theta traded at Port M20 for 1724 profit
+Bot Iota traded at Port C8 for 1901 profit
+Bot Kappa traded at Port J4 for 1266 profit
+Bot Alpha traded at Port G6 for 1859 profit
+Bot Beta traded at Port G20 for 1846 profit
+Bot Gamma traded at Port B24 for 1953 profit
+Bot Delta traded at Port P13 for 1958 profit
+Bot Epsilon traded at Port B4 for 1944 profit
+Bot Zeta traded at Port A25 for 1354 profit
+Bot Eta traded at Port D7 for 1946 profit
+Bot Theta traded at Port M20 for 1693 profit
+Bot Iota traded at Port C8 for 1877 profit
+Bot Kappa traveling from Port J4 to Port E5
+Bot Alpha traded at Port G6 for 1835 profit
+Bot Beta traded at Port G20 for 1821 profit
+Bot Gamma traded at Port B24 for 1932 profit
+Bot Delta traded at Port P13 for 1937 profit
+Bot Epsilon traded at Port B4 for 1923 profit
+Bot Zeta traded at Port A25 for 1309 profit
+Bot Eta traded at Port D7 for 1924 profit
+Bot Theta traded at Port M20 for 1662 profit
+Bot Iota traded at Port C8 for 1853 profit
+Bot Alpha traded at Port G6 for 1810 profit
+Bot Beta traded at Port G20 for 1796 profit
+Bot Gamma traded at Port B24 for 1911 profit
+Bot Delta traded at Port P13 for 1916 profit
+Bot Epsilon traded at Port B4 for 1901 profit
+Bot Zeta traded at Port A25 for 1265 profit
+Bot Eta traded at Port D7 for 1903 profit
+Bot Theta traded at Port M20 for 1631 profit
+Bot Iota traded at Port C8 for 1829 profit
+Bot Alpha traded at Port G6 for 1786 profit
+Bot Beta traded at Port G20 for 1771 profit
+Bot Gamma traded at Port B24 for 1890 profit
+Bot Delta traded at Port P13 for 1895 profit
+Bot Epsilon traded at Port B4 for 1880 profit
+Bot Zeta traveling from Port A25 to Port S25
+Bot Eta traded at Port D7 for 1882 profit
+Bot Theta traded at Port M20 for 1600 profit
+Bot Iota traded at Port C8 for 1805 profit
+Bot Alpha traded at Port G6 for 1761 profit
+Bot Beta traded at Port G20 for 1746 profit
+Bot Gamma traded at Port B24 for 1869 profit
+Bot Delta traded at Port P13 for 1875 profit
+Bot Epsilon traded at Port B4 for 1858 profit
+Bot Eta traded at Port D7 for 1860 profit
+Bot Theta traded at Port M20 for 1569 profit
+Bot Iota traded at Port C8 for 1781 profit
+Bot Kappa traded at Port E5 for 2500 profit
+Bot Alpha traded at Port G6 for 1736 profit
+Bot Beta traded at Port G20 for 1721 profit
+Bot Gamma traded at Port B24 for 1848 profit
+Bot Delta traded at Port P13 for 1854 profit
+Bot Epsilon traded at Port B4 for 1837 profit
+Bot Eta traded at Port D7 for 1839 profit
+Bot Theta traded at Port M20 for 1537 profit
+Bot Iota traded at Port C8 for 1757 profit
+Bot Kappa traded at Port E5 for 2470 profit
+Bot Zeta traded at Port S25 for 2500 profit
+Bot Alpha traded at Port G6 for 1712 profit
+Bot Beta traded at Port G20 for 1696 profit
+Bot Gamma traded at Port B24 for 1827 profit
+Bot Delta traded at Port P13 for 1833 profit
+Bot Epsilon traded at Port B4 for 1816 profit
+Bot Eta traded at Port D7 for 1818 profit
+Bot Theta traded at Port M20 for 1506 profit
+Bot Iota traded at Port C8 for 1733 profit
+Bot Kappa traded at Port E5 for 2441 profit
+Bot Zeta traded at Port S25 for 2454 profit
+Bot Alpha traded at Port G6 for 1687 profit
+Bot Beta traded at Port G20 for 1671 profit
+Bot Gamma traded at Port B24 for 1806 profit
+Bot Delta traded at Port P13 for 1812 profit
+Bot Epsilon traded at Port B4 for 1794 profit
+Bot Eta traded at Port D7 for 1797 profit
+Bot Theta traded at Port M20 for 1475 profit
+Bot Iota traded at Port C8 for 1709 profit
+Bot Kappa traded at Port E5 for 2412 profit
+Bot Zeta traded at Port S25 for 2409 profit
+Bot Alpha traded at Port G6 for 1663 profit
+Bot Beta traded at Port G20 for 1645 profit
+Bot Gamma traded at Port B24 for 1784 profit
+Bot Delta traded at Port P13 for 1791 profit
+Bot Epsilon traded at Port B4 for 1773 profit
+Bot Eta traded at Port D7 for 1775 profit
+Bot Theta traded at Port M20 for 1444 profit
+Bot Iota traded at Port C8 for 1685 profit
+Bot Kappa traded at Port E5 for 2383 profit
+Bot Zeta traded at Port S25 for 2363 profit
+Bot Alpha traded at Port G6 for 1638 profit
+Bot Beta traded at Port G20 for 1620 profit
+Bot Gamma traded at Port B24 for 1763 profit
+Bot Delta traded at Port P13 for 1770 profit
+Bot Epsilon traded at Port B4 for 1752 profit
+Bot Eta traded at Port D7 for 1754 profit
+Bot Theta traded at Port M20 for 1413 profit
+Bot Iota traded at Port C8 for 1661 profit
+Bot Kappa traded at Port E5 for 2354 profit
+Bot Zeta traded at Port S25 for 2318 profit
+Bot Alpha traded at Port G6 for 1613 profit
+Bot Beta traded at Port G20 for 1595 profit
+Bot Gamma traded at Port B24 for 1742 profit
+Bot Delta traded at Port P13 for 1750 profit
+Bot Epsilon traded at Port B4 for 1730 profit
+Bot Eta traded at Port D7 for 1733 profit
+Bot Theta traded at Port M20 for 1382 profit
+Bot Iota traded at Port C8 for 1637 profit
+Bot Kappa traded at Port E5 for 2325 profit
+Bot Zeta traded at Port S25 for 2272 profit
+Bot Alpha traded at Port G6 for 1589 profit
+Bot Beta traded at Port G20 for 1570 profit
+Bot Gamma traded at Port B24 for 1721 profit
+Bot Delta traded at Port P13 for 1729 profit
+Bot Epsilon traded at Port B4 for 1709 profit
+Bot Eta traded at Port D7 for 1711 profit
+Bot Theta traded at Port M20 for 1351 profit
+Bot Iota traded at Port C8 for 1613 profit
+Bot Kappa traded at Port E5 for 2296 profit
+Bot Zeta traded at Port S25 for 2227 profit
+Bot Alpha traded at Port G6 for 1564 profit
+Bot Beta traded at Port G20 for 1545 profit
+Bot Gamma traded at Port B24 for 1700 profit
+Bot Delta traded at Port P13 for 1708 profit
+Bot Epsilon traded at Port B4 for 1688 profit
+Bot Eta traded at Port D7 for 1690 profit
+Bot Theta traded at Port M20 for 1320 profit
+Bot Iota traded at Port C8 for 1589 profit
+Bot Kappa traded at Port E5 for 2267 profit
+Bot Zeta traded at Port S25 for 2181 profit
+Bot Alpha traded at Port G6 for 1539 profit
+Bot Beta traded at Port G20 for 1520 profit
+Bot Gamma traded at Port B24 for 1679 profit
+Bot Delta traded at Port P13 for 1687 profit
+Bot Epsilon traded at Port B4 for 1666 profit
+Bot Eta traded at Port D7 for 1669 profit
+Bot Theta traded at Port M20 for 1289 profit
+Bot Iota traded at Port C8 for 1565 profit
+Bot Kappa traded at Port E5 for 2238 profit
+Tick 200: 0 players, 10 bots
+Bot Zeta traded at Port S25 for 2136 profit
+Bot Alpha traded at Port G6 for 1515 profit
+Bot Beta traded at Port G20 for 1495 profit
+Bot Gamma traded at Port B24 for 1658 profit
+Bot Delta traded at Port P13 for 1666 profit
+Bot Epsilon traded at Port B4 for 1645 profit
+Bot Eta traded at Port D7 for 1647 profit
+Bot Theta traded at Port M20 for 1258 profit
+Bot Iota traded at Port C8 for 1541 profit
+Bot Kappa traded at Port E5 for 2208 profit
+Bot Zeta traded at Port S25 for 2090 profit
+Bot Alpha traded at Port G6 for 1490 profit
+Bot Beta traded at Port G20 for 1470 profit
+Bot Gamma traded at Port B24 for 1637 profit
+Bot Delta traded at Port P13 for 1645 profit
+Bot Epsilon traded at Port B4 for 1623 profit
+Bot Eta traded at Port D7 for 1626 profit
+Bot Theta traveling from Port M20 to Port K16
+Bot Iota traded at Port C8 for 1517 profit
+Bot Kappa traded at Port E5 for 2179 profit
+Bot Zeta traded at Port S25 for 2045 profit
+Bot Alpha traded at Port G6 for 1466 profit
+Bot Beta traded at Port G20 for 1444 profit
+Bot Gamma traded at Port B24 for 1616 profit
+Bot Delta traded at Port P13 for 1625 profit
+Bot Epsilon traded at Port B4 for 1602 profit
+Bot Eta traded at Port D7 for 1605 profit
+Bot Iota traded at Port C8 for 1493 profit
+Bot Kappa traded at Port E5 for 2150 profit
+Bot Zeta traded at Port S25 for 1999 profit
+Bot Alpha traded at Port G6 for 1441 profit
+Bot Beta traded at Port G20 for 1419 profit
+Bot Gamma traded at Port B24 for 1595 profit
+Bot Delta traded at Port P13 for 1604 profit
+Bot Epsilon traded at Port B4 for 1581 profit
+Bot Eta traded at Port D7 for 1584 profit
+Bot Iota traded at Port C8 for 1469 profit
+Bot Kappa traded at Port E5 for 2121 profit
+Bot Zeta traded at Port S25 for 1954 profit
+Bot Alpha traded at Port G6 for 1416 profit
+Bot Beta traded at Port G20 for 1394 profit
+Bot Gamma traded at Port B24 for 1574 profit
+Bot Delta traded at Port P13 for 1583 profit
+Bot Epsilon traded at Port B4 for 1559 profit
+Bot Eta traded at Port D7 for 1562 profit
+Bot Iota traded at Port C8 for 1445 profit
+Bot Kappa traded at Port E5 for 2092 profit
+Bot Zeta traded at Port S25 for 1908 profit
+Bot Theta traded at Port K16 for 2500 profit
+Bot Alpha traded at Port G6 for 1392 profit
+Bot Beta traded at Port G20 for 1369 profit
+Bot Gamma traded at Port B24 for 1553 profit
+Bot Delta traded at Port P13 for 1562 profit
+Bot Epsilon traded at Port B4 for 1538 profit
+Bot Eta traded at Port D7 for 1541 profit
+Bot Iota traded at Port C8 for 1422 profit
+Bot Kappa traded at Port E5 for 2063 profit
+Bot Zeta traded at Port S25 for 1863 profit
+Bot Theta traded at Port K16 for 2465 profit
+Bot Alpha traded at Port G6 for 1367 profit
+Bot Beta traded at Port G20 for 1344 profit
+Bot Gamma traded at Port B24 for 1532 profit
+Bot Delta traded at Port P13 for 1541 profit
+Bot Epsilon traded at Port B4 for 1517 profit
+Bot Eta traded at Port D7 for 1520 profit
+Bot Iota traded at Port C8 for 1398 profit
+Bot Kappa traded at Port E5 for 2034 profit
+Bot Zeta traded at Port S25 for 1817 profit
+Bot Theta traded at Port K16 for 2430 profit
+Bot Alpha traded at Port G6 for 1343 profit
+Bot Beta traded at Port G20 for 1319 profit
+Bot Gamma traded at Port B24 for 1511 profit
+Bot Delta traded at Port P13 for 1520 profit
+Bot Epsilon traded at Port B4 for 1495 profit
+Bot Eta traded at Port D7 for 1498 profit
+Bot Iota traded at Port C8 for 1374 profit
+Bot Kappa traded at Port E5 for 2005 profit
+Bot Zeta traded at Port S25 for 1772 profit
+Bot Theta traded at Port K16 for 2396 profit
+Bot Alpha traded at Port G6 for 1318 profit
+Bot Beta traded at Port G20 for 1294 profit
+Bot Gamma traded at Port B24 for 1490 profit
+Bot Delta traded at Port P13 for 1500 profit
+Bot Epsilon traded at Port B4 for 1474 profit
+Bot Eta traded at Port D7 for 1477 profit
+Bot Iota traded at Port C8 for 1350 profit
+Bot Kappa traded at Port E5 for 1976 profit
+Bot Zeta traded at Port S25 for 1726 profit
+Bot Theta traded at Port K16 for 2361 profit
+Bot Alpha traded at Port G6 for 1293 profit
+Bot Beta traded at Port G20 for 1269 profit
+Bot Gamma traded at Port B24 for 1469 profit
+Bot Delta traded at Port P13 for 1479 profit
+Bot Epsilon traded at Port B4 for 1452 profit
+Bot Eta traded at Port D7 for 1456 profit
+Bot Iota traded at Port C8 for 1326 profit
+Bot Kappa traded at Port E5 for 1946 profit
+Bot Zeta traded at Port S25 for 1681 profit
+Bot Theta traded at Port K16 for 2327 profit
+Bot Kappa traded at Port E5 for 1917 profit
+Bot Zeta traded at Port S25 for 1635 profit
+Bot Theta traded at Port K16 for 2292 profit
+Bot Kappa traded at Port E5 for 1888 profit
+Bot Zeta traded at Port S25 for 1590 profit
+Bot Theta traded at Port K16 for 2257 profit
+Bot Kappa traded at Port E5 for 1859 profit
+Bot Theta traded at Port K16 for 2223 profit
+Bot Kappa traded at Port E5 for 1830 profit
+Tick 300: 0 players, 10 bots
+Tick 400: 0 players, 10 bots
+Tick 500: 0 players, 10 bots
+Tick 600: 0 players, 10 bots
+Tick 700: 0 players, 10 bots
+Tick 800: 0 players, 10 bots
+Tick 900: 0 players, 10 bots
+Tick 1000: 0 players, 10 bots
+Tick 1100: 0 players, 10 bots
+Tick 1200: 0 players, 10 bots
+Tick 1300: 0 players, 10 bots
+Tick 1400: 0 players, 10 bots
+Client connected: HetKGuhULOJtXnL3AAAB
+Player TestPlayer (HetKGuhULOJtXnL3AAAB) joined the game
+Player TestPlayer joined the game
+Player TestPlayer (HetKGuhULOJtXnL3AAAB) left the game
+Client disconnected: HetKGuhULOJtXnL3AAAB
+Tick 1500: 0 players, 10 bots
+Tick 1600: 0 players, 10 bots
+Tick 1700: 0 players, 10 bots
+Tick 1800: 0 players, 10 bots
+Tick 1900: 0 players, 10 bots
+Tick 2000: 0 players, 10 bots
+Tick 2100: 0 players, 10 bots
+Tick 2200: 0 players, 10 bots
+Tick 2300: 0 players, 10 bots
+Tick 2400: 0 players, 10 bots
+Tick 2500: 0 players, 10 bots
+Tick 2600: 0 players, 10 bots
+Tick 2700: 0 players, 10 bots
+Tick 2800: 0 players, 10 bots
+Tick 2900: 0 players, 10 bots
+Tick 3000: 0 players, 10 bots
+Tick 3100: 0 players, 10 bots
+Tick 3200: 0 players, 10 bots
+Tick 3300: 0 players, 10 bots
+Tick 3400: 0 players, 10 bots
+Tick 3500: 0 players, 10 bots
+Tick 3600: 0 players, 10 bots
+Tick 3700: 0 players, 10 bots
+Tick 3800: 0 players, 10 bots
+Tick 3900: 0 players, 10 bots
+Tick 4000: 0 players, 10 bots
+Tick 4100: 0 players, 10 bots
+Tick 4200: 0 players, 10 bots
+Tick 4300: 0 players, 10 bots
+Tick 4400: 0 players, 10 bots
+Tick 4500: 0 players, 10 bots
+Tick 4600: 0 players, 10 bots
+Tick 4700: 0 players, 10 bots
+Tick 4800: 0 players, 10 bots
+Tick 4900: 0 players, 10 bots
+Tick 5000: 0 players, 10 bots
+Tick 5100: 0 players, 10 bots
+Tick 5200: 0 players, 10 bots
+Tick 5300: 0 players, 10 bots
+Tick 5400: 0 players, 10 bots
+Tick 5500: 0 players, 10 bots
+Tick 5600: 0 players, 10 bots
+Tick 5700: 0 players, 10 bots
+Tick 5800: 0 players, 10 bots
+Tick 5900: 0 players, 10 bots
+Tick 6000: 0 players, 10 bots
+Tick 6100: 0 players, 10 bots
+Tick 6200: 0 players, 10 bots
+Tick 6300: 0 players, 10 bots
+Tick 6400: 0 players, 10 bots
+Tick 6500: 0 players, 10 bots
+Tick 6600: 0 players, 10 bots
+Tick 6700: 0 players, 10 bots
+Tick 6800: 0 players, 10 bots
+Tick 6900: 0 players, 10 bots
+Tick 7000: 0 players, 10 bots
+Tick 7100: 0 players, 10 bots
+Tick 7200: 0 players, 10 bots
+Tick 7300: 0 players, 10 bots
+Tick 7400: 0 players, 10 bots
+Tick 7500: 0 players, 10 bots
+Tick 7600: 0 players, 10 bots
+Tick 7700: 0 players, 10 bots
+Tick 7800: 0 players, 10 bots
+Tick 7900: 0 players, 10 bots
+Tick 8000: 0 players, 10 bots
+Tick 8100: 0 players, 10 bots
+Tick 8200: 0 players, 10 bots
+Tick 8300: 0 players, 10 bots
+Tick 8400: 0 players, 10 bots
+Tick 8500: 0 players, 10 bots
+Tick 8600: 0 players, 10 bots
+Tick 8700: 0 players, 10 bots
+Tick 8800: 0 players, 10 bots
+Tick 8900: 0 players, 10 bots
+Tick 9000: 0 players, 10 bots
+Tick 9100: 0 players, 10 bots
+Tick 9200: 0 players, 10 bots
+Tick 9300: 0 players, 10 bots
+Tick 9400: 0 players, 10 bots
+Tick 9500: 0 players, 10 bots
+Tick 9600: 0 players, 10 bots
+Tick 9700: 0 players, 10 bots
+Tick 9800: 0 players, 10 bots
+Tick 9900: 0 players, 10 bots
+Tick 10000: 0 players, 10 bots
+Tick 10100: 0 players, 10 bots
+Client connected: cVdbDwH_YJEi3NF2AAAD
+Player test (cVdbDwH_YJEi3NF2AAAD) joined the game
+Player test joined the game
+Tick 10200: 1 players, 10 bots
+Tick 10300: 1 players, 10 bots
+Tick 10400: 1 players, 10 bots
+Tick 10500: 1 players, 10 bots
+Tick 10600: 1 players, 10 bots
+Tick 10700: 1 players, 10 bots
+Player test (cVdbDwH_YJEi3NF2AAAD) left the game
+Client disconnected: cVdbDwH_YJEi3NF2AAAD
+Tick 10800: 0 players, 10 bots
+Tick 10900: 0 players, 10 bots
+Tick 11000: 0 players, 10 bots
+Tick 11100: 0 players, 10 bots
+Tick 11200: 0 players, 10 bots
+Client connected: L03hr2DUcSKK5SLYAAAF
+Player test (L03hr2DUcSKK5SLYAAAF) joined the game
+Player test joined the game
+Tick 11300: 1 players, 10 bots
+Player test arrived at Port F14, traded for 5000 profit
+Tick 11400: 1 players, 10 bots
+Tick 11500: 1 players, 10 bots
+Tick 11600: 1 players, 10 bots
+Tick 11700: 1 players, 10 bots
+Tick 11800: 1 players, 10 bots
+Tick 11900: 1 players, 10 bots
+Tick 12000: 1 players, 10 bots
+Tick 12100: 1 players, 10 bots
+Tick 12200: 1 players, 10 bots
+Tick 12300: 1 players, 10 bots
+Tick 12400: 1 players, 10 bots
+Tick 12500: 1 players, 10 bots
+Tick 12600: 1 players, 10 bots
+Tick 12700: 1 players, 10 bots
+Tick 12800: 1 players, 10 bots
+Tick 12900: 1 players, 10 bots
+Tick 13000: 1 players, 10 bots
+Tick 13100: 1 players, 10 bots
+Tick 13200: 1 players, 10 bots
+Tick 13300: 1 players, 10 bots
+Tick 13400: 1 players, 10 bots
+Tick 13500: 1 players, 10 bots
+Tick 13600: 1 players, 10 bots
+Tick 13700: 1 players, 10 bots
+Tick 13800: 1 players, 10 bots
+Tick 13900: 1 players, 10 bots
+Tick 14000: 1 players, 10 bots
+Tick 14100: 1 players, 10 bots
+Tick 14200: 1 players, 10 bots
+Tick 14300: 1 players, 10 bots
+Tick 14400: 1 players, 10 bots
+Tick 14500: 1 players, 10 bots
+Tick 14600: 1 players, 10 bots
+Tick 14700: 1 players, 10 bots
+Tick 14800: 1 players, 10 bots
+Tick 14900: 1 players, 10 bots
+Tick 15000: 1 players, 10 bots
+Tick 15100: 1 players, 10 bots
+Tick 15200: 1 players, 10 bots
+Tick 15300: 1 players, 10 bots
+Tick 15400: 1 players, 10 bots
+Tick 15500: 1 players, 10 bots
+Tick 15600: 1 players, 10 bots
+Tick 15700: 1 players, 10 bots
+Tick 15800: 1 players, 10 bots
+Tick 15900: 1 players, 10 bots
+Tick 16000: 1 players, 10 bots
+Tick 16100: 1 players, 10 bots
+Tick 16200: 1 players, 10 bots
+Tick 16300: 1 players, 10 bots
+Tick 16400: 1 players, 10 bots
+Tick 16500: 1 players, 10 bots
+Tick 16600: 1 players, 10 bots
+Tick 16700: 1 players, 10 bots
+Tick 16800: 1 players, 10 bots
+Tick 16900: 1 players, 10 bots
+Tick 17000: 1 players, 10 bots
+Tick 17100: 1 players, 10 bots
+Tick 17200: 1 players, 10 bots
+Tick 17300: 1 players, 10 bots
+Tick 17400: 1 players, 10 bots
+Tick 17500: 1 players, 10 bots
+Tick 17600: 1 players, 10 bots
+Tick 17700: 1 players, 10 bots
+Tick 17800: 1 players, 10 bots
+Tick 17900: 1 players, 10 bots
+Tick 18000: 1 players, 10 bots
+Tick 18100: 1 players, 10 bots
+Tick 18200: 1 players, 10 bots
+Tick 18300: 1 players, 10 bots
+Tick 18400: 1 players, 10 bots
+Tick 18500: 1 players, 10 bots
+Tick 18600: 1 players, 10 bots
+Tick 18700: 1 players, 10 bots
+Tick 18800: 1 players, 10 bots
+Tick 18900: 1 players, 10 bots
+Tick 19000: 1 players, 10 bots
+Tick 19100: 1 players, 10 bots
+Tick 19200: 1 players, 10 bots
+Tick 19300: 1 players, 10 bots
+Tick 19400: 1 players, 10 bots
+Tick 19500: 1 players, 10 bots
+Tick 19600: 1 players, 10 bots
+Tick 19700: 1 players, 10 bots
+Tick 19800: 1 players, 10 bots
+Tick 19900: 1 players, 10 bots
+Tick 20000: 1 players, 10 bots
+Tick 20100: 1 players, 10 bots
+Tick 20200: 1 players, 10 bots
+Tick 20300: 1 players, 10 bots
+Tick 20400: 1 players, 10 bots
+Tick 20500: 1 players, 10 bots
+Tick 20600: 1 players, 10 bots
+Tick 20700: 1 players, 10 bots
+Tick 20800: 1 players, 10 bots
+Tick 20900: 1 players, 10 bots
+Tick 21000: 1 players, 10 bots
+Tick 21100: 1 players, 10 bots
+Tick 21200: 1 players, 10 bots
+Tick 21300: 1 players, 10 bots
+Tick 21400: 1 players, 10 bots
+Tick 21500: 1 players, 10 bots
+Tick 21600: 1 players, 10 bots
+Tick 21700: 1 players, 10 bots
+Tick 21800: 1 players, 10 bots
+Tick 21900: 1 players, 10 bots
+Tick 22000: 1 players, 10 bots
+Tick 22100: 1 players, 10 bots
+Tick 22200: 1 players, 10 bots
+Tick 22300: 1 players, 10 bots
+Tick 22400: 1 players, 10 bots
+Tick 22500: 1 players, 10 bots
+Tick 22600: 1 players, 10 bots
+Tick 22700: 1 players, 10 bots
+Tick 22800: 1 players, 10 bots
+Tick 22900: 1 players, 10 bots
+Tick 23000: 1 players, 10 bots
+Player test (L03hr2DUcSKK5SLYAAAF) left the game
+Client disconnected: L03hr2DUcSKK5SLYAAAF
+Tick 23100: 0 players, 10 bots
+Tick 23200: 0 players, 10 bots
+Tick 23300: 0 players, 10 bots
+Tick 23400: 0 players, 10 bots
+Tick 23500: 0 players, 10 bots
+Tick 23600: 0 players, 10 bots
+Client connected: mNmShCaddZkXyk4cAAAH
+Player TestPlayer (mNmShCaddZkXyk4cAAAH) joined the game
+Player TestPlayer joined the game
+Tick 23700: 1 players, 10 bots
+Player TestPlayer (mNmShCaddZkXyk4cAAAH) left the game
+Client disconnected: mNmShCaddZkXyk4cAAAH
+Tick 23800: 0 players, 10 bots
+Tick 23900: 0 players, 10 bots
+Tick 24000: 0 players, 10 bots
+Tick 24100: 0 players, 10 bots
+Tick 24200: 0 players, 10 bots
+Tick 24300: 0 players, 10 bots
+Tick 24400: 0 players, 10 bots
