@@ -15,20 +15,22 @@ Space4X is a strategic 3D space trading game featuring competitive economics, re
 ### Trading Ports
 - **Representation**: Green glowing spheres (0.5 unit radius)
 - **Naming**: Alphanumeric system (Port A1, A2... Z26)
-- **Economics**: Base profit (40-120 credits), trade cost (10-25 action points)
-- **Diminishing Returns**: Efficiency decreases by 15% (player) or 10% (bots) per trade
+- **Cargo**: Each port starts with 1000-3000 cargo holds
+- **Trade Cost**: Fixed 10 action points per trade
+- **Efficiency Colors**: Green (75-100%), Yellow (50-75%), Orange (25-50%), Red (0-25%)
 
 ### Ship Types & Fleet Diversity
-- **Merchant Freighter** (Starting): 100 cargo, 1.0x travel cost (balanced)
-- **Scout Courier**: 50 cargo, 0.7x travel cost (speed specialist)
-- **Heavy Hauler**: 300 cargo, 1.5x travel cost (capacity specialist)
-- **Mega Freighter**: 500 cargo, 2.0x travel cost (end-game domination)
+- **Merchant Freighter** (Starting): 50 cargo holds (max 200), 1.0x travel cost (balanced)
+- **Scout Courier**: 25 cargo holds (max 100), 0.7x travel cost (speed specialist)
+- **Heavy Hauler**: 75 cargo holds (max 300), 1.5x travel cost (capacity specialist)
+- **Mega Freighter**: 100 cargo holds (max 500), 2.0x travel cost (end-game domination)
 
 ### Competitive Ecosystem
-- **Player**: Starts with Merchant Freighter, 500 action points
-- **AI Traders**: 10 named bots with varied ship types and 300-500 action points
-- **Intelligent Behavior**: Bots make strategic decisions based on ship capabilities
-- **Economic Competition**: All entities compete for finite port cargo resources
+- **Player**: Starts with Merchant Freighter, 500 action points, 50 cargo holds
+- **AI Traders**: 10 named bots with 500 action points and 25 cargo holds
+- **Bot Strategy**: Trade at ports until efficiency drops below 50% (orange), then move to nearest port
+- **Action Cooldown**: 0.5 second cooldown between bot actions
+- **Movement Speed**: 3x faster than original design for better pacing
 
 ## Core Gameplay Loop
 
@@ -41,8 +43,8 @@ Space4X is a strategic 3D space trading game featuring competitive economics, re
 ### Resource Management
 - **Action Points**: Limited resource creating strategic constraints
 - **Travel Costs**: Ship-dependent (0.7x to 2.0x base distance cost)
-- **Trade Costs**: Variable per port (10-25 action points)
-- **Cargo Capacity**: Ship-dependent (50-500 units affecting profit per trade)
+- **Trade Costs**: Fixed 10 action points per trade
+- **Cargo Holds**: Ship-dependent (25-100 starting, upgradeable at hubs)
 - **Ship Selection**: Balance speed vs capacity vs upgrade costs
 
 ## User Interface Design
@@ -68,11 +70,11 @@ Space4X is a strategic 3D space trading game featuring competitive economics, re
 ## Economic Systems
 
 ### Cargo-Based Economy
-- **Port Cargo Capacity**: Each port starts with 5000 cargo units of available business
-- **Cargo Depletion**: Ships extract cargo equal to their capacity per trade
-- **Dynamic Efficiency**: Port efficiency = remaining_cargo / 5000 (0-100%)
-- **Cargo Regeneration**: Ports slowly regenerate 100 cargo units per game cycle
-- **Resource Competition**: All traders compete for finite port cargo resources
+- **Port Cargo Capacity**: Each port starts with 1000-3000 cargo holds
+- **Cargo Depletion**: Ships extract cargo equal to their cargo holds per trade
+- **Profit Formula**: efficiency × 100 credits per cargo hold (100 credits/hold at 100%, 50 at 50%)
+- **Dynamic Efficiency**: Port efficiency = remaining_cargo / max_cargo (0-100%)
+- **Credits vs Total Profit**: Credits are spendable, Total Profit tracks lifetime earnings
 
 ### Dynamic Pricing
 - **Real-time Updates**: Port profitability changes based on trading activity

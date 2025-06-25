@@ -75,7 +75,7 @@ export function Bots({ ports, count = 10, setPorts, onBotsUpdate }: BotsProps) {
         const timeSinceLastAction = currentTime - (bot.lastActionTime || 0)
         const canAct = timeSinceLastAction >= 500
         
-        // If bot is not moving, check if it should trade or move
+        // If bot is not moving and cooldown has passed
         if (bot.currentPort.id === bot.destinationPort.id && canAct) {
           const currentPort = ports.find(p => p.id === bot.currentPort.id) || bot.currentPort
           const efficiency = currentPort.remainingCargo / currentPort.maxCargo
