@@ -30,10 +30,20 @@ export class ThreeRenderer {
   private coneGeometry: THREE.ConeGeometry
   
   // Camera control
-  private cameraDistance: number = 80
-  private cameraTarget: THREE.Vector3 = new THREE.Vector3()
-  private cameraCurrentTarget: THREE.Vector3 = new THREE.Vector3()
-  private cameraLerpSpeed: number = 0.05
+  private cameraDistance: number = 30
+  private freeCameraMode: boolean = false
+  
+  // Mouse controls for free camera
+  private isMouseDown: boolean = false
+  private isRightMouseDown: boolean = false
+  private lastMouseX: number = 0
+  private lastMouseY: number = 0
+  private cameraRotationX: number = 0
+  private cameraRotationY: number = 0
+  private cameraOffset: THREE.Vector3 = new THREE.Vector3(0, 0, 0)
+  
+  // Interpolation toggle for testing
+  private useInterpolation: boolean = true
   
   // FPS tracking
   private frameCount: number = 0
@@ -48,6 +58,12 @@ export class ThreeRenderer {
   }> = new Map()
   private lastInterpolationTime: number = 0
   private debugPlayerId: string | null = null
+  
+  // Test cube for smooth animation comparison
+  private testCube: THREE.Mesh | null = null
+  
+  // FPS display element
+  private fpsElement: HTMLDivElement | null = null
   
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas
@@ -64,9 +80,9 @@ export class ThreeRenderer {
     
     console.log('ThreeRenderer using dimensions:', width, height)
     
-    // Create camera - simple setup like working test
+    // Create camera - exactly like demo scene
     this.camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
-    this.camera.position.set(0, 0, 50)  // Better distance for space view
+    this.camera.position.set(0, 0, this.cameraDistance)
     this.camera.lookAt(0, 0, 0)
     
     console.log('Camera positioned at:', this.camera.position)
@@ -127,6 +143,8 @@ export class ThreeRenderer {
     this.lineMaterial = new THREE.LineBasicMaterial({ color: 0x0088ff, opacity: 0.8, transparent: true })
     
     this.setupLighting()
+    this.setupTestCube()
+    this.setupFPSDisplay()
     this.setupEventListeners()
     
     console.log('ThreeRenderer initialized with', this.scene.children.length, 'objects')
@@ -141,6 +159,52 @@ export class ThreeRenderer {
     this.scene.add(ambientLight)
   }
   
+  /**
+   * Set up test cube for smooth animation comparison - exactly like demo scene
+   */
+  private setupTestCube(): void {
+    // Test cube disabled for normal gameplay
+    // Uncomment below to re-enable for debugging
+    /*
+    const geometry = new THREE.BoxGeometry(1, 1, 1)
+    const material = new THREE.MeshBasicMaterial({ 
+      color: 0x00ff88, // Same green as demo scene
+      wireframe: false
+    })
+    this.testCube = new THREE.Mesh(geometry, material)
+    this.testCube.position.set(0, 0, 0) // Center position like demo
+    this.scene.add(this.testCube)
+    console.log('Test cube added at center (0, 0, 0) - should rotate smoothly')
+    */
+  }
+  
+  /**
+   * Set up FPS display as overlay on canvas
+   */
+  private setupFPSDisplay(): void {
+    this.fpsElement = document.createElement('div')
+    this.fpsElement.style.position = 'absolute'
+    this.fpsElement.style.top = '10px'
+    this.fpsElement.style.right = '10px'
+    this.fpsElement.style.background = 'rgba(0, 0, 0, 0.8)'
+    this.fpsElement.style.color = '#00ff88'
+    this.fpsElement.style.padding = '8px 12px'
+    this.fpsElement.style.borderRadius = '4px'
+    this.fpsElement.style.fontFamily = 'monospace'
+    this.fpsElement.style.fontSize = '16px'
+    this.fpsElement.style.fontWeight = 'bold'
+    this.fpsElement.style.border = '1px solid rgba(255,255,255,0.3)'
+    this.fpsElement.style.zIndex = '1000'
+    this.fpsElement.style.pointerEvents = 'none' // Don't interfere with mouse events
+    this.fpsElement.textContent = '0 FPS'
+    
+    // Add to canvas parent
+    const canvasParent = this.canvas.parentElement
+    if (canvasParent) {
+      canvasParent.appendChild(this.fpsElement)
+    }
+  }
+  
   
   /**
    * Set up event listeners
@@ -151,12 +215,81 @@ export class ThreeRenderer {
       this.handleResize()
     })
     
-    // Handle mouse wheel for zoom
+    // Handle mouse wheel for zoom - exactly like demo scene
     this.canvas.addEventListener('wheel', (event) => {
       event.preventDefault()
-      this.cameraDistance += event.deltaY * 0.05
-      this.cameraDistance = Math.max(20, Math.min(200, this.cameraDistance))
+      this.cameraDistance += event.deltaY * 0.01
+      this.cameraDistance = Math.max(2, Math.min(20, this.cameraDistance))
+      
+      // Update camera position immediately like demo
+      if (this.freeCameraMode) {
+        const x = Math.cos(this.cameraRotationY) * Math.cos(this.cameraRotationX) * this.cameraDistance
+        const y = Math.sin(this.cameraRotationX) * this.cameraDistance
+        const z = Math.sin(this.cameraRotationY) * Math.cos(this.cameraRotationX) * this.cameraDistance
+        this.camera.position.set(x + this.cameraOffset.x, y + this.cameraOffset.y, z + this.cameraOffset.z)
+        this.camera.lookAt(this.cameraOffset)
+      } else {
+        this.camera.position.set(this.cameraOffset.x, this.cameraOffset.y, this.cameraDistance + this.cameraOffset.z)
+        this.camera.lookAt(this.cameraOffset)
+      }
     })
+    
+    // Handle mouse controls for camera
+    this.canvas.addEventListener('mousedown', (event) => {
+      event.preventDefault()
+      if (event.button === 0) { // Left mouse button
+        this.isMouseDown = true
+        this.lastMouseX = event.clientX
+        this.lastMouseY = event.clientY
+      } else if (event.button === 2) { // Right mouse button
+        this.isRightMouseDown = true
+        this.lastMouseX = event.clientX
+        this.lastMouseY = event.clientY
+      }
+    })
+    
+    this.canvas.addEventListener('mousemove', (event) => {
+      event.preventDefault()
+      const deltaX = event.clientX - this.lastMouseX
+      const deltaY = event.clientY - this.lastMouseY
+      
+      if (this.isMouseDown) {
+        // Left mouse - rotate camera
+        this.cameraRotationY -= deltaX * 0.01
+        this.cameraRotationX -= deltaY * 0.01
+        this.cameraRotationX = Math.max(-Math.PI/2, Math.min(Math.PI/2, this.cameraRotationX))
+      } else if (this.isRightMouseDown) {
+        // Right mouse - pan camera
+        const panSpeed = 0.01 * this.cameraDistance
+        this.cameraOffset.x -= deltaX * panSpeed
+        this.cameraOffset.y += deltaY * panSpeed
+      }
+      
+      this.lastMouseX = event.clientX
+      this.lastMouseY = event.clientY
+    })
+    
+    this.canvas.addEventListener('mouseup', (event) => {
+      event.preventDefault()
+      if (event.button === 0) {
+        this.isMouseDown = false
+      } else if (event.button === 2) {
+        this.isRightMouseDown = false
+      }
+    })
+    
+    // Also handle mouse leave to stop dragging
+    this.canvas.addEventListener('mouseleave', () => {
+      this.isMouseDown = false
+      this.isRightMouseDown = false
+    })
+    
+    // Disable context menu on right click
+    this.canvas.addEventListener('contextmenu', (event) => {
+      event.preventDefault()
+    })
+    
+    // Note: Keyboard toggle is handled in NewApp.tsx to avoid duplication
   }
   
   /**
@@ -195,7 +328,15 @@ export class ThreeRenderer {
     this.updatePlayers(gameState.players)
     this.updateBots(gameState.bots)
     this.updateHubs(gameState.hubs)
-    this.updateCamera(gameState)
+    // Don't update camera here - it's updated in render loop
+  }
+  
+  /**
+   * Toggle interpolation on/off for testing
+   */
+  toggleInterpolation(): void {
+    this.useInterpolation = !this.useInterpolation
+    console.log(`Object interpolation: ${this.useInterpolation ? 'ON' : 'OFF'}`)
   }
   
   /**
@@ -253,9 +394,15 @@ export class ThreeRenderer {
         this.playerMeshes.set(playerId, mesh)
       }
       
-      // Update position with interpolation
+      // Update position with or without interpolation
       const targetPos = new THREE.Vector3(player.position[0], player.position[1], player.position[2])
-      this.setTargetPosition(playerId, targetPos)
+      
+      if (this.useInterpolation) {
+        this.setTargetPosition(playerId, targetPos)
+      } else {
+        // Direct position update - no interpolation
+        mesh.position.copy(targetPos)
+      }
       
       // Point towards center (0,0,0)
       mesh.lookAt(0, 0, 0)
@@ -296,9 +443,15 @@ export class ThreeRenderer {
         this.botMeshes.set(botId, mesh)
       }
       
-      // Update position with interpolation
+      // Update position with or without interpolation
       const targetPos = new THREE.Vector3(bot.position[0], bot.position[1], bot.position[2])
-      this.setTargetPosition(botId.toString(), targetPos)
+      
+      if (this.useInterpolation) {
+        this.setTargetPosition(botId.toString(), targetPos)
+      } else {
+        // Direct position update - no interpolation
+        mesh.position.copy(targetPos)
+      }
       
       // Point towards center (0,0,0)
       mesh.lookAt(0, 0, 0)
@@ -379,32 +532,60 @@ export class ThreeRenderer {
   }
   
   /**
-   * Update camera to follow player smoothly
+   * Toggle between follow camera and free camera
    */
-  private updateCamera(gameState: ClientGameState): void {
-    if (gameState.myPlayerId) {
-      const myPlayer = gameState.players.get(gameState.myPlayerId)
-      if (myPlayer) {
-        // Set target position but don't snap to it immediately
-        this.cameraTarget.set(myPlayer.position[0], myPlayer.position[1], myPlayer.position[2])
-      }
+  toggleCameraMode(): void {
+    this.freeCameraMode = !this.freeCameraMode
+    console.log(`Camera mode toggled: ${this.freeCameraMode ? 'FREE' : 'FIXED'}`)
+    
+    if (this.freeCameraMode) {
+      // Initialize free camera position
+      this.cameraRotationX = 0
+      this.cameraRotationY = 0
+      this.camera.position.set(0, 0, this.cameraDistance)
+      this.camera.lookAt(0, 0, 0)
+      console.log('Free camera initialized - you can now drag with mouse to look around')
+    } else {
+      console.log('Fixed camera mode - camera stays at center like demo scene')
     }
-    
-    // Smoothly interpolate camera target for less jarring movement
-    this.cameraCurrentTarget.lerp(this.cameraTarget, this.cameraLerpSpeed)
-    
-    // Position camera at distance from interpolated target, always looking toward center
-    const direction = new THREE.Vector3(0, 0, 0).sub(this.cameraCurrentTarget).normalize()
-    this.camera.position.copy(this.cameraCurrentTarget).add(direction.multiplyScalar(this.cameraDistance))
-    this.camera.lookAt(0, 0, 0)
+  }
+
+  /**
+   * Update camera - no interpolation, direct positioning like demo scene
+   */
+  private updateCamera(): void {
+    if (this.freeCameraMode) {
+      // Free camera mode - use mouse controls exactly like demo
+      const x = Math.cos(this.cameraRotationY) * Math.cos(this.cameraRotationX) * this.cameraDistance
+      const y = Math.sin(this.cameraRotationX) * this.cameraDistance
+      const z = Math.sin(this.cameraRotationY) * Math.cos(this.cameraRotationX) * this.cameraDistance
+      
+      this.camera.position.set(x + this.cameraOffset.x, y + this.cameraOffset.y, z + this.cameraOffset.z)
+      this.camera.lookAt(this.cameraOffset)
+    } else {
+      // Fixed camera mode - no following, just like demo scene
+      this.camera.position.set(this.cameraOffset.x, this.cameraOffset.y, this.cameraDistance + this.cameraOffset.z)
+      this.camera.lookAt(this.cameraOffset)
+    }
   }
   
   /**
    * Render the scene
    */
   render(): void {
-    // Update interpolation for smooth movement
-    this.updateInterpolation()
+    // Update camera every frame for smooth movement
+    this.updateCamera()
+    
+    // Update interpolation for smooth movement (only if enabled)
+    if (this.useInterpolation) {
+      this.updateInterpolation()
+    }
+    
+    // Animate test cube for smooth comparison
+    if (this.testCube) {
+      this.testCube.rotation.x += 0.01
+      this.testCube.rotation.y += 0.01
+    }
     
     // Render the scene
     this.renderer.render(this.scene, this.camera)
@@ -416,6 +597,13 @@ export class ThreeRenderer {
       this.fps = Math.round((this.frameCount * 1000) / (now - this.lastTime))
       this.frameCount = 0
       this.lastTime = now
+      
+      // Update FPS display
+      if (this.fpsElement) {
+        const color = this.fps < 30 ? '#ff4444' : this.fps < 50 ? '#ffaa00' : '#00ff88'
+        this.fpsElement.style.color = color
+        this.fpsElement.textContent = `${this.fps} FPS`
+      }
     }
   }
   
@@ -441,19 +629,23 @@ export class ThreeRenderer {
     const deltaTime = now - (this.lastInterpolationTime || now)
     this.lastInterpolationTime = now
     
-    // Use a fixed interpolation speed for more predictable movement
-    const interpolationSpeed = 0.08 // Slower for smoother movement
+    // Frame-rate independent interpolation - much faster
+    const interpolationSpeed = Math.min(0.3, deltaTime / 16.66 * 0.15) // Faster, frame-independent
     
     for (const [entityId, data] of this.interpolationData) {
-      if (now - data.lastUpdateTime < 5000) { // Keep interpolating for 5 seconds
-        // Check distance to target - if very close, snap to target
+      const timeSinceUpdate = now - data.lastUpdateTime
+      
+      if (timeSinceUpdate < 1000) { // Only interpolate for 1 second
         const distance = data.currentPos.distanceTo(data.targetPos)
         
-        if (distance < 0.1) {
+        // If we haven't received an update in a while, speed up interpolation
+        const urgencyMultiplier = Math.min(2.0, timeSinceUpdate / 100) // Speed up after 100ms
+        const finalSpeed = interpolationSpeed * urgencyMultiplier
+        
+        if (distance < 0.01) {
           data.currentPos.copy(data.targetPos)
         } else {
-          // Simple lerp for consistent movement
-          data.currentPos.lerp(data.targetPos, interpolationSpeed)
+          data.currentPos.lerp(data.targetPos, Math.min(finalSpeed, 1.0))
         }
         
         // Update mesh position
@@ -466,6 +658,10 @@ export class ThreeRenderer {
           botMesh.position.copy(data.currentPos)
         }
         
+        // Debug very choppy movement
+        if (distance > 1.0 && entityId === this.debugPlayerId) {
+          console.log(`Large jump detected: ${distance.toFixed(2)} units for ${entityId}`)
+        }
       }
     }
   }
@@ -512,6 +708,20 @@ export class ThreeRenderer {
       this.scene.remove(mesh)
     }
     this.hubMeshes.clear()
+    
+    // Clean up test cube
+    if (this.testCube) {
+      this.scene.remove(this.testCube)
+      this.testCube.geometry.dispose()
+      if (this.testCube.material instanceof THREE.Material) {
+        this.testCube.material.dispose()
+      }
+    }
+    
+    // Clean up FPS display
+    if (this.fpsElement && this.fpsElement.parentElement) {
+      this.fpsElement.parentElement.removeChild(this.fpsElement)
+    }
     
     // Dispose of geometries
     this.sphereGeometry.dispose()

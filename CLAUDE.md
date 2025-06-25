@@ -87,6 +87,25 @@ npm run build      # Build client for production
 - Canvas needs proper size (not 0x0) for ThreeRenderer initialization
 - Check console for "canvas size: 0 0" as indicator of this issue
 
+**Choppy Camera Movement**:
+- Problem: Camera was updating only when server sent game state (100ms = 10fps)
+- Root Cause: `updateCamera()` was called in `updateGameState()` instead of render loop
+- Solution: Always update camera in the `render()` method for 60fps smoothness
+- Rule: NEVER tie camera/view updates to network tick rate
+- Camera should update at render framerate (60fps), not server rate (10fps)
+```typescript
+// WRONG - camera updates at server tick rate (choppy)
+updateGameState(state) {
+  this.updateCamera(state)  // Only runs at 10fps!
+}
+
+// CORRECT - camera updates every frame (smooth)
+render() {
+  this.updateCamera()  // Runs at 60fps!
+  this.renderer.render(scene, camera)
+}
+```
+
 ## Project Overview
 
 Space4X is a strategic 3D space trading game with competitive economics, resource management, and real-time AI competition. 

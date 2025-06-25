@@ -222,6 +222,20 @@ export class GameClient {
   }
   
   /**
+   * Toggle camera mode
+   */
+  toggleCameraMode(): void {
+    this.renderer.toggleCameraMode()
+  }
+  
+  /**
+   * Toggle interpolation for testing
+   */
+  toggleInterpolation(): void {
+    this.renderer.toggleInterpolation()
+  }
+  
+  /**
    * Clean up resources
    */
   dispose(): void {

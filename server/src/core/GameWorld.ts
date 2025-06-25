@@ -54,13 +54,13 @@ export class GameWorld {
     console.log('Initializing game world...')
     
     // Generate trading ports
-    this.generatePorts(10, 50)
+    this.generatePorts(500, 50)
     
     // Generate upgrade hubs
-    this.generateUpgradeHubs(2, 50)
+    this.generateUpgradeHubs(50, 50)
     
     // Initialize bots
-    this.initializeBots(2)
+    this.initializeBots(10)
     
     // Initialize bot system
     this.botSystem = new BotSystem(this.bots, this.ports)

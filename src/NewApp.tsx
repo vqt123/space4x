@@ -23,7 +23,7 @@ function NewApp() {
   const [isConnecting, setIsConnecting] = useState(false)
   const [connectionError, setConnectionError] = useState<string | null>(null)
   const [playerName, setPlayerName] = useState('')
-  const [fps, setFps] = useState(0)
+  const [cameraMode, setCameraMode] = useState('FIXED')
   
   // Initialize game client when canvas is ready
   useEffect(() => {
@@ -42,6 +42,21 @@ function NewApp() {
           gameClient.onStateChange((newState) => {
             setGameState(newState)
           })
+          
+          // Set up keyboard listener for camera toggle and interpolation
+          const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'c' || event.key === 'C') {
+              gameClient.toggleCameraMode()
+              setCameraMode(prev => prev === 'FIXED' ? 'FREE' : 'FIXED')
+            } else if (event.key === 'i' || event.key === 'I') {
+              gameClient.toggleInterpolation()
+            }
+          }
+          window.addEventListener('keydown', handleKeyDown)
+          
+          return () => {
+            window.removeEventListener('keydown', handleKeyDown)
+          }
         } catch (error) {
           console.error('Failed to create GameClient:', error)
           setConnectionError(`Failed to initialize game client: ${error}`)
@@ -54,17 +69,7 @@ function NewApp() {
     return () => clearTimeout(timer)
   }, [])
   
-  // FPS tracking
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (gameClientRef.current) {
-        const currentFps = gameClientRef.current.getFPS()
-        setFps(currentFps)
-      }
-    }, 1000)
-    
-    return () => clearInterval(interval)
-  }, [])
+  // FPS tracking is now handled by ThreeRenderer
   
   // Cleanup on unmount
   useEffect(() => {
@@ -197,7 +202,7 @@ function NewApp() {
               Strategic 3D space trading with competitive AI
             </p>
             <div style={{ marginBottom: '20px', color: '#666', fontSize: '12px' }}>
-              Client v1.0.28 | Server v1.0.1
+              Client v1.0.37 | Server v1.0.1
             </div>
             
             <div style={{ marginBottom: '20px' }}>
@@ -259,26 +264,47 @@ function NewApp() {
             }}>
               Server: localhost:3001
             </div>
+            
+            <div style={{ 
+              marginTop: '10px'
+            }}>
+              <a 
+                href="/demo" 
+                style={{ 
+                  color: '#00ff88', 
+                  fontSize: '12px',
+                  textDecoration: 'none'
+                }}
+              >
+                🔧 Demo Scene (test Three.js)
+              </a>
+            </div>
           </div>
         </div>
       )}
       
-      {/* FPS Meter - always visible */}
+      {/* Camera Mode Indicator - positioned below FPS meter */}
       <div style={{
         position: 'absolute',
-        top: 10,
+        top: 60,
         right: 10,
         background: 'rgba(0, 0, 0, 0.8)',
-        color: fps < 30 ? '#ff4444' : fps < 50 ? '#ffaa00' : '#00ff88',
+        color: cameraMode === 'FREE' ? '#00ff88' : '#ffaa00',
         padding: '8px 12px',
         borderRadius: '4px',
         fontFamily: 'monospace',
-        fontSize: '16px',
+        fontSize: '14px',
         fontWeight: 'bold',
         border: '1px solid rgba(255,255,255,0.3)',
-        zIndex: 1000
+        zIndex: 999  // Lower than FPS meter
       }}>
-        {fps || 0} FPS
+        CAM: {cameraMode}
+        <div style={{ fontSize: '10px', color: '#aaa', marginTop: '2px' }}>
+          L-drag=rotate, R-drag=pan
+        </div>
+        <div style={{ fontSize: '10px', color: '#aaa' }}>
+          C=cam, I=interp
+        </div>
       </div>
       
       {/* Game UI - only show when connected */}
