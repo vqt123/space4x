@@ -19,12 +19,13 @@ export function generatePortsInSphere(count: number, radius: number): TradingPor
       )
     } while (position.length() > radius)
     
+    const maxCargo = Math.floor(Math.random() * 2001) + 1000 // Random 1000-3000 cargo
     ports.push({
       id: i,
       position,
       name: `Port ${String.fromCharCode(65 + Math.floor(i / 26))}${i % 26 + 1}`,
-      remainingCargo: 5000, // All ports start with full cargo
-      maxCargo: 5000
+      remainingCargo: maxCargo, // Starts at full capacity
+      maxCargo: maxCargo
     })
   }
   
@@ -93,7 +94,7 @@ export function calculateTradeOptions(currentPort: TradingPort, allPorts: Tradin
       travelCost,
       profit,
       totalCost,
-      profitPerAction: totalCost > 0 ? profit / totalCost : 0
+      profitPerAction: profit / FIXED_TRADE_COST // Profit/Trade ratio (excludes travel cost)
     }
   })
   

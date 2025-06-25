@@ -228,15 +228,6 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
                       </div>
                     )}
                     <div style={{ margin: '8px 0', fontSize: '14px' }}>
-                      {isCurrentPort ? (
-                        <div>⚡ Trade Cost: <span style={{ color: '#ff6600' }}>{FIXED_TRADE_COST}</span> action points</div>
-                      ) : (
-                        <>
-                          <div>🚀 Travel Cost: <span style={{ color: '#ff6600' }}>{option.travelCost}</span> action points</div>
-                          <div>⚡ Trade Cost: <span style={{ color: '#ff6600' }}>{FIXED_TRADE_COST}</span> action points</div>
-                          <div>📊 Total Cost: <span style={{ color: '#ff6600' }}>{option.totalCost}</span> action points</div>
-                        </>
-                      )}
                       <div style={{ fontWeight: 'bold', color: getProfitTradeColor(option.profitPerAction), fontSize: '16px' }}>
                         💰 Profit/Trade: {option.profitPerAction.toFixed(1)}
                       </div>
@@ -260,7 +251,7 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
                           fontWeight: 'bold'
                         }}
                       >
-                        Trade Here
+                        Trade ({FIXED_TRADE_COST} AP)
                       </button>
                     ) : (
                       <button 
@@ -275,7 +266,7 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
                           cursor: canTravel ? 'pointer' : 'not-allowed'
                         }}
                       >
-                        {isAtHub ? 'Travel to Port' : 'Travel & Trade'}
+                        Travel ({option.totalCost} AP)
                       </button>
                     )}
                   </div>
