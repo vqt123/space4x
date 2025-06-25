@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber'
 import React, { useState } from 'react'
 import { Bot, TradingPort, Player, TradeOption, UpgradeHub } from './types'
-import { generatePortsInSphere, generateUpgradeHubs, calculateTravelCost, SHIP_TYPES, FIXED_TRADE_COST } from './utils'
+import { generatePortsInSphere, generateUpgradeHubs, calculateTravelCost, SHIP_TYPES, FIXED_TRADE_COST, getCargoHoldUpgradeCost } from './utils'
 import { Scene } from './components/Scene'
 import { GameUI } from './components/GameUI'
 import { Leaderboard } from './components/Leaderboard'
@@ -73,7 +73,6 @@ function App() {
   }
   
   const handleCargoHoldUpgrade = () => {
-    const { getCargoHoldUpgradeCost } = require('./utils')
     const cost = getCargoHoldUpgradeCost(player.cargoHolds)
     const canUpgrade = player.cargoHolds < player.shipType.maxCargoHolds
     

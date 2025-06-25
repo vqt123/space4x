@@ -25,16 +25,15 @@ export function Bots({ ports, count = 10, setPorts, onBotsUpdate }: BotsProps) {
       
       for (let i = 0; i < count; i++) {
         const startPort = ports[Math.floor(Math.random() * ports.length)]
-        const destPort = ports[Math.floor(Math.random() * ports.length)]
         
         initialBots.push({
           id: i,
           position: startPort.position.clone(),
           currentPort: startPort,
-          destinationPort: destPort,
+          destinationPort: startPort, // Start at same port (not traveling)
           progress: 0,
           speed: 1,
-          actionPoints: Math.floor(Math.random() * 200) + 300, // 300-500 starting points
+          actionPoints: 500, // Same as player
           totalProfit: 0,
           name: botNames[i] || `Bot-${i}`,
           shipType: { id: 'standard', name: 'Standard', startingCargoHolds: 25, maxCargoHolds: 100, travelCostMultiplier: 1.0, purchaseCost: 0, description: 'Basic bot ship' },
@@ -70,83 +69,90 @@ export function Bots({ ports, count = 10, setPorts, onBotsUpdate }: BotsProps) {
   useFrame((_, delta) => {
     setBots(prevBots => {
       return prevBots.map(bot => {
-        const distance = bot.currentPort.position.distanceTo(bot.destinationPort.position)
-        const travelTime = distance / bot.speed
-        const progressDelta = delta / travelTime
-        
-        let newProgress = bot.progress + progressDelta
-        
-        if (newProgress >= 1) {
-          // Bot arrived at destination - calculate costs and profits
-          const destination = bot.destinationPort
-          const travelCost = calculateTravelCost(distance)
-          const totalCost = travelCost + FIXED_TRADE_COST
-          const profit = calculateTradeProfit(destination, bot.cargoHolds)
+        // If bot is not moving, check if it should trade or move
+        if (bot.currentPort.id === bot.destinationPort.id) {
+          const currentPort = ports.find(p => p.id === bot.currentPort.id) || bot.currentPort
+          const efficiency = currentPort.remainingCargo / currentPort.maxCargo
           
-          // Only trade if bot can afford it
-          if (bot.actionPoints >= totalCost) {
-            // Reduce port cargo after bot trades
+          // Trade at current port if efficiency > 50% (not orange yet) and can afford
+          if (efficiency > 0.5 && bot.actionPoints >= FIXED_TRADE_COST) {
+            const profit = calculateTradeProfit(currentPort, bot.cargoHolds)
+            
+            // Execute trade
             setPorts(prevPorts => 
               prevPorts.map(port => 
-                port.id === destination.id 
-                  ? { ...port, remainingCargo: Math.max(0, port.remainingCargo - bot.cargoHolds) } // Bots reduce cargo
+                port.id === currentPort.id 
+                  ? { ...port, remainingCargo: Math.max(0, port.remainingCargo - bot.cargoHolds) }
                   : port
               )
             )
             
-            // Find a new profitable destination
-            const affordablePorts = ports.filter(port => {
-              const dist = destination.position.distanceTo(port.position)
-              const cost = calculateTravelCost(dist) + FIXED_TRADE_COST
-              return port.id !== destination.id && bot.actionPoints - totalCost >= cost
-            })
-            
-            const newDestination = affordablePorts.length > 0 
-              ? affordablePorts[Math.floor(Math.random() * affordablePorts.length)]
-              : ports[Math.floor(Math.random() * ports.length)]
-            
             return {
               ...bot,
-              position: destination.position.clone(),
-              currentPort: destination,
-              destinationPort: newDestination,
-              progress: 0,
-              actionPoints: bot.actionPoints - totalCost,
+              currentPort: currentPort,
+              actionPoints: bot.actionPoints - FIXED_TRADE_COST,
               totalProfit: bot.totalProfit + profit
             }
           } else {
-            // Bot can't afford to trade, just pick a closer destination
-            const nearbyPorts = ports
-              .filter(port => port.id !== destination.id)
-              .sort((a, b) => 
-                destination.position.distanceTo(a.position) - 
-                destination.position.distanceTo(b.position)
-              )
-              .slice(0, 3)
+            // Find closest port to move to
+            const otherPorts = ports.filter(p => p.id !== bot.currentPort.id)
+            const closestPort = otherPorts.reduce((closest, port) => {
+              const dist = bot.currentPort.position.distanceTo(port.position)
+              const closestDist = bot.currentPort.position.distanceTo(closest.position)
+              return dist < closestDist ? port : closest
+            }, otherPorts[0])
             
-            const newDestination = nearbyPorts[Math.floor(Math.random() * nearbyPorts.length)]
+            const travelCost = calculateTravelCost(
+              bot.currentPort.position.distanceTo(closestPort.position)
+            )
+            
+            // Only move if can afford travel + at least one trade
+            if (bot.actionPoints >= travelCost + FIXED_TRADE_COST) {
+              return {
+                ...bot,
+                destinationPort: closestPort,
+                progress: 0
+              }
+            }
+          }
+        } else {
+          // Bot is traveling
+          const distance = bot.currentPort.position.distanceTo(bot.destinationPort.position)
+          const travelTime = distance / bot.speed
+          const progressDelta = delta / travelTime
+          
+          let newProgress = bot.progress + progressDelta
+          
+          if (newProgress >= 1) {
+            // Arrived at destination
+            const travelCost = calculateTravelCost(distance)
             
             return {
               ...bot,
-              position: destination.position.clone(),
-              currentPort: destination,
-              destinationPort: newDestination,
-              progress: 0
+              position: bot.destinationPort.position.clone(),
+              currentPort: bot.destinationPort,
+              destinationPort: bot.destinationPort, // Stay at this port to trade
+              progress: 0,
+              actionPoints: bot.actionPoints - travelCost
+            }
+          } else {
+            // Continue traveling
+            const newPosition = new Vector3().lerpVectors(
+              bot.currentPort.position,
+              bot.destinationPort.position,
+              newProgress
+            )
+            
+            return {
+              ...bot,
+              position: newPosition,
+              progress: newProgress
             }
           }
         }
         
-        const newPosition = new Vector3().lerpVectors(
-          bot.currentPort.position,
-          bot.destinationPort.position,
-          newProgress
-        )
-        
-        return {
-          ...bot,
-          position: newPosition,
-          progress: newProgress
-        }
+        // Return unchanged bot if no actions taken
+        return bot
       })
     })
   })
