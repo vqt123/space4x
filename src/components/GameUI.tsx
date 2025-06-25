@@ -12,10 +12,11 @@ interface GameUIProps {
   onTravelToHub?: (hub: UpgradeHub) => void
 }
 
-function getProfitTradeColor(profitPerAction: number): string {
-  if (profitPerAction >= 7.5) return '#00ff88' // Green: 75%+
-  if (profitPerAction >= 5) return '#ffff00' // Yellow: 50-75%
-  if (profitPerAction >= 2.5) return '#ff8800' // Orange: 25-50%
+function getProfitTradeColor(port: TradingPort): string {
+  const efficiency = port.remainingCargo / port.maxCargo
+  if (efficiency > 0.75) return '#00ff88' // Green: 75-100%
+  if (efficiency > 0.50) return '#ffff00' // Yellow: 50-75%
+  if (efficiency > 0.25) return '#ff8800' // Orange: 25-50%
   return '#ff4444' // Red: 0-25%
 }
 
@@ -70,7 +71,8 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
         <div><strong>Ship:</strong> {player.shipType.name}</div>
         <div><strong>Cargo Holds:</strong> {player.cargoHolds}/{player.shipType.maxCargoHolds}</div>
         <div><strong>Action Points:</strong> {player.actionPoints}</div>
-        <div><strong>Total Profit:</strong> {player.totalProfit} credits</div>
+        <div><strong>Credits:</strong> {player.credits}</div>
+        <div><strong>Total Profit:</strong> {player.totalProfit}</div>
         <div><strong>Location:</strong> {player.currentPort.name}</div>
       </div>
       
@@ -129,14 +131,14 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
                 </div>
                 <button
                   onClick={() => onCargoHoldUpgrade?.()}
-                  disabled={!onCargoHoldUpgrade || player.totalProfit < cargoHoldUpgrade.cost}
+                  disabled={!onCargoHoldUpgrade || player.credits < cargoHoldUpgrade.cost}
                   style={{
-                    background: player.totalProfit >= cargoHoldUpgrade.cost ? '#4488ff' : '#666',
-                    color: player.totalProfit >= cargoHoldUpgrade.cost ? 'white' : '#ccc',
+                    background: player.credits >= cargoHoldUpgrade.cost ? '#4488ff' : '#666',
+                    color: player.credits >= cargoHoldUpgrade.cost ? 'white' : '#ccc',
                     border: 'none',
                     padding: '6px 12px',
                     borderRadius: '4px',
-                    cursor: player.totalProfit >= cargoHoldUpgrade.cost ? 'pointer' : 'not-allowed',
+                    cursor: player.credits >= cargoHoldUpgrade.cost ? 'pointer' : 'not-allowed',
                     fontSize: '12px'
                   }}
                 >
@@ -228,7 +230,7 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
                       </div>
                     )}
                     <div style={{ margin: '8px 0', fontSize: '14px' }}>
-                      <div style={{ fontWeight: 'bold', color: getProfitTradeColor(option.profitPerAction), fontSize: '16px' }}>
+                      <div style={{ fontWeight: 'bold', color: getProfitTradeColor(option.port), fontSize: '16px' }}>
                         💰 Profit/Trade: {option.profitPerAction.toFixed(1)}
                       </div>
                       <div style={{ fontSize: '11px', color: '#888' }}>

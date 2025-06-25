@@ -53,6 +53,7 @@ export interface Player {
   speed: number
   isMoving: boolean
   actionPoints: number
+  credits: number
   totalProfit: number
   cargoHolds: number
   shipType: ShipType

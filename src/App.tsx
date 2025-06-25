@@ -23,6 +23,7 @@ function App() {
       speed: 1,
       isMoving: false,
       actionPoints: 500,
+      credits: 0,
       totalProfit: 0,
       cargoHolds: startingShip.startingCargoHolds,
       shipType: startingShip
@@ -62,6 +63,7 @@ function App() {
         
         return {
           ...prevPlayer,
+          credits: prevPlayer.credits + option.profit,
           totalProfit: prevPlayer.totalProfit + option.profit,
           actionPoints: prevPlayer.actionPoints - option.totalCost,
           currentPort: updatedCurrentPort
@@ -75,10 +77,10 @@ function App() {
     const cost = getCargoHoldUpgradeCost(player.cargoHolds)
     const canUpgrade = player.cargoHolds < player.shipType.maxCargoHolds
     
-    if (canUpgrade && player.totalProfit >= cost) {
+    if (canUpgrade && player.credits >= cost) {
       setPlayer(prevPlayer => ({
         ...prevPlayer,
-        totalProfit: prevPlayer.totalProfit - cost,
+        credits: prevPlayer.credits - cost,
         cargoHolds: prevPlayer.cargoHolds + 1
       }))
     }

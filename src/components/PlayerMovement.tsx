@@ -66,6 +66,7 @@ export function PlayerMovement({ player, setPlayer, setPorts }: PlayerMovementPr
               progress: 0,
               isMoving: false,
               actionPoints: prevPlayer.actionPoints - totalCost,
+              credits: prevPlayer.credits + profit,
               totalProfit: prevPlayer.totalProfit + profit
             }
           }
