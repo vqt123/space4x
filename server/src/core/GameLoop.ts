@@ -58,8 +58,8 @@ export class GameLoop {
       // Update all game systems
       this.gameWorld.update(tick)
       
-      // Broadcast state to all connected clients
-      this.gameWorld.broadcastState(tick)
+      // Broadcast only dynamic state to all connected clients (optimized)
+      this.gameWorld.broadcastDynamicState(tick)
       
       // Log every 10 seconds (100 ticks)
       if (tick % 100 === 0) {

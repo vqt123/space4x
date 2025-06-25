@@ -5,6 +5,8 @@ import {
   ServerPlayer, 
   ServerBot, 
   GameStateUpdate,
+  StaticDataUpdate,
+  DynamicStateUpdate,
   PlayerState,
   BotState,
   PortState,
@@ -38,8 +40,10 @@ export class GameWorld {
   private leaderboard: LeaderboardEntry[] = []
   private botSystem?: BotSystem
   
-  // WebSocket broadcast callback (set by server)
+  // WebSocket broadcast callbacks (set by server)
   private broadcastCallback?: (data: GameStateUpdate) => void
+  private staticDataCallback?: (socketId: string, data: StaticDataUpdate) => void
+  private dynamicStateCallback?: (data: DynamicStateUpdate) => void
   
   constructor() {}
   
@@ -161,9 +165,20 @@ export class GameWorld {
   setBroadcastCallback(callback: (data: GameStateUpdate) => void): void {
     this.broadcastCallback = callback
   }
+
+  /**
+   * Set optimized broadcast callbacks for static and dynamic data
+   */
+  setOptimizedBroadcastCallbacks(
+    staticDataCallback: (socketId: string, data: StaticDataUpdate) => void,
+    dynamicStateCallback: (data: DynamicStateUpdate) => void
+  ): void {
+    this.staticDataCallback = staticDataCallback
+    this.dynamicStateCallback = dynamicStateCallback
+  }
   
   /**
-   * Broadcast current game state to all clients
+   * Broadcast current game state to all clients (legacy method)
    */
   broadcastState(tick: number): void {
     if (!this.broadcastCallback) return
@@ -179,6 +194,45 @@ export class GameWorld {
     }
     
     this.broadcastCallback(gameState)
+  }
+
+  /**
+   * Broadcast only dynamic state (optimized for regular updates)
+   */
+  broadcastDynamicState(tick: number): void {
+    if (!this.dynamicStateCallback) return
+    
+    const dynamicState: DynamicStateUpdate = {
+      type: 'dynamic_state',
+      tick,
+      timestamp: Date.now(),
+      players: this.serializePlayers(tick),
+      bots: this.serializeBots(),
+      leaderboard: this.leaderboard
+    }
+    
+    // Log every 10 seconds to show the optimization is working
+    if (tick % 100 === 0) {
+      console.log(`⚡ Broadcasting dynamic state - Tick ${tick}: ${dynamicState.players.length} players, ${dynamicState.bots.length} bots (no ports/hubs)`)
+    }
+    
+    this.dynamicStateCallback(dynamicState)
+  }
+
+  /**
+   * Send static data to a specific client (called when they join)
+   */
+  sendStaticDataToPlayer(socketId: string): void {
+    if (!this.staticDataCallback) return
+    
+    const staticData: StaticDataUpdate = {
+      type: 'static_data',
+      ports: this.serializePorts(),
+      hubs: this.serializeHubs()
+    }
+    
+    console.log(`🔧 Sending static data to ${socketId}: ${staticData.ports.length} ports, ${staticData.hubs.length} hubs`)
+    this.staticDataCallback(socketId, staticData)
   }
   
   /**

@@ -3,7 +3,7 @@ import { createServer } from 'http'
 import { Server as SocketServer } from 'socket.io'
 import cors from 'cors'
 import { GameLoop } from './core/GameLoop'
-import { PlayerAction } from './types/ServerTypes'
+import { PlayerAction, StaticDataUpdate, DynamicStateUpdate } from './types/ServerTypes'
 
 /**
  * Space4X Game Server
@@ -95,6 +95,9 @@ class Space4XServer {
             playerName: player.name
           })
           
+          // Send static data to the new player
+          gameWorld.sendStaticDataToPlayer(socket.id)
+          
           console.log(`Player ${playerName} joined the game`)
         } catch (error) {
           console.error('Error handling join_game:', error)
@@ -141,10 +144,23 @@ class Space4XServer {
   private setupGameWorldBroadcast(): void {
     const gameWorld = this.gameLoop.getGameWorld()
     
+    // Legacy callback (kept for backwards compatibility)
     gameWorld.setBroadcastCallback((gameState) => {
       // Broadcast to all connected clients
       this.io.emit('game_state', gameState)
     })
+    
+    // New optimized callbacks
+    gameWorld.setOptimizedBroadcastCallbacks(
+      // Static data callback - send to specific socket
+      (socketId: string, staticData: StaticDataUpdate) => {
+        this.io.to(socketId).emit('static_data', staticData)
+      },
+      // Dynamic state callback - broadcast to all
+      (dynamicState: DynamicStateUpdate) => {
+        this.io.emit('dynamic_state', dynamicState)
+      }
+    )
   }
   
   /**

@@ -9,7 +9,6 @@ export class GameClient {
   private wsClient: WebSocketClient
   private renderer: ThreeRenderer
   private canvas: HTMLCanvasElement
-  private isInitialized: boolean = false
   
   // UI callbacks
   private onStateChangeCallbacks: ((state: ClientGameState) => void)[] = []
@@ -20,6 +19,9 @@ export class GameClient {
     this.renderer = new ThreeRenderer(canvas)
     
     this.setupWebSocketCallbacks()
+    
+    // Start render loop immediately for FPS tracking
+    this.renderer.startRenderLoop()
   }
   
   /**
@@ -41,12 +43,6 @@ export class GameClient {
   async connect(playerName: string): Promise<void> {
     try {
       await this.wsClient.connect(playerName)
-      
-      if (!this.isInitialized) {
-        this.renderer.startRenderLoop()
-        this.isInitialized = true
-      }
-      
       console.log('Game client connected successfully')
     } catch (error) {
       console.error('Failed to connect to game server:', error)
@@ -216,6 +212,13 @@ export class GameClient {
       Math.pow(pos1[2] - pos2[2], 2)
     )
     return distance <= tolerance
+  }
+  
+  /**
+   * Get current FPS
+   */
+  getFPS(): number {
+    return this.renderer.getFPS()
   }
   
   /**

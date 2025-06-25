@@ -65,6 +65,7 @@ export interface ShipType {
   description: string
 }
 
+// Original full game state update (kept for backwards compatibility)
 export interface GameStateUpdate {
   tick: number
   timestamp: number
@@ -72,6 +73,22 @@ export interface GameStateUpdate {
   bots: BotState[]
   ports: PortState[]
   hubs: HubState[]
+  leaderboard: LeaderboardEntry[]
+}
+
+// New optimized message types
+export interface StaticDataUpdate {
+  type: 'static_data'
+  ports: PortState[]
+  hubs: HubState[]
+}
+
+export interface DynamicStateUpdate {
+  type: 'dynamic_state'
+  tick: number
+  timestamp: number
+  players: PlayerState[]
+  bots: BotState[]
   leaderboard: LeaderboardEntry[]
 }
 

@@ -33,6 +33,18 @@ export class ThreeRenderer {
   private cameraDistance: number = 80
   private cameraTarget: THREE.Vector3 = new THREE.Vector3()
   
+  // FPS tracking
+  private frameCount: number = 0
+  private lastTime: number = 0
+  private fps: number = 0
+  
+  // Interpolation for smooth movement
+  private interpolationData: Map<string, {
+    currentPos: THREE.Vector3
+    targetPos: THREE.Vector3
+    lastUpdateTime: number
+  }> = new Map()
+  
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas
     
@@ -56,10 +68,10 @@ export class ThreeRenderer {
     console.log('Camera positioned at:', this.camera.position)
     console.log('Camera looking at origin')
     
-    // Create renderer with WebGL debugging
+    // Create renderer optimized for performance
     this.renderer = new THREE.WebGLRenderer({ 
       canvas, 
-      antialias: true,
+      antialias: false,  // Disable for performance
       alpha: false,
       powerPreference: "high-performance"
     })
@@ -79,41 +91,33 @@ export class ThreeRenderer {
     this.renderer.clear()
     
     this.renderer.setSize(width, height)
-    this.renderer.shadowMap.enabled = true
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
+    // Disable shadows for performance
+    this.renderer.shadowMap.enabled = false
     
     // Debug renderer state
     console.log('Renderer info:', this.renderer.info)
     console.log('Renderer capabilities:', this.renderer.capabilities)
     
-    // Create reusable geometries
-    this.sphereGeometry = new THREE.SphereGeometry(2, 8, 6)  // Larger ports
-    this.boxGeometry = new THREE.BoxGeometry(4, 4, 4)  // Larger hubs
-    this.coneGeometry = new THREE.ConeGeometry(1.5, 4, 8)  // Larger ships
+    // Create reusable geometries - low poly for performance
+    this.sphereGeometry = new THREE.SphereGeometry(2, 6, 4)  // Low poly ports
+    this.boxGeometry = new THREE.BoxGeometry(4, 4, 4)  // Simple cube hubs
+    this.coneGeometry = new THREE.ConeGeometry(1.5, 4, 6)  // Low poly ships
     
-    // Create reusable materials
-    this.portMaterial = new THREE.MeshStandardMaterial({
-      color: 0x00ff88,
-      emissive: 0x00ff88,
-      emissiveIntensity: 0.8
+    // Create reusable materials - use BasicMaterial for performance
+    this.portMaterial = new THREE.MeshBasicMaterial({
+      color: 0x00ff88
     })
     
-    this.playerMaterial = new THREE.MeshStandardMaterial({
-      color: 0x0088ff,
-      emissive: 0x0088ff,
-      emissiveIntensity: 0.6
+    this.playerMaterial = new THREE.MeshBasicMaterial({
+      color: 0x0088ff
     })
     
-    this.botMaterial = new THREE.MeshStandardMaterial({
-      color: 0xff8800,
-      emissive: 0xff8800,
-      emissiveIntensity: 0.4
+    this.botMaterial = new THREE.MeshBasicMaterial({
+      color: 0xff8800
     })
     
-    this.hubMaterial = new THREE.MeshStandardMaterial({
-      color: 0x4488ff,
-      emissive: 0x4488ff,
-      emissiveIntensity: 0.6
+    this.hubMaterial = new THREE.MeshBasicMaterial({
+      color: 0x4488ff
     })
     
     this.lineMaterial = new THREE.LineBasicMaterial({ color: 0x0088ff, opacity: 0.8, transparent: true })
@@ -126,25 +130,12 @@ export class ThreeRenderer {
   }
   
   /**
-   * Set up scene lighting
+   * Set up scene lighting - minimal for performance
    */
   private setupLighting(): void {
-    // Ambient light
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.3)
+    // Single ambient light for BasicMaterial
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.0)
     this.scene.add(ambientLight)
-    
-    // Main directional light
-    const mainLight = new THREE.DirectionalLight(0xffffff, 1)
-    mainLight.position.set(100, 100, 100)
-    mainLight.castShadow = true
-    mainLight.shadow.mapSize.width = 2048
-    mainLight.shadow.mapSize.height = 2048
-    this.scene.add(mainLight)
-    
-    // Fill light
-    const fillLight = new THREE.DirectionalLight(0xffffff, 0.5)
-    fillLight.position.set(-100, -100, -100)
-    this.scene.add(fillLight)
   }
   
   /**
@@ -152,7 +143,7 @@ export class ThreeRenderer {
    */
   private setupStars(): void {
     const starsGeometry = new THREE.BufferGeometry()
-    const starsCount = 800
+    const starsCount = 200
     const positions = new Float32Array(starsCount * 3)
     
     for (let i = 0; i < starsCount * 3; i += 3) {
@@ -232,9 +223,9 @@ export class ThreeRenderer {
       let mesh = this.portMeshes.get(portId)
       
       if (!mesh) {
-        mesh = new THREE.Mesh(this.sphereGeometry, this.portMaterial.clone())
-        mesh.castShadow = true
-        mesh.receiveShadow = true
+        mesh = new THREE.Mesh(this.sphereGeometry, this.portMaterial)
+        // No shadows for performance
+        // No shadows for performance
         this.scene.add(mesh)
         this.portMeshes.set(portId, mesh)
       }
@@ -242,20 +233,15 @@ export class ThreeRenderer {
       // Update position
       mesh.position.set(port.position[0], port.position[1], port.position[2])
       
-      // Update color based on efficiency
-      const material = mesh.material as THREE.MeshStandardMaterial
+      // Update color based on efficiency - simplified for performance
       if (port.efficiency > 0.75) {
-        material.color.setHex(0x00ff88) // Green
-        material.emissive.setHex(0x00ff88)
-      } else if (port.efficiency > 0.50) {
-        material.color.setHex(0xffff00) // Yellow
-        material.emissive.setHex(0xffff00)
-      } else if (port.efficiency > 0.25) {
-        material.color.setHex(0xff8800) // Orange
-        material.emissive.setHex(0xff8800)
+        mesh.material = this.portMaterial
       } else {
-        material.color.setHex(0xff4444) // Red
-        material.emissive.setHex(0xff4444)
+        // Use single red material for low efficiency
+        if (!mesh.userData.lowEffMaterial) {
+          mesh.userData.lowEffMaterial = new THREE.MeshBasicMaterial({ color: 0xff4444 })
+        }
+        mesh.material = mesh.userData.lowEffMaterial
       }
     }
     
@@ -277,14 +263,15 @@ export class ThreeRenderer {
       let mesh = this.playerMeshes.get(playerId)
       
       if (!mesh) {
-        mesh = new THREE.Mesh(this.coneGeometry, this.playerMaterial.clone())
-        mesh.castShadow = true
+        mesh = new THREE.Mesh(this.coneGeometry, this.playerMaterial)
+        // No shadows for performance
         this.scene.add(mesh)
         this.playerMeshes.set(playerId, mesh)
       }
       
-      // Update position
-      mesh.position.set(player.position[0], player.position[1], player.position[2])
+      // Update position with interpolation
+      const targetPos = new THREE.Vector3(player.position[0], player.position[1], player.position[2])
+      this.setTargetPosition(playerId, targetPos)
       
       // Point towards center (0,0,0)
       mesh.lookAt(0, 0, 0)
@@ -318,15 +305,16 @@ export class ThreeRenderer {
       let mesh = this.botMeshes.get(botId)
       
       if (!mesh) {
-        mesh = new THREE.Mesh(this.coneGeometry, this.botMaterial.clone())
-        mesh.castShadow = true
+        mesh = new THREE.Mesh(this.coneGeometry, this.botMaterial)
+        // No shadows for performance
         mesh.scale.set(0.8, 0.8, 0.8) // Slightly smaller than player
         this.scene.add(mesh)
         this.botMeshes.set(botId, mesh)
       }
       
-      // Update position
-      mesh.position.set(bot.position[0], bot.position[1], bot.position[2])
+      // Update position with interpolation
+      const targetPos = new THREE.Vector3(bot.position[0], bot.position[1], bot.position[2])
+      this.setTargetPosition(botId.toString(), targetPos)
       
       // Point towards center (0,0,0)
       mesh.lookAt(0, 0, 0)
@@ -351,8 +339,8 @@ export class ThreeRenderer {
       
       if (!mesh) {
         mesh = new THREE.Mesh(this.boxGeometry, this.hubMaterial.clone())
-        mesh.castShadow = true
-        mesh.receiveShadow = true
+        // No shadows for performance
+        // No shadows for performance
         this.scene.add(mesh)
         this.hubMeshes.set(hubId, mesh)
       }
@@ -427,9 +415,20 @@ export class ThreeRenderer {
    * Render the scene
    */
   render(): void {
-    // Simple render like working test
+    // Update interpolation for smooth movement
+    this.updateInterpolation()
+    
+    // Render the scene
     this.renderer.render(this.scene, this.camera)
     
+    // Track FPS
+    this.frameCount++
+    const now = performance.now()
+    if (now - this.lastTime >= 1000) { // Update every second
+      this.fps = Math.round((this.frameCount * 1000) / (now - this.lastTime))
+      this.frameCount = 0
+      this.lastTime = now
+    }
   }
   
 
@@ -438,11 +437,63 @@ export class ThreeRenderer {
    */
   startRenderLoop(): void {
     console.log('Starting render loop')
+    this.lastTime = performance.now()
     const animate = () => {
       requestAnimationFrame(animate)
       this.render()
     }
     animate()
+  }
+  
+  /**
+   * Update interpolation for smooth movement
+   */
+  private updateInterpolation(): void {
+    const now = performance.now()
+    const interpolationSpeed = 0.1 // Adjust for smoothness vs responsiveness
+    
+    for (const [entityId, data] of this.interpolationData) {
+      if (now - data.lastUpdateTime < 500) { // Only interpolate recent updates
+        // Lerp towards target position
+        data.currentPos.lerp(data.targetPos, interpolationSpeed)
+        
+        // Update mesh position
+        const playerMesh = this.playerMeshes.get(entityId)
+        const botMesh = this.botMeshes.get(Number(entityId))
+        
+        if (playerMesh) {
+          playerMesh.position.copy(data.currentPos)
+        } else if (botMesh) {
+          botMesh.position.copy(data.currentPos)
+        }
+      }
+    }
+  }
+  
+  /**
+   * Set target position for interpolation
+   */
+  private setTargetPosition(entityId: string, targetPos: THREE.Vector3): void {
+    const existing = this.interpolationData.get(entityId)
+    const now = performance.now()
+    
+    if (existing) {
+      existing.targetPos.copy(targetPos)
+      existing.lastUpdateTime = now
+    } else {
+      this.interpolationData.set(entityId, {
+        currentPos: targetPos.clone(),
+        targetPos: targetPos.clone(),
+        lastUpdateTime: now
+      })
+    }
+  }
+  
+  /**
+   * Get current FPS
+   */
+  getFPS(): number {
+    return this.fps
   }
   
   /**

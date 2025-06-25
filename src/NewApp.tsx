@@ -23,6 +23,7 @@ function NewApp() {
   const [isConnecting, setIsConnecting] = useState(false)
   const [connectionError, setConnectionError] = useState<string | null>(null)
   const [playerName, setPlayerName] = useState('')
+  const [fps, setFps] = useState(0)
   
   // Initialize game client when canvas is ready
   useEffect(() => {
@@ -51,6 +52,18 @@ function NewApp() {
     }, 100)
     
     return () => clearTimeout(timer)
+  }, [])
+  
+  // FPS tracking
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (gameClientRef.current) {
+        const currentFps = gameClientRef.current.getFPS()
+        setFps(currentFps)
+      }
+    }, 1000)
+    
+    return () => clearInterval(interval)
   }, [])
   
   // Cleanup on unmount
@@ -175,7 +188,7 @@ function NewApp() {
               Strategic 3D space trading with competitive AI
             </p>
             <div style={{ marginBottom: '20px', color: '#666', fontSize: '12px' }}>
-              Client v1.0.22 | Server v1.0.1
+              Client v1.0.24 | Server v1.0.1
             </div>
             
             <div style={{ marginBottom: '20px' }}>
@@ -241,9 +254,28 @@ function NewApp() {
         </div>
       )}
       
+      {/* FPS Meter - always visible */}
+      <div style={{
+        position: 'absolute',
+        top: 10,
+        right: 10,
+        background: 'rgba(0, 0, 0, 0.8)',
+        color: fps < 30 ? '#ff4444' : fps < 50 ? '#ffaa00' : '#00ff88',
+        padding: '8px 12px',
+        borderRadius: '4px',
+        fontFamily: 'monospace',
+        fontSize: '16px',
+        fontWeight: 'bold',
+        border: '1px solid rgba(255,255,255,0.3)',
+        zIndex: 1000
+      }}>
+        {fps || 0} FPS
+      </div>
+      
       {/* Game UI - only show when connected */}
       {gameState.connected && (
         <>
+          
           {/* Cooldown bar at top */}
           {myPlayer && (
             <CooldownBar 
