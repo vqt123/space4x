@@ -32,6 +32,8 @@ export class ThreeRenderer {
   // Camera control
   private cameraDistance: number = 80
   private cameraTarget: THREE.Vector3 = new THREE.Vector3()
+  private cameraCurrentTarget: THREE.Vector3 = new THREE.Vector3()
+  private cameraLerpSpeed: number = 0.05
   
   // FPS tracking
   private frameCount: number = 0
@@ -44,6 +46,8 @@ export class ThreeRenderer {
     targetPos: THREE.Vector3
     lastUpdateTime: number
   }> = new Map()
+  private lastInterpolationTime: number = 0
+  private debugPlayerId: string | null = null
   
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas
@@ -98,10 +102,10 @@ export class ThreeRenderer {
     console.log('Renderer info:', this.renderer.info)
     console.log('Renderer capabilities:', this.renderer.capabilities)
     
-    // Create reusable geometries - low poly for performance
-    this.sphereGeometry = new THREE.SphereGeometry(2, 6, 4)  // Low poly ports
-    this.boxGeometry = new THREE.BoxGeometry(4, 4, 4)  // Simple cube hubs
-    this.coneGeometry = new THREE.ConeGeometry(1.5, 4, 6)  // Low poly ships
+    // Create reusable geometries - smaller sizes for better scale
+    this.sphereGeometry = new THREE.SphereGeometry(0.8, 6, 4)  // Smaller ports
+    this.boxGeometry = new THREE.BoxGeometry(1.5, 1.5, 1.5)  // Smaller cube hubs
+    this.coneGeometry = new THREE.ConeGeometry(0.6, 1.5, 6)  // Smaller ships
     
     // Create reusable materials - use BasicMaterial for performance
     this.portMaterial = new THREE.MeshBasicMaterial({
@@ -123,7 +127,6 @@ export class ThreeRenderer {
     this.lineMaterial = new THREE.LineBasicMaterial({ color: 0x0088ff, opacity: 0.8, transparent: true })
     
     this.setupLighting()
-    this.setupStars()
     this.setupEventListeners()
     
     console.log('ThreeRenderer initialized with', this.scene.children.length, 'objects')
@@ -138,31 +141,6 @@ export class ThreeRenderer {
     this.scene.add(ambientLight)
   }
   
-  /**
-   * Set up starfield background
-   */
-  private setupStars(): void {
-    const starsGeometry = new THREE.BufferGeometry()
-    const starsCount = 200
-    const positions = new Float32Array(starsCount * 3)
-    
-    for (let i = 0; i < starsCount * 3; i += 3) {
-      positions[i] = (Math.random() - 0.5) * 600
-      positions[i + 1] = (Math.random() - 0.5) * 600
-      positions[i + 2] = (Math.random() - 0.5) * 600
-    }
-    
-    starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3))
-    
-    const starsMaterial = new THREE.PointsMaterial({
-      color: 0xffffff,
-      size: 0.8,
-      sizeAttenuation: true
-    })
-    
-    const stars = new THREE.Points(starsGeometry, starsMaterial)
-    this.scene.add(stars)
-  }
   
   /**
    * Set up event listeners
@@ -207,6 +185,12 @@ export class ThreeRenderer {
    * Update scene with new game state
    */
   updateGameState(gameState: ClientGameState): void {
+    // Set debug player ID for interpolation logging
+    if (gameState.myPlayerId && !this.debugPlayerId) {
+      this.debugPlayerId = gameState.myPlayerId
+      console.log('Set debug player ID:', this.debugPlayerId)
+    }
+    
     this.updatePorts(gameState.ports)
     this.updatePlayers(gameState.players)
     this.updateBots(gameState.bots)
@@ -307,7 +291,7 @@ export class ThreeRenderer {
       if (!mesh) {
         mesh = new THREE.Mesh(this.coneGeometry, this.botMaterial)
         // No shadows for performance
-        mesh.scale.set(0.8, 0.8, 0.8) // Slightly smaller than player
+        mesh.scale.set(0.9, 0.9, 0.9) // Slightly smaller than player
         this.scene.add(mesh)
         this.botMeshes.set(botId, mesh)
       }
@@ -395,19 +379,23 @@ export class ThreeRenderer {
   }
   
   /**
-   * Update camera to follow player
+   * Update camera to follow player smoothly
    */
   private updateCamera(gameState: ClientGameState): void {
     if (gameState.myPlayerId) {
       const myPlayer = gameState.players.get(gameState.myPlayerId)
       if (myPlayer) {
+        // Set target position but don't snap to it immediately
         this.cameraTarget.set(myPlayer.position[0], myPlayer.position[1], myPlayer.position[2])
       }
     }
     
-    // Position camera at distance from target, always looking toward center
-    const direction = new THREE.Vector3(0, 0, 0).sub(this.cameraTarget).normalize()
-    this.camera.position.copy(this.cameraTarget).add(direction.multiplyScalar(this.cameraDistance))
+    // Smoothly interpolate camera target for less jarring movement
+    this.cameraCurrentTarget.lerp(this.cameraTarget, this.cameraLerpSpeed)
+    
+    // Position camera at distance from interpolated target, always looking toward center
+    const direction = new THREE.Vector3(0, 0, 0).sub(this.cameraCurrentTarget).normalize()
+    this.camera.position.copy(this.cameraCurrentTarget).add(direction.multiplyScalar(this.cameraDistance))
     this.camera.lookAt(0, 0, 0)
   }
   
@@ -450,12 +438,23 @@ export class ThreeRenderer {
    */
   private updateInterpolation(): void {
     const now = performance.now()
-    const interpolationSpeed = 0.1 // Adjust for smoothness vs responsiveness
+    const deltaTime = now - (this.lastInterpolationTime || now)
+    this.lastInterpolationTime = now
+    
+    // Use a fixed interpolation speed for more predictable movement
+    const interpolationSpeed = 0.08 // Slower for smoother movement
     
     for (const [entityId, data] of this.interpolationData) {
-      if (now - data.lastUpdateTime < 500) { // Only interpolate recent updates
-        // Lerp towards target position
-        data.currentPos.lerp(data.targetPos, interpolationSpeed)
+      if (now - data.lastUpdateTime < 5000) { // Keep interpolating for 5 seconds
+        // Check distance to target - if very close, snap to target
+        const distance = data.currentPos.distanceTo(data.targetPos)
+        
+        if (distance < 0.1) {
+          data.currentPos.copy(data.targetPos)
+        } else {
+          // Simple lerp for consistent movement
+          data.currentPos.lerp(data.targetPos, interpolationSpeed)
+        }
         
         // Update mesh position
         const playerMesh = this.playerMeshes.get(entityId)
@@ -466,6 +465,7 @@ export class ThreeRenderer {
         } else if (botMesh) {
           botMesh.position.copy(data.currentPos)
         }
+        
       }
     }
   }
@@ -481,8 +481,15 @@ export class ThreeRenderer {
       existing.targetPos.copy(targetPos)
       existing.lastUpdateTime = now
     } else {
+      // For new entities, get current mesh position if it exists
+      const playerMesh = this.playerMeshes.get(entityId)
+      const botMesh = this.botMeshes.get(Number(entityId))
+      const currentMesh = playerMesh || botMesh
+      
+      const currentPos = currentMesh ? currentMesh.position.clone() : targetPos.clone()
+      
       this.interpolationData.set(entityId, {
-        currentPos: targetPos.clone(),
+        currentPos: currentPos,
         targetPos: targetPos.clone(),
         lastUpdateTime: now
       })

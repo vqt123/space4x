@@ -4,7 +4,7 @@
 
 Initializing game world...
 Initializing game world...
-Initialized: 500 ports, 50 hubs, 10 bots
+Initialized: 10 ports, 2 hubs, 2 bots
 Game world initialized
 Starting Space4X server game loop...
 TickManager started with 100ms intervals
@@ -12,1337 +12,913 @@ TickManager started with 100ms intervals
 📊 Health check: http://localhost:3001/health
 📈 Stats: http://localhost:3001/stats
 🎮 WebSocket server ready for connections
-Bot Alpha traded at Port P25 for 2500 profit
-Bot Beta traded at Port P23 for 2500 profit
-Bot Gamma traded at Port B26 for 2500 profit
-Bot Delta traded at Port P7 for 2500 profit
-Bot Epsilon traded at Port J16 for 2500 profit
-Bot Zeta traded at Port J16 for 2470 profit
-Bot Eta traded at Port I7 for 2500 profit
-Bot Theta traded at Port A17 for 2500 profit
-Bot Iota traded at Port S24 for 2500 profit
-Bot Kappa traded at Port J6 for 2500 profit
-Bot Alpha traded at Port P25 for 2459 profit
-Bot Beta traded at Port P23 for 2470 profit
-Bot Gamma traded at Port B26 for 2442 profit
-Bot Delta traded at Port P7 for 2467 profit
-Bot Epsilon traded at Port J16 for 2441 profit
-Bot Zeta traded at Port J16 for 2412 profit
-Bot Eta traded at Port I7 for 2451 profit
-Bot Theta traded at Port A17 for 2474 profit
-Bot Iota traded at Port S24 for 2474 profit
-Bot Kappa traded at Port J6 for 2476 profit
-Bot Alpha traded at Port P25 for 2419 profit
-Bot Beta traded at Port P23 for 2440 profit
-Bot Gamma traded at Port B26 for 2384 profit
-Bot Delta traded at Port P7 for 2435 profit
-Bot Epsilon traded at Port J16 for 2383 profit
-Bot Zeta traded at Port J16 for 2354 profit
-Bot Eta traded at Port I7 for 2403 profit
-Bot Theta traded at Port A17 for 2449 profit
-Bot Iota traded at Port S24 for 2449 profit
-Bot Kappa traded at Port J6 for 2453 profit
-Client connected: phvs7TCxQ_SY9yhMAAAB
-Player test (phvs7TCxQ_SY9yhMAAAB) joined the game
-🔧 Sending static data to phvs7TCxQ_SY9yhMAAAB: 500 ports, 50 hubs
+Bot Alpha traded at Port A6 for 2500 profit
+Bot Beta traded at Port A8 for 2500 profit
+Bot Alpha traded at Port A6 for 2444 profit
+Bot Beta traded at Port A8 for 2460 profit
+Bot Alpha traded at Port A6 for 2388 profit
+Bot Beta traded at Port A8 for 2421 profit
+Bot Alpha traded at Port A6 for 2333 profit
+Bot Beta traded at Port A8 for 2382 profit
+Bot Alpha traded at Port A6 for 2277 profit
+Bot Beta traded at Port A8 for 2343 profit
+Client connected: 1DPcP8VFS2P5W8c6AAAB
+Player test (1DPcP8VFS2P5W8c6AAAB) joined the game
+🔧 Sending static data to 1DPcP8VFS2P5W8c6AAAB: 10 ports, 2 hubs
 Player test joined the game
-Bot Alpha traded at Port P25 for 2379 profit
-Bot Beta traded at Port P23 for 2410 profit
-Bot Gamma traded at Port B26 for 2326 profit
-Bot Delta traded at Port P7 for 2403 profit
-Bot Epsilon traded at Port J16 for 2325 profit
-Bot Zeta traded at Port J16 for 2296 profit
-Bot Eta traded at Port I7 for 2355 profit
-Bot Theta traded at Port A17 for 2424 profit
-Bot Iota traded at Port S24 for 2424 profit
-Bot Kappa traded at Port J6 for 2430 profit
-Bot Alpha traded at Port P25 for 2339 profit
-Bot Beta traded at Port P23 for 2380 profit
-Bot Gamma traded at Port B26 for 2268 profit
-Bot Delta traded at Port P7 for 2371 profit
-Bot Epsilon traded at Port J16 for 2267 profit
-Bot Zeta traded at Port J16 for 2237 profit
-Bot Eta traded at Port I7 for 2307 profit
-Bot Theta traded at Port A17 for 2399 profit
-Bot Iota traded at Port S24 for 2399 profit
-Bot Kappa traded at Port J6 for 2406 profit
-Bot Alpha traded at Port P25 for 2299 profit
-Bot Beta traded at Port P23 for 2350 profit
-Bot Gamma traded at Port B26 for 2210 profit
-Bot Delta traded at Port P7 for 2339 profit
-Bot Epsilon traded at Port J16 for 2208 profit
-Bot Zeta traded at Port J16 for 2179 profit
-Bot Eta traded at Port I7 for 2258 profit
-Bot Theta traded at Port A17 for 2374 profit
-Bot Iota traded at Port S24 for 2374 profit
-Bot Kappa traded at Port J6 for 2383 profit
-Bot Alpha traded at Port P25 for 2259 profit
-Bot Beta traded at Port P23 for 2320 profit
-Bot Gamma traded at Port B26 for 2153 profit
-Bot Delta traded at Port P7 for 2307 profit
-Bot Epsilon traded at Port J16 for 2150 profit
-Bot Zeta traded at Port J16 for 2121 profit
-Bot Eta traded at Port I7 for 2210 profit
-Bot Theta traded at Port A17 for 2349 profit
-Bot Iota traded at Port S24 for 2349 profit
-Bot Kappa traded at Port J6 for 2360 profit
-Player test (phvs7TCxQ_SY9yhMAAAB) left the game
-Client disconnected: phvs7TCxQ_SY9yhMAAAB
-Bot Alpha traded at Port P25 for 2219 profit
-Bot Beta traded at Port P23 for 2290 profit
-Bot Gamma traded at Port B26 for 2095 profit
-Bot Delta traded at Port P7 for 2275 profit
-Bot Epsilon traded at Port J16 for 2092 profit
-Bot Zeta traded at Port J16 for 2063 profit
-Bot Eta traded at Port I7 for 2162 profit
-Bot Theta traded at Port A17 for 2324 profit
-Bot Iota traded at Port S24 for 2324 profit
-Bot Kappa traded at Port J6 for 2336 profit
-Bot Alpha traded at Port P25 for 2179 profit
-Bot Beta traded at Port P23 for 2260 profit
-Bot Gamma traded at Port B26 for 2037 profit
-Bot Delta traded at Port P7 for 2243 profit
-Bot Epsilon traded at Port J16 for 2034 profit
-Bot Zeta traded at Port J16 for 2004 profit
-Bot Eta traded at Port I7 for 2114 profit
-Bot Theta traded at Port A17 for 2299 profit
-Bot Iota traded at Port S24 for 2299 profit
-Bot Kappa traded at Port J6 for 2313 profit
-Bot Alpha traded at Port P25 for 2139 profit
-Bot Beta traded at Port P23 for 2230 profit
-Bot Gamma traded at Port B26 for 1979 profit
-Bot Delta traded at Port P7 for 2211 profit
-Bot Epsilon traded at Port J16 for 1975 profit
-Bot Zeta traded at Port J16 for 1946 profit
-Bot Eta traded at Port I7 for 2065 profit
-Bot Theta traded at Port A17 for 2274 profit
-Bot Iota traded at Port S24 for 2274 profit
-Bot Kappa traded at Port J6 for 2290 profit
-Bot Alpha traded at Port P25 for 2099 profit
-Bot Beta traded at Port P23 for 2200 profit
-Bot Gamma traded at Port B26 for 1921 profit
-Bot Delta traded at Port P7 for 2179 profit
-Bot Epsilon traded at Port J16 for 1917 profit
-Bot Zeta traded at Port J16 for 1888 profit
-Bot Eta traded at Port I7 for 2017 profit
-Bot Theta traded at Port A17 for 2248 profit
-Bot Iota traded at Port S24 for 2249 profit
-Bot Kappa traded at Port J6 for 2266 profit
-Bot Alpha traded at Port P25 for 2059 profit
-Bot Beta traded at Port P23 for 2170 profit
-Bot Gamma traded at Port B26 for 1864 profit
-Bot Delta traded at Port P7 for 2147 profit
-Bot Epsilon traded at Port J16 for 1859 profit
-Bot Zeta traded at Port J16 for 1830 profit
-Bot Eta traded at Port I7 for 1969 profit
-Bot Theta traded at Port A17 for 2223 profit
-Bot Iota traded at Port S24 for 2224 profit
-Bot Kappa traded at Port J6 for 2243 profit
-Bot Alpha traded at Port P25 for 2019 profit
-Bot Beta traded at Port P23 for 2140 profit
-Bot Gamma traded at Port B26 for 1806 profit
-Bot Delta traded at Port P7 for 2115 profit
-Bot Epsilon traded at Port J16 for 1801 profit
-Bot Zeta traded at Port J16 for 1771 profit
-Bot Eta traded at Port I7 for 1921 profit
-Bot Theta traded at Port A17 for 2198 profit
-Bot Iota traded at Port S24 for 2199 profit
-Bot Kappa traded at Port J6 for 2220 profit
-Bot Alpha traded at Port P25 for 1979 profit
-Bot Beta traded at Port P23 for 2110 profit
-Bot Gamma traded at Port B26 for 1748 profit
-Bot Delta traded at Port P7 for 2083 profit
-Bot Epsilon traded at Port J16 for 1742 profit
-Bot Zeta traded at Port J16 for 1713 profit
-Bot Eta traded at Port I7 for 1873 profit
-Bot Theta traded at Port A17 for 2173 profit
-Bot Iota traded at Port S24 for 2174 profit
-Bot Kappa traded at Port J6 for 2197 profit
-Bot Alpha traded at Port P25 for 1939 profit
-Bot Beta traded at Port P23 for 2080 profit
-Bot Gamma traded at Port B26 for 1690 profit
-Bot Delta traded at Port P7 for 2051 profit
-Bot Epsilon traded at Port J16 for 1684 profit
-Bot Zeta traded at Port J16 for 1655 profit
-Bot Eta traded at Port I7 for 1824 profit
-Bot Theta traded at Port A17 for 2148 profit
-Bot Iota traded at Port S24 for 2149 profit
-Bot Kappa traded at Port J6 for 2173 profit
-Bot Alpha traded at Port P25 for 1899 profit
-Bot Beta traded at Port P23 for 2050 profit
-Bot Gamma traded at Port B26 for 1632 profit
-Bot Delta traded at Port P7 for 2019 profit
-Bot Epsilon traded at Port J16 for 1626 profit
-Bot Zeta traded at Port J16 for 1597 profit
-Bot Eta traded at Port I7 for 1776 profit
-Bot Theta traded at Port A17 for 2123 profit
-Bot Iota traded at Port S24 for 2124 profit
-Bot Kappa traded at Port J6 for 2150 profit
-Bot Alpha traded at Port P25 for 1858 profit
-Bot Beta traded at Port P23 for 2020 profit
-Bot Gamma traded at Port B26 for 1574 profit
-Bot Delta traded at Port P7 for 1987 profit
-Bot Epsilon traded at Port J16 for 1568 profit
-Bot Zeta traded at Port J16 for 1538 profit
-Bot Eta traded at Port I7 for 1728 profit
-Bot Theta traded at Port A17 for 2098 profit
-Bot Iota traded at Port S24 for 2099 profit
-Bot Kappa traded at Port J6 for 2127 profit
-Bot Alpha traded at Port P25 for 1818 profit
-Bot Beta traded at Port P23 for 1990 profit
-Bot Gamma traded at Port B26 for 1517 profit
-Bot Delta traded at Port P7 for 1955 profit
-Bot Epsilon traded at Port J16 for 1509 profit
-Bot Zeta traded at Port J16 for 1480 profit
-Bot Eta traded at Port I7 for 1680 profit
-Bot Theta traded at Port A17 for 2073 profit
-Bot Iota traded at Port S24 for 2074 profit
-Bot Kappa traded at Port J6 for 2103 profit
-Bot Alpha traded at Port P25 for 1778 profit
-Bot Beta traded at Port P23 for 1960 profit
-Bot Gamma traded at Port B26 for 1459 profit
-Bot Delta traded at Port P7 for 1923 profit
-Bot Epsilon traded at Port J16 for 1451 profit
-Bot Zeta traded at Port J16 for 1422 profit
-Bot Eta traded at Port I7 for 1631 profit
-Bot Theta traded at Port A17 for 2048 profit
-Bot Iota traded at Port S24 for 2049 profit
-Bot Kappa traded at Port J6 for 2080 profit
-Bot Alpha traded at Port P25 for 1738 profit
-Bot Beta traded at Port P23 for 1930 profit
-Bot Gamma traded at Port B26 for 1401 profit
-Bot Delta traded at Port P7 for 1891 profit
-Bot Epsilon traded at Port J16 for 1393 profit
-Bot Zeta traded at Port J16 for 1364 profit
-Bot Eta traded at Port I7 for 1583 profit
-Bot Theta traded at Port A17 for 2022 profit
-Bot Iota traded at Port S24 for 2024 profit
-Bot Kappa traded at Port J6 for 2057 profit
-⚡ Broadcasting dynamic state - Tick 100: 0 players, 10 bots (no ports/hubs)
-Tick 100: 0 players, 10 bots
-Bot Alpha traded at Port P25 for 1698 profit
-Bot Beta traded at Port P23 for 1900 profit
-Bot Gamma traded at Port B26 for 1343 profit
-Bot Delta traded at Port P7 for 1859 profit
-Bot Epsilon traded at Port J16 for 1335 profit
-Bot Zeta traded at Port J16 for 1305 profit
-Bot Eta traded at Port I7 for 1535 profit
-Bot Theta traded at Port A17 for 1997 profit
-Bot Iota traded at Port S24 for 1999 profit
-Bot Kappa traded at Port J6 for 2033 profit
-Bot Alpha traded at Port P25 for 1658 profit
-Bot Beta traded at Port P23 for 1870 profit
-Bot Gamma traded at Port B26 for 1285 profit
-Bot Delta traded at Port P7 for 1827 profit
-Bot Epsilon traded at Port J16 for 1276 profit
-Bot Zeta traveling from Port J16 to Port M22
-Bot Eta traded at Port I7 for 1487 profit
-Bot Theta traded at Port A17 for 1972 profit
-Bot Iota traded at Port S24 for 1974 profit
-Bot Kappa traded at Port J6 for 2010 profit
-Bot Alpha traded at Port P25 for 1618 profit
-Bot Beta traded at Port P23 for 1840 profit
-Bot Gamma traveling from Port B26 to Port M20
-Bot Delta traded at Port P7 for 1795 profit
-Bot Epsilon traveling from Port J16 to Port M22
-Bot Eta traded at Port I7 for 1439 profit
-Bot Theta traded at Port A17 for 1947 profit
-Bot Iota traded at Port S24 for 1949 profit
-Bot Kappa traded at Port J6 for 1987 profit
-Bot Alpha traded at Port P25 for 1578 profit
-Bot Beta traded at Port P23 for 1810 profit
-Bot Delta traded at Port P7 for 1763 profit
-Bot Eta traded at Port I7 for 1390 profit
-Bot Theta traded at Port A17 for 1922 profit
-Bot Iota traded at Port S24 for 1924 profit
-Bot Kappa traded at Port J6 for 1964 profit
-Bot Zeta traded at Port M22 for 2500 profit
-Bot Alpha traded at Port P25 for 1538 profit
-Bot Beta traded at Port P23 for 1780 profit
-Bot Delta traded at Port P7 for 1731 profit
-Bot Eta traded at Port I7 for 1342 profit
-Bot Theta traded at Port A17 for 1897 profit
-Bot Iota traded at Port S24 for 1899 profit
-Bot Kappa traded at Port J6 for 1940 profit
-Bot Epsilon traded at Port M22 for 2473 profit
-Bot Zeta traded at Port M22 for 2446 profit
-Bot Alpha traded at Port P25 for 1498 profit
-Bot Beta traded at Port P23 for 1750 profit
-Bot Delta traded at Port P7 for 1699 profit
-Bot Eta traded at Port I7 for 1294 profit
-Bot Theta traded at Port A17 for 1872 profit
-Bot Iota traded at Port S24 for 1873 profit
-Bot Kappa traded at Port J6 for 1917 profit
-Bot Epsilon traded at Port M22 for 2419 profit
-Bot Zeta traded at Port M22 for 2392 profit
-Bot Alpha traded at Port P25 for 1458 profit
-Bot Beta traded at Port P23 for 1720 profit
-Bot Delta traded at Port P7 for 1667 profit
-Bot Eta traveling from Port I7 to Port E4
-Bot Theta traded at Port A17 for 1847 profit
-Bot Iota traded at Port S24 for 1848 profit
-Bot Kappa traded at Port J6 for 1894 profit
-Bot Gamma traded at Port M20 for 2500 profit
-Bot Epsilon traded at Port M22 for 2365 profit
-Bot Zeta traded at Port M22 for 2338 profit
-Bot Alpha traded at Port P25 for 1418 profit
-Bot Beta traded at Port P23 for 1690 profit
-Bot Delta traded at Port P7 for 1635 profit
-Bot Theta traded at Port A17 for 1822 profit
-Bot Iota traded at Port S24 for 1823 profit
-Bot Kappa traded at Port J6 for 1870 profit
-Bot Gamma traded at Port M20 for 2471 profit
-Bot Epsilon traded at Port M22 for 2311 profit
-Bot Zeta traded at Port M22 for 2284 profit
-Bot Alpha traded at Port P25 for 1378 profit
-Bot Beta traded at Port P23 for 1660 profit
-Bot Delta traded at Port P7 for 1603 profit
-Bot Theta traded at Port A17 for 1796 profit
-Bot Iota traded at Port S24 for 1798 profit
-Bot Kappa traded at Port J6 for 1847 profit
-Bot Gamma traded at Port M20 for 2443 profit
-Bot Epsilon traded at Port M22 for 2257 profit
-Bot Zeta traded at Port M22 for 2230 profit
-Bot Alpha traded at Port P25 for 1338 profit
-Bot Beta traded at Port P23 for 1630 profit
-Bot Delta traded at Port P7 for 1571 profit
-Bot Theta traded at Port A17 for 1771 profit
-Bot Iota traded at Port S24 for 1773 profit
-Bot Kappa traded at Port J6 for 1824 profit
-Bot Gamma traded at Port M20 for 2414 profit
-Bot Epsilon traded at Port M22 for 2203 profit
-Bot Zeta traded at Port M22 for 2176 profit
-Bot Alpha traded at Port P25 for 1298 profit
-Bot Beta traded at Port P23 for 1600 profit
-Bot Delta traded at Port P7 for 1539 profit
-Bot Theta traded at Port A17 for 1746 profit
-Bot Iota traded at Port S24 for 1748 profit
-Bot Kappa traded at Port J6 for 1800 profit
-Bot Gamma traded at Port M20 for 2386 profit
-Bot Epsilon traded at Port M22 for 2149 profit
-Bot Zeta traded at Port M22 for 2123 profit
-Bot Alpha traded at Port P25 for 1258 profit
-Bot Beta traded at Port P23 for 1570 profit
-Bot Delta traded at Port P7 for 1507 profit
-Bot Theta traded at Port A17 for 1721 profit
-Bot Iota traded at Port S24 for 1723 profit
-Bot Kappa traded at Port J6 for 1777 profit
-Bot Gamma traded at Port M20 for 2357 profit
-Bot Epsilon traded at Port M22 for 2096 profit
-Bot Zeta traded at Port M22 for 2069 profit
-Bot Eta traded at Port E4 for 2500 profit
-Bot Alpha traveling from Port P25 to Port G12
-Bot Beta traded at Port P23 for 1540 profit
-Bot Delta traded at Port P7 for 1475 profit
-Bot Theta traded at Port A17 for 1696 profit
-Bot Iota traded at Port S24 for 1698 profit
-Bot Kappa traded at Port J6 for 1754 profit
-Bot Gamma traded at Port M20 for 2329 profit
-Bot Epsilon traded at Port M22 for 2042 profit
-Bot Zeta traded at Port M22 for 2015 profit
-Bot Eta traded at Port E4 for 2478 profit
-Bot Beta traded at Port P23 for 1510 profit
-Bot Delta traded at Port P7 for 1443 profit
-Bot Theta traded at Port A17 for 1671 profit
-Bot Iota traded at Port S24 for 1673 profit
-Bot Kappa traded at Port J6 for 1730 profit
-Bot Gamma traded at Port M20 for 2300 profit
-Bot Epsilon traded at Port M22 for 1988 profit
-Bot Zeta traded at Port M22 for 1961 profit
-Bot Eta traded at Port E4 for 2457 profit
-Bot Beta traded at Port P23 for 1480 profit
-Bot Delta traded at Port P7 for 1411 profit
-Bot Theta traded at Port A17 for 1646 profit
-Bot Iota traded at Port S24 for 1648 profit
-Bot Kappa traded at Port J6 for 1707 profit
-Bot Gamma traded at Port M20 for 2272 profit
-Bot Epsilon traded at Port M22 for 1934 profit
-Bot Zeta traded at Port M22 for 1907 profit
-Bot Eta traded at Port E4 for 2436 profit
-Bot Beta traded at Port P23 for 1450 profit
-Bot Delta traded at Port P7 for 1379 profit
-Bot Theta traded at Port A17 for 1621 profit
-Bot Iota traded at Port S24 for 1623 profit
-Bot Kappa traded at Port J6 for 1684 profit
-Bot Gamma traded at Port M20 for 2243 profit
-Bot Epsilon traded at Port M22 for 1880 profit
-Bot Zeta traded at Port M22 for 1853 profit
-Bot Eta traded at Port E4 for 2415 profit
-Bot Alpha traded at Port G12 for 2500 profit
-Bot Beta traded at Port P23 for 1420 profit
-Bot Delta traded at Port P7 for 1347 profit
-Bot Theta traded at Port A17 for 1596 profit
-Bot Iota traded at Port S24 for 1598 profit
-Bot Kappa traded at Port J6 for 1661 profit
-Bot Gamma traded at Port M20 for 2215 profit
-Bot Epsilon traded at Port M22 for 1826 profit
-Bot Zeta traded at Port M22 for 1799 profit
-Bot Eta traded at Port E4 for 2393 profit
-Bot Alpha traded at Port G12 for 2478 profit
-Bot Beta traded at Port P23 for 1390 profit
-Bot Delta traded at Port P7 for 1315 profit
-Bot Theta traded at Port A17 for 1570 profit
-Bot Iota traded at Port S24 for 1573 profit
-Bot Kappa traded at Port J6 for 1637 profit
-Bot Gamma traded at Port M20 for 2186 profit
-Bot Epsilon traded at Port M22 for 1772 profit
-Bot Zeta traded at Port M22 for 1746 profit
-Bot Eta traded at Port E4 for 2372 profit
-Bot Alpha traded at Port G12 for 2456 profit
-Bot Beta traded at Port P23 for 1360 profit
-Bot Delta traded at Port P7 for 1283 profit
-Bot Theta traded at Port A17 for 1545 profit
-Bot Iota traded at Port S24 for 1548 profit
-Bot Kappa traded at Port J6 for 1614 profit
-Bot Gamma traded at Port M20 for 2158 profit
-Bot Epsilon traded at Port M22 for 1719 profit
-Bot Zeta traded at Port M22 for 1692 profit
-Bot Eta traded at Port E4 for 2351 profit
-Bot Alpha traded at Port G12 for 2434 profit
-Bot Beta traded at Port P23 for 1330 profit
-Bot Delta traded at Port P7 for 1251 profit
-Bot Theta traded at Port A17 for 1520 profit
-Bot Iota traded at Port S24 for 1523 profit
-Bot Kappa traded at Port J6 for 1591 profit
-⚡ Broadcasting dynamic state - Tick 200: 0 players, 10 bots (no ports/hubs)
-Tick 200: 0 players, 10 bots
-Bot Gamma traded at Port M20 for 2129 profit
-Bot Epsilon traded at Port M22 for 1665 profit
-Bot Zeta traded at Port M22 for 1638 profit
-Bot Eta traded at Port E4 for 2330 profit
-Bot Alpha traded at Port G12 for 2412 profit
-Bot Beta traded at Port P23 for 1300 profit
-Bot Delta traveling from Port P7 to Port N15
-Bot Theta traded at Port A17 for 1495 profit
-Bot Iota traded at Port S24 for 1498 profit
-Bot Kappa traded at Port J6 for 1567 profit
-Bot Gamma traded at Port M20 for 2101 profit
-Bot Epsilon traded at Port M22 for 1611 profit
-Bot Zeta traded at Port M22 for 1584 profit
-Bot Eta traded at Port E4 for 2309 profit
-Bot Alpha traded at Port G12 for 2390 profit
-Bot Beta traded at Port P23 for 1270 profit
-Bot Theta traded at Port A17 for 1470 profit
-Bot Iota traded at Port S24 for 1473 profit
-Bot Kappa traded at Port J6 for 1544 profit
-Bot Gamma traded at Port M20 for 2072 profit
-Bot Epsilon traded at Port M22 for 1557 profit
-Bot Zeta traded at Port M22 for 1530 profit
-Bot Eta traded at Port E4 for 2287 profit
-Bot Alpha traded at Port G12 for 2368 profit
-Bot Beta traveling from Port P23 to Port P4
-Bot Theta traded at Port A17 for 1445 profit
-Bot Iota traded at Port S24 for 1448 profit
-Bot Kappa traded at Port J6 for 1521 profit
-Bot Gamma traded at Port M20 for 2044 profit
-Bot Epsilon traded at Port M22 for 1503 profit
-Bot Zeta traded at Port M22 for 1476 profit
-Bot Eta traded at Port E4 for 2266 profit
-Bot Alpha traded at Port G12 for 2347 profit
-Bot Theta traded at Port A17 for 1420 profit
-Bot Iota traded at Port S24 for 1423 profit
-Bot Kappa traded at Port J6 for 1497 profit
-Bot Gamma traded at Port M20 for 2015 profit
-Bot Epsilon traded at Port M22 for 1449 profit
-Bot Zeta traded at Port M22 for 1422 profit
-Bot Eta traded at Port E4 for 2245 profit
-Bot Alpha traded at Port G12 for 2325 profit
-Bot Delta traded at Port N15 for 2500 profit
-Bot Theta traded at Port A17 for 1395 profit
-Bot Iota traded at Port S24 for 1398 profit
-Bot Kappa traded at Port J6 for 1474 profit
-Bot Gamma traded at Port M20 for 1987 profit
-Bot Epsilon traded at Port M22 for 1395 profit
-Bot Zeta traded at Port M22 for 1369 profit
-Bot Eta traded at Port E4 for 2224 profit
-Bot Alpha traded at Port G12 for 2303 profit
-Bot Delta traded at Port N15 for 2458 profit
-Bot Theta traded at Port A17 for 1370 profit
-Bot Iota traded at Port S24 for 1373 profit
-Bot Kappa traded at Port J6 for 1451 profit
-Bot Gamma traded at Port M20 for 1958 profit
-Bot Beta traded at Port P4 for 2500 profit
-Bot Epsilon traded at Port M22 for 1342 profit
-Bot Zeta traded at Port M22 for 1315 profit
-Bot Eta traded at Port E4 for 2203 profit
-Bot Alpha traded at Port G12 for 2281 profit
-Bot Delta traded at Port N15 for 2417 profit
-Bot Theta traded at Port A17 for 1344 profit
-Bot Iota traded at Port S24 for 1348 profit
-Bot Kappa traded at Port J6 for 1428 profit
-Bot Gamma traded at Port M20 for 1930 profit
-Bot Beta traded at Port P4 for 2459 profit
-Bot Epsilon traded at Port M22 for 1288 profit
-Bot Zeta traded at Port M22 for 1261 profit
-Bot Eta traded at Port E4 for 2181 profit
-Bot Alpha traded at Port G12 for 2259 profit
-Bot Delta traded at Port N15 for 2376 profit
-Bot Theta traded at Port A17 for 1319 profit
-Bot Iota traded at Port S24 for 1323 profit
-Bot Kappa traded at Port J6 for 1404 profit
-Bot Gamma traded at Port M20 for 1901 profit
-Bot Beta traded at Port P4 for 2418 profit
-Bot Epsilon traveling from Port M22 to Port J16
-Bot Zeta traveling from Port M22 to Port J16
-Bot Eta traded at Port E4 for 2160 profit
-Bot Alpha traded at Port G12 for 2237 profit
-Bot Delta traded at Port N15 for 2335 profit
-Bot Theta traded at Port A17 for 1294 profit
-Bot Iota traded at Port S24 for 1298 profit
-Bot Kappa traded at Port J6 for 1381 profit
-Bot Gamma traded at Port M20 for 1873 profit
-Bot Beta traded at Port P4 for 2378 profit
-Bot Eta traded at Port E4 for 2139 profit
-Bot Alpha traded at Port G12 for 2216 profit
-Bot Delta traded at Port N15 for 2294 profit
-Bot Theta traded at Port A17 for 1269 profit
-Bot Iota traded at Port S24 for 1273 profit
-Bot Kappa traded at Port J6 for 1358 profit
-Bot Gamma traded at Port M20 for 1844 profit
-Bot Beta traded at Port P4 for 2337 profit
-Bot Eta traded at Port E4 for 2118 profit
-Bot Alpha traded at Port G12 for 2194 profit
-Bot Delta traded at Port N15 for 2253 profit
-Bot Gamma traded at Port M20 for 1816 profit
-Bot Beta traded at Port P4 for 2297 profit
-Bot Epsilon traveling from Port J16 to Port L6
-Bot Zeta traveling from Port J16 to Port L6
-Bot Eta traded at Port E4 for 2097 profit
-Bot Alpha traded at Port G12 for 2172 profit
-Bot Delta traded at Port N15 for 2212 profit
-Bot Gamma traded at Port M20 for 1787 profit
-Bot Beta traded at Port P4 for 2256 profit
-Bot Eta traded at Port E4 for 2075 profit
-Bot Alpha traded at Port G12 for 2150 profit
-Bot Delta traded at Port N15 for 2171 profit
-Bot Gamma traded at Port M20 for 1759 profit
-Bot Beta traded at Port P4 for 2216 profit
-Bot Eta traded at Port E4 for 2054 profit
-Bot Alpha traded at Port G12 for 2128 profit
-Bot Delta traded at Port N15 for 2130 profit
-Bot Gamma traded at Port M20 for 1730 profit
-Bot Eta traded at Port E4 for 2033 profit
-Bot Eta traded at Port E4 for 2012 profit
-Bot Epsilon traded at Port L6 for 2500 profit
-Bot Zeta traded at Port L6 for 2466 profit
-Bot Epsilon traded at Port L6 for 2432 profit
-Bot Zeta traded at Port L6 for 2398 profit
-⚡ Broadcasting dynamic state - Tick 300: 0 players, 10 bots (no ports/hubs)
-Tick 300: 0 players, 10 bots
-Bot Epsilon traded at Port L6 for 2365 profit
-Bot Zeta traded at Port L6 for 2331 profit
-Bot Epsilon traded at Port L6 for 2297 profit
-Bot Zeta traded at Port L6 for 2263 profit
-Bot Epsilon traded at Port L6 for 2230 profit
-Bot Zeta traded at Port L6 for 2196 profit
-⚡ Broadcasting dynamic state - Tick 400: 0 players, 10 bots (no ports/hubs)
-Tick 400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 500: 0 players, 10 bots (no ports/hubs)
-Tick 500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 600: 0 players, 10 bots (no ports/hubs)
-Tick 600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 700: 0 players, 10 bots (no ports/hubs)
-Tick 700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 800: 0 players, 10 bots (no ports/hubs)
-Tick 800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 900: 0 players, 10 bots (no ports/hubs)
-Tick 900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 1000: 0 players, 10 bots (no ports/hubs)
-Tick 1000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 1100: 0 players, 10 bots (no ports/hubs)
-Tick 1100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 1200: 0 players, 10 bots (no ports/hubs)
-Tick 1200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 1300: 0 players, 10 bots (no ports/hubs)
-Tick 1300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 1400: 0 players, 10 bots (no ports/hubs)
-Tick 1400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 1500: 0 players, 10 bots (no ports/hubs)
-Tick 1500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 1600: 0 players, 10 bots (no ports/hubs)
-Tick 1600: 0 players, 10 bots
-Client connected: h9tdzFYLTLyYxvtTAAAD
-Player TestOptimization (h9tdzFYLTLyYxvtTAAAD) joined the game
-🔧 Sending static data to h9tdzFYLTLyYxvtTAAAD: 500 ports, 50 hubs
-Player TestOptimization joined the game
-Player TestOptimization (h9tdzFYLTLyYxvtTAAAD) left the game
-Client disconnected: h9tdzFYLTLyYxvtTAAAD
-⚡ Broadcasting dynamic state - Tick 1700: 0 players, 10 bots (no ports/hubs)
-Tick 1700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 1800: 0 players, 10 bots (no ports/hubs)
-Tick 1800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 1900: 0 players, 10 bots (no ports/hubs)
-Tick 1900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 2000: 0 players, 10 bots (no ports/hubs)
-Tick 2000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 2100: 0 players, 10 bots (no ports/hubs)
-Tick 2100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 2200: 0 players, 10 bots (no ports/hubs)
-Tick 2200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 2300: 0 players, 10 bots (no ports/hubs)
-Tick 2300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 2400: 0 players, 10 bots (no ports/hubs)
-Tick 2400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 2500: 0 players, 10 bots (no ports/hubs)
-Tick 2500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 2600: 0 players, 10 bots (no ports/hubs)
-Tick 2600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 2700: 0 players, 10 bots (no ports/hubs)
-Tick 2700: 0 players, 10 bots
-Client connected: Ne39GTgWnazIhzyDAAAF
-Player TestPlayer (Ne39GTgWnazIhzyDAAAF) joined the game
-🔧 Sending static data to Ne39GTgWnazIhzyDAAAF: 500 ports, 50 hubs
-Player TestPlayer joined the game
-⚡ Broadcasting dynamic state - Tick 2800: 1 players, 10 bots (no ports/hubs)
-Tick 2800: 1 players, 10 bots
-Player TestPlayer (Ne39GTgWnazIhzyDAAAF) left the game
-Client disconnected: Ne39GTgWnazIhzyDAAAF
-⚡ Broadcasting dynamic state - Tick 2900: 0 players, 10 bots (no ports/hubs)
-Tick 2900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 3000: 0 players, 10 bots (no ports/hubs)
-Tick 3000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 3100: 0 players, 10 bots (no ports/hubs)
-Tick 3100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 3200: 0 players, 10 bots (no ports/hubs)
-Tick 3200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 3300: 0 players, 10 bots (no ports/hubs)
-Tick 3300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 3400: 0 players, 10 bots (no ports/hubs)
-Tick 3400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 3500: 0 players, 10 bots (no ports/hubs)
-Tick 3500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 3600: 0 players, 10 bots (no ports/hubs)
-Tick 3600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 3700: 0 players, 10 bots (no ports/hubs)
-Tick 3700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 3800: 0 players, 10 bots (no ports/hubs)
-Tick 3800: 0 players, 10 bots
-Client connected: Aa-pAlCww3dH48y6AAAH
-Player test (Aa-pAlCww3dH48y6AAAH) joined the game
-🔧 Sending static data to Aa-pAlCww3dH48y6AAAH: 500 ports, 50 hubs
+Bot Alpha traded at Port A6 for 2221 profit
+Bot Beta traded at Port A8 for 2304 profit
+Bot Alpha traded at Port A6 for 2166 profit
+Bot Beta traded at Port A8 for 2265 profit
+Bot Alpha traded at Port A6 for 2110 profit
+Bot Beta traded at Port A8 for 2225 profit
+Bot Alpha traded at Port A6 for 2055 profit
+Bot Beta traded at Port A8 for 2186 profit
+Bot Alpha traded at Port A6 for 1999 profit
+Bot Beta traded at Port A8 for 2147 profit
+Bot Alpha traded at Port A6 for 1943 profit
+Bot Beta traded at Port A8 for 2108 profit
+Bot Alpha traded at Port A6 for 1888 profit
+Bot Beta traded at Port A8 for 2069 profit
+Bot Alpha traded at Port A6 for 1832 profit
+Bot Beta traded at Port A8 for 2030 profit
+Bot Alpha traded at Port A6 for 1777 profit
+Bot Beta traded at Port A8 for 1990 profit
+Bot Alpha traded at Port A6 for 1721 profit
+Bot Beta traded at Port A8 for 1951 profit
+Bot Alpha traded at Port A6 for 1665 profit
+Bot Beta traded at Port A8 for 1912 profit
+Bot Alpha traded at Port A6 for 1610 profit
+Bot Beta traded at Port A8 for 1873 profit
+Bot Alpha traded at Port A6 for 1554 profit
+Bot Beta traded at Port A8 for 1834 profit
+Bot Alpha traded at Port A6 for 1499 profit
+Bot Beta traded at Port A8 for 1795 profit
+Bot Alpha traded at Port A6 for 1443 profit
+Bot Beta traded at Port A8 for 1755 profit
+⚡ Broadcasting dynamic state - Tick 100: 1 players, 2 bots (no ports/hubs)
+Tick 100: 1 players, 2 bots
+Bot Alpha traded at Port A6 for 1387 profit
+Bot Beta traded at Port A8 for 1716 profit
+Bot Alpha traded at Port A6 for 1332 profit
+Bot Beta traded at Port A8 for 1677 profit
+Bot Alpha traded at Port A6 for 1276 profit
+Bot Beta traded at Port A8 for 1638 profit
+Bot Alpha traveling from Port A6 to Port A9
+Bot Beta traded at Port A8 for 1599 profit
+Bot Beta traded at Port A8 for 1560 profit
+Bot Beta traded at Port A8 for 1520 profit
+Bot Beta traded at Port A8 for 1481 profit
+Bot Beta traded at Port A8 for 1442 profit
+Bot Beta traded at Port A8 for 1403 profit
+Bot Beta traded at Port A8 for 1364 profit
+Bot Beta traded at Port A8 for 1325 profit
+Bot Beta traded at Port A8 for 1286 profit
+Bot Beta traveling from Port A8 to Port A3
+⚡ Broadcasting dynamic state - Tick 200: 1 players, 2 bots (no ports/hubs)
+Tick 200: 1 players, 2 bots
+Bot Alpha traded at Port A9 for 2500 profit
+Bot Alpha traded at Port A9 for 2456 profit
+Bot Alpha traded at Port A9 for 2413 profit
+Bot Alpha traded at Port A9 for 2369 profit
+Bot Alpha traded at Port A9 for 2326 profit
+Bot Alpha traded at Port A9 for 2282 profit
+Bot Alpha traded at Port A9 for 2239 profit
+Bot Alpha traded at Port A9 for 2195 profit
+Bot Beta traded at Port A3 for 2500 profit
+Bot Alpha traded at Port A9 for 2152 profit
+Bot Beta traded at Port A3 for 2457 profit
+Bot Alpha traded at Port A9 for 2109 profit
+Bot Beta traded at Port A3 for 2415 profit
+Bot Alpha traded at Port A9 for 2065 profit
+Bot Beta traded at Port A3 for 2373 profit
+Bot Alpha traded at Port A9 for 2022 profit
+Bot Beta traded at Port A3 for 2331 profit
+Bot Alpha traded at Port A9 for 1978 profit
+Bot Beta traded at Port A3 for 2289 profit
+Bot Alpha traded at Port A9 for 1935 profit
+Bot Beta traded at Port A3 for 2247 profit
+Bot Alpha traded at Port A9 for 1891 profit
+Bot Beta traded at Port A3 for 2204 profit
+Bot Alpha traded at Port A9 for 1848 profit
+Bot Beta traded at Port A3 for 2162 profit
+Bot Alpha traded at Port A9 for 1805 profit
+Bot Beta traded at Port A3 for 2120 profit
+Bot Alpha traded at Port A9 for 1761 profit
+Bot Beta traded at Port A3 for 2078 profit
+Bot Alpha traded at Port A9 for 1718 profit
+Bot Beta traded at Port A3 for 2036 profit
+⚡ Broadcasting dynamic state - Tick 300: 1 players, 2 bots (no ports/hubs)
+Tick 300: 1 players, 2 bots
+Bot Alpha traded at Port A9 for 1674 profit
+Bot Beta traded at Port A3 for 1994 profit
+Bot Alpha traded at Port A9 for 1631 profit
+Bot Beta traded at Port A3 for 1952 profit
+Bot Alpha traded at Port A9 for 1587 profit
+Bot Beta traded at Port A3 for 1909 profit
+Bot Alpha traded at Port A9 for 1544 profit
+Bot Beta traded at Port A3 for 1867 profit
+Bot Alpha traded at Port A9 for 1501 profit
+Bot Beta traded at Port A3 for 1825 profit
+Bot Alpha traded at Port A9 for 1457 profit
+Bot Beta traded at Port A3 for 1783 profit
+Bot Alpha traded at Port A9 for 1414 profit
+Bot Alpha traded at Port A9 for 1370 profit
+⚡ Broadcasting dynamic state - Tick 400: 1 players, 2 bots (no ports/hubs)
+Tick 400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 500: 1 players, 2 bots (no ports/hubs)
+Tick 500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 600: 1 players, 2 bots (no ports/hubs)
+Tick 600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 700: 1 players, 2 bots (no ports/hubs)
+Tick 700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 800: 1 players, 2 bots (no ports/hubs)
+Tick 800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 900: 1 players, 2 bots (no ports/hubs)
+Tick 900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 1000: 1 players, 2 bots (no ports/hubs)
+Tick 1000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 1100: 1 players, 2 bots (no ports/hubs)
+Tick 1100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 1200: 1 players, 2 bots (no ports/hubs)
+Tick 1200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 1300: 1 players, 2 bots (no ports/hubs)
+Tick 1300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 1400: 1 players, 2 bots (no ports/hubs)
+Tick 1400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 1500: 1 players, 2 bots (no ports/hubs)
+Tick 1500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 1600: 1 players, 2 bots (no ports/hubs)
+Tick 1600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 1700: 1 players, 2 bots (no ports/hubs)
+Tick 1700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 1800: 1 players, 2 bots (no ports/hubs)
+Tick 1800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 1900: 1 players, 2 bots (no ports/hubs)
+Tick 1900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 2000: 1 players, 2 bots (no ports/hubs)
+Tick 2000: 1 players, 2 bots
+Player test (1DPcP8VFS2P5W8c6AAAB) left the game
+Client disconnected: 1DPcP8VFS2P5W8c6AAAB
+Client connected: 31UQum5V7q-PTUP3AAAD
+Player test (31UQum5V7q-PTUP3AAAD) joined the game
+🔧 Sending static data to 31UQum5V7q-PTUP3AAAD: 10 ports, 2 hubs
 Player test joined the game
-Player test arrived at Port P9, traded for 5000 profit
-⚡ Broadcasting dynamic state - Tick 3900: 1 players, 10 bots (no ports/hubs)
-Tick 3900: 1 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 4000: 1 players, 10 bots (no ports/hubs)
-Tick 4000: 1 players, 10 bots
-Player test arrived at Port F17, traded for 5000 profit
-⚡ Broadcasting dynamic state - Tick 4100: 1 players, 10 bots (no ports/hubs)
-Tick 4100: 1 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 4200: 1 players, 10 bots (no ports/hubs)
-Tick 4200: 1 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 4300: 1 players, 10 bots (no ports/hubs)
-Tick 4300: 1 players, 10 bots
-Player test (Aa-pAlCww3dH48y6AAAH) left the game
-Client disconnected: Aa-pAlCww3dH48y6AAAH
-⚡ Broadcasting dynamic state - Tick 4400: 0 players, 10 bots (no ports/hubs)
-Tick 4400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 4500: 0 players, 10 bots (no ports/hubs)
-Tick 4500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 4600: 0 players, 10 bots (no ports/hubs)
-Tick 4600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 4700: 0 players, 10 bots (no ports/hubs)
-Tick 4700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 4800: 0 players, 10 bots (no ports/hubs)
-Tick 4800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 4900: 0 players, 10 bots (no ports/hubs)
-Tick 4900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 5000: 0 players, 10 bots (no ports/hubs)
-Tick 5000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 5100: 0 players, 10 bots (no ports/hubs)
-Tick 5100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 5200: 0 players, 10 bots (no ports/hubs)
-Tick 5200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 5300: 0 players, 10 bots (no ports/hubs)
-Tick 5300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 5400: 0 players, 10 bots (no ports/hubs)
-Tick 5400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 5500: 0 players, 10 bots (no ports/hubs)
-Tick 5500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 5600: 0 players, 10 bots (no ports/hubs)
-Tick 5600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 5700: 0 players, 10 bots (no ports/hubs)
-Tick 5700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 5800: 0 players, 10 bots (no ports/hubs)
-Tick 5800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 5900: 0 players, 10 bots (no ports/hubs)
-Tick 5900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 6000: 0 players, 10 bots (no ports/hubs)
-Tick 6000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 6100: 0 players, 10 bots (no ports/hubs)
-Tick 6100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 6200: 0 players, 10 bots (no ports/hubs)
-Tick 6200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 6300: 0 players, 10 bots (no ports/hubs)
-Tick 6300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 6400: 0 players, 10 bots (no ports/hubs)
-Tick 6400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 6500: 0 players, 10 bots (no ports/hubs)
-Tick 6500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 6600: 0 players, 10 bots (no ports/hubs)
-Tick 6600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 6700: 0 players, 10 bots (no ports/hubs)
-Tick 6700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 6800: 0 players, 10 bots (no ports/hubs)
-Tick 6800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 6900: 0 players, 10 bots (no ports/hubs)
-Tick 6900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 7000: 0 players, 10 bots (no ports/hubs)
-Tick 7000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 7100: 0 players, 10 bots (no ports/hubs)
-Tick 7100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 7200: 0 players, 10 bots (no ports/hubs)
-Tick 7200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 7300: 0 players, 10 bots (no ports/hubs)
-Tick 7300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 7400: 0 players, 10 bots (no ports/hubs)
-Tick 7400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 7500: 0 players, 10 bots (no ports/hubs)
-Tick 7500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 7600: 0 players, 10 bots (no ports/hubs)
-Tick 7600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 7700: 0 players, 10 bots (no ports/hubs)
-Tick 7700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 7800: 0 players, 10 bots (no ports/hubs)
-Tick 7800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 7900: 0 players, 10 bots (no ports/hubs)
-Tick 7900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 8000: 0 players, 10 bots (no ports/hubs)
-Tick 8000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 8100: 0 players, 10 bots (no ports/hubs)
-Tick 8100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 8200: 0 players, 10 bots (no ports/hubs)
-Tick 8200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 8300: 0 players, 10 bots (no ports/hubs)
-Tick 8300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 8400: 0 players, 10 bots (no ports/hubs)
-Tick 8400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 8500: 0 players, 10 bots (no ports/hubs)
-Tick 8500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 8600: 0 players, 10 bots (no ports/hubs)
-Tick 8600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 8700: 0 players, 10 bots (no ports/hubs)
-Tick 8700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 8800: 0 players, 10 bots (no ports/hubs)
-Tick 8800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 8900: 0 players, 10 bots (no ports/hubs)
-Tick 8900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 9000: 0 players, 10 bots (no ports/hubs)
-Tick 9000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 9100: 0 players, 10 bots (no ports/hubs)
-Tick 9100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 9200: 0 players, 10 bots (no ports/hubs)
-Tick 9200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 9300: 0 players, 10 bots (no ports/hubs)
-Tick 9300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 9400: 0 players, 10 bots (no ports/hubs)
-Tick 9400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 9500: 0 players, 10 bots (no ports/hubs)
-Tick 9500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 9600: 0 players, 10 bots (no ports/hubs)
-Tick 9600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 9700: 0 players, 10 bots (no ports/hubs)
-Tick 9700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 9800: 0 players, 10 bots (no ports/hubs)
-Tick 9800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 9900: 0 players, 10 bots (no ports/hubs)
-Tick 9900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 10000: 0 players, 10 bots (no ports/hubs)
-Tick 10000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 10100: 0 players, 10 bots (no ports/hubs)
-Tick 10100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 10200: 0 players, 10 bots (no ports/hubs)
-Tick 10200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 10300: 0 players, 10 bots (no ports/hubs)
-Tick 10300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 10400: 0 players, 10 bots (no ports/hubs)
-Tick 10400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 10500: 0 players, 10 bots (no ports/hubs)
-Tick 10500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 10600: 0 players, 10 bots (no ports/hubs)
-Tick 10600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 10700: 0 players, 10 bots (no ports/hubs)
-Tick 10700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 10800: 0 players, 10 bots (no ports/hubs)
-Tick 10800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 10900: 0 players, 10 bots (no ports/hubs)
-Tick 10900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 11000: 0 players, 10 bots (no ports/hubs)
-Tick 11000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 11100: 0 players, 10 bots (no ports/hubs)
-Tick 11100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 11200: 0 players, 10 bots (no ports/hubs)
-Tick 11200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 11300: 0 players, 10 bots (no ports/hubs)
-Tick 11300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 11400: 0 players, 10 bots (no ports/hubs)
-Tick 11400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 11500: 0 players, 10 bots (no ports/hubs)
-Tick 11500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 11600: 0 players, 10 bots (no ports/hubs)
-Tick 11600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 11700: 0 players, 10 bots (no ports/hubs)
-Tick 11700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 11800: 0 players, 10 bots (no ports/hubs)
-Tick 11800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 11900: 0 players, 10 bots (no ports/hubs)
-Tick 11900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 12000: 0 players, 10 bots (no ports/hubs)
-Tick 12000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 12100: 0 players, 10 bots (no ports/hubs)
-Tick 12100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 12200: 0 players, 10 bots (no ports/hubs)
-Tick 12200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 12300: 0 players, 10 bots (no ports/hubs)
-Tick 12300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 12400: 0 players, 10 bots (no ports/hubs)
-Tick 12400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 12500: 0 players, 10 bots (no ports/hubs)
-Tick 12500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 12600: 0 players, 10 bots (no ports/hubs)
-Tick 12600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 12700: 0 players, 10 bots (no ports/hubs)
-Tick 12700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 12800: 0 players, 10 bots (no ports/hubs)
-Tick 12800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 12900: 0 players, 10 bots (no ports/hubs)
-Tick 12900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 13000: 0 players, 10 bots (no ports/hubs)
-Tick 13000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 13100: 0 players, 10 bots (no ports/hubs)
-Tick 13100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 13200: 0 players, 10 bots (no ports/hubs)
-Tick 13200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 13300: 0 players, 10 bots (no ports/hubs)
-Tick 13300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 13400: 0 players, 10 bots (no ports/hubs)
-Tick 13400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 13500: 0 players, 10 bots (no ports/hubs)
-Tick 13500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 13600: 0 players, 10 bots (no ports/hubs)
-Tick 13600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 13700: 0 players, 10 bots (no ports/hubs)
-Tick 13700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 13800: 0 players, 10 bots (no ports/hubs)
-Tick 13800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 13900: 0 players, 10 bots (no ports/hubs)
-Tick 13900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 14000: 0 players, 10 bots (no ports/hubs)
-Tick 14000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 14100: 0 players, 10 bots (no ports/hubs)
-Tick 14100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 14200: 0 players, 10 bots (no ports/hubs)
-Tick 14200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 14300: 0 players, 10 bots (no ports/hubs)
-Tick 14300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 14400: 0 players, 10 bots (no ports/hubs)
-Tick 14400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 14500: 0 players, 10 bots (no ports/hubs)
-Tick 14500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 14600: 0 players, 10 bots (no ports/hubs)
-Tick 14600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 14700: 0 players, 10 bots (no ports/hubs)
-Tick 14700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 14800: 0 players, 10 bots (no ports/hubs)
-Tick 14800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 14900: 0 players, 10 bots (no ports/hubs)
-Tick 14900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 15000: 0 players, 10 bots (no ports/hubs)
-Tick 15000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 15100: 0 players, 10 bots (no ports/hubs)
-Tick 15100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 15200: 0 players, 10 bots (no ports/hubs)
-Tick 15200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 15300: 0 players, 10 bots (no ports/hubs)
-Tick 15300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 15400: 0 players, 10 bots (no ports/hubs)
-Tick 15400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 15500: 0 players, 10 bots (no ports/hubs)
-Tick 15500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 15600: 0 players, 10 bots (no ports/hubs)
-Tick 15600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 15700: 0 players, 10 bots (no ports/hubs)
-Tick 15700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 15800: 0 players, 10 bots (no ports/hubs)
-Tick 15800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 15900: 0 players, 10 bots (no ports/hubs)
-Tick 15900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 16000: 0 players, 10 bots (no ports/hubs)
-Tick 16000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 16100: 0 players, 10 bots (no ports/hubs)
-Tick 16100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 16200: 0 players, 10 bots (no ports/hubs)
-Tick 16200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 16300: 0 players, 10 bots (no ports/hubs)
-Tick 16300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 16400: 0 players, 10 bots (no ports/hubs)
-Tick 16400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 16500: 0 players, 10 bots (no ports/hubs)
-Tick 16500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 16600: 0 players, 10 bots (no ports/hubs)
-Tick 16600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 16700: 0 players, 10 bots (no ports/hubs)
-Tick 16700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 16800: 0 players, 10 bots (no ports/hubs)
-Tick 16800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 16900: 0 players, 10 bots (no ports/hubs)
-Tick 16900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 17000: 0 players, 10 bots (no ports/hubs)
-Tick 17000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 17100: 0 players, 10 bots (no ports/hubs)
-Tick 17100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 17200: 0 players, 10 bots (no ports/hubs)
-Tick 17200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 17300: 0 players, 10 bots (no ports/hubs)
-Tick 17300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 17400: 0 players, 10 bots (no ports/hubs)
-Tick 17400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 17500: 0 players, 10 bots (no ports/hubs)
-Tick 17500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 17600: 0 players, 10 bots (no ports/hubs)
-Tick 17600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 17700: 0 players, 10 bots (no ports/hubs)
-Tick 17700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 17800: 0 players, 10 bots (no ports/hubs)
-Tick 17800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 17900: 0 players, 10 bots (no ports/hubs)
-Tick 17900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 18000: 0 players, 10 bots (no ports/hubs)
-Tick 18000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 18100: 0 players, 10 bots (no ports/hubs)
-Tick 18100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 18200: 0 players, 10 bots (no ports/hubs)
-Tick 18200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 18300: 0 players, 10 bots (no ports/hubs)
-Tick 18300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 18400: 0 players, 10 bots (no ports/hubs)
-Tick 18400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 18500: 0 players, 10 bots (no ports/hubs)
-Tick 18500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 18600: 0 players, 10 bots (no ports/hubs)
-Tick 18600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 18700: 0 players, 10 bots (no ports/hubs)
-Tick 18700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 18800: 0 players, 10 bots (no ports/hubs)
-Tick 18800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 18900: 0 players, 10 bots (no ports/hubs)
-Tick 18900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 19000: 0 players, 10 bots (no ports/hubs)
-Tick 19000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 19100: 0 players, 10 bots (no ports/hubs)
-Tick 19100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 19200: 0 players, 10 bots (no ports/hubs)
-Tick 19200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 19300: 0 players, 10 bots (no ports/hubs)
-Tick 19300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 19400: 0 players, 10 bots (no ports/hubs)
-Tick 19400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 19500: 0 players, 10 bots (no ports/hubs)
-Tick 19500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 19600: 0 players, 10 bots (no ports/hubs)
-Tick 19600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 19700: 0 players, 10 bots (no ports/hubs)
-Tick 19700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 19800: 0 players, 10 bots (no ports/hubs)
-Tick 19800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 19900: 0 players, 10 bots (no ports/hubs)
-Tick 19900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 20000: 0 players, 10 bots (no ports/hubs)
-Tick 20000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 20100: 0 players, 10 bots (no ports/hubs)
-Tick 20100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 20200: 0 players, 10 bots (no ports/hubs)
-Tick 20200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 20300: 0 players, 10 bots (no ports/hubs)
-Tick 20300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 20400: 0 players, 10 bots (no ports/hubs)
-Tick 20400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 20500: 0 players, 10 bots (no ports/hubs)
-Tick 20500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 20600: 0 players, 10 bots (no ports/hubs)
-Tick 20600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 20700: 0 players, 10 bots (no ports/hubs)
-Tick 20700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 20800: 0 players, 10 bots (no ports/hubs)
-Tick 20800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 20900: 0 players, 10 bots (no ports/hubs)
-Tick 20900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 21000: 0 players, 10 bots (no ports/hubs)
-Tick 21000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 21100: 0 players, 10 bots (no ports/hubs)
-Tick 21100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 21200: 0 players, 10 bots (no ports/hubs)
-Tick 21200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 21300: 0 players, 10 bots (no ports/hubs)
-Tick 21300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 21400: 0 players, 10 bots (no ports/hubs)
-Tick 21400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 21500: 0 players, 10 bots (no ports/hubs)
-Tick 21500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 21600: 0 players, 10 bots (no ports/hubs)
-Tick 21600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 21700: 0 players, 10 bots (no ports/hubs)
-Tick 21700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 21800: 0 players, 10 bots (no ports/hubs)
-Tick 21800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 21900: 0 players, 10 bots (no ports/hubs)
-Tick 21900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 22000: 0 players, 10 bots (no ports/hubs)
-Tick 22000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 22100: 0 players, 10 bots (no ports/hubs)
-Tick 22100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 22200: 0 players, 10 bots (no ports/hubs)
-Tick 22200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 22300: 0 players, 10 bots (no ports/hubs)
-Tick 22300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 22400: 0 players, 10 bots (no ports/hubs)
-Tick 22400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 22500: 0 players, 10 bots (no ports/hubs)
-Tick 22500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 22600: 0 players, 10 bots (no ports/hubs)
-Tick 22600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 22700: 0 players, 10 bots (no ports/hubs)
-Tick 22700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 22800: 0 players, 10 bots (no ports/hubs)
-Tick 22800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 22900: 0 players, 10 bots (no ports/hubs)
-Tick 22900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 23000: 0 players, 10 bots (no ports/hubs)
-Tick 23000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 23100: 0 players, 10 bots (no ports/hubs)
-Tick 23100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 23200: 0 players, 10 bots (no ports/hubs)
-Tick 23200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 23300: 0 players, 10 bots (no ports/hubs)
-Tick 23300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 23400: 0 players, 10 bots (no ports/hubs)
-Tick 23400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 23500: 0 players, 10 bots (no ports/hubs)
-Tick 23500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 23600: 0 players, 10 bots (no ports/hubs)
-Tick 23600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 23700: 0 players, 10 bots (no ports/hubs)
-Tick 23700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 23800: 0 players, 10 bots (no ports/hubs)
-Tick 23800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 23900: 0 players, 10 bots (no ports/hubs)
-Tick 23900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 24000: 0 players, 10 bots (no ports/hubs)
-Tick 24000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 24100: 0 players, 10 bots (no ports/hubs)
-Tick 24100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 24200: 0 players, 10 bots (no ports/hubs)
-Tick 24200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 24300: 0 players, 10 bots (no ports/hubs)
-Tick 24300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 24400: 0 players, 10 bots (no ports/hubs)
-Tick 24400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 24500: 0 players, 10 bots (no ports/hubs)
-Tick 24500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 24600: 0 players, 10 bots (no ports/hubs)
-Tick 24600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 24700: 0 players, 10 bots (no ports/hubs)
-Tick 24700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 24800: 0 players, 10 bots (no ports/hubs)
-Tick 24800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 24900: 0 players, 10 bots (no ports/hubs)
-Tick 24900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 25000: 0 players, 10 bots (no ports/hubs)
-Tick 25000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 25100: 0 players, 10 bots (no ports/hubs)
-Tick 25100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 25200: 0 players, 10 bots (no ports/hubs)
-Tick 25200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 25300: 0 players, 10 bots (no ports/hubs)
-Tick 25300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 25400: 0 players, 10 bots (no ports/hubs)
-Tick 25400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 25500: 0 players, 10 bots (no ports/hubs)
-Tick 25500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 25600: 0 players, 10 bots (no ports/hubs)
-Tick 25600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 25700: 0 players, 10 bots (no ports/hubs)
-Tick 25700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 25800: 0 players, 10 bots (no ports/hubs)
-Tick 25800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 25900: 0 players, 10 bots (no ports/hubs)
-Tick 25900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 26000: 0 players, 10 bots (no ports/hubs)
-Tick 26000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 26100: 0 players, 10 bots (no ports/hubs)
-Tick 26100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 26200: 0 players, 10 bots (no ports/hubs)
-Tick 26200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 26300: 0 players, 10 bots (no ports/hubs)
-Tick 26300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 26400: 0 players, 10 bots (no ports/hubs)
-Tick 26400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 26500: 0 players, 10 bots (no ports/hubs)
-Tick 26500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 26600: 0 players, 10 bots (no ports/hubs)
-Tick 26600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 26700: 0 players, 10 bots (no ports/hubs)
-Tick 26700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 26800: 0 players, 10 bots (no ports/hubs)
-Tick 26800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 26900: 0 players, 10 bots (no ports/hubs)
-Tick 26900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 27000: 0 players, 10 bots (no ports/hubs)
-Tick 27000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 27100: 0 players, 10 bots (no ports/hubs)
-Tick 27100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 27200: 0 players, 10 bots (no ports/hubs)
-Tick 27200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 27300: 0 players, 10 bots (no ports/hubs)
-Tick 27300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 27400: 0 players, 10 bots (no ports/hubs)
-Tick 27400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 27500: 0 players, 10 bots (no ports/hubs)
-Tick 27500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 27600: 0 players, 10 bots (no ports/hubs)
-Tick 27600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 27700: 0 players, 10 bots (no ports/hubs)
-Tick 27700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 27800: 0 players, 10 bots (no ports/hubs)
-Tick 27800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 27900: 0 players, 10 bots (no ports/hubs)
-Tick 27900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 28000: 0 players, 10 bots (no ports/hubs)
-Tick 28000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 28100: 0 players, 10 bots (no ports/hubs)
-Tick 28100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 28200: 0 players, 10 bots (no ports/hubs)
-Tick 28200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 28300: 0 players, 10 bots (no ports/hubs)
-Tick 28300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 28400: 0 players, 10 bots (no ports/hubs)
-Tick 28400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 28500: 0 players, 10 bots (no ports/hubs)
-Tick 28500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 28600: 0 players, 10 bots (no ports/hubs)
-Tick 28600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 28700: 0 players, 10 bots (no ports/hubs)
-Tick 28700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 28800: 0 players, 10 bots (no ports/hubs)
-Tick 28800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 28900: 0 players, 10 bots (no ports/hubs)
-Tick 28900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 29000: 0 players, 10 bots (no ports/hubs)
-Tick 29000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 29100: 0 players, 10 bots (no ports/hubs)
-Tick 29100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 29200: 0 players, 10 bots (no ports/hubs)
-Tick 29200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 29300: 0 players, 10 bots (no ports/hubs)
-Tick 29300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 29400: 0 players, 10 bots (no ports/hubs)
-Tick 29400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 29500: 0 players, 10 bots (no ports/hubs)
-Tick 29500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 29600: 0 players, 10 bots (no ports/hubs)
-Tick 29600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 29700: 0 players, 10 bots (no ports/hubs)
-Tick 29700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 29800: 0 players, 10 bots (no ports/hubs)
-Tick 29800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 29900: 0 players, 10 bots (no ports/hubs)
-Tick 29900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 30000: 0 players, 10 bots (no ports/hubs)
-Tick 30000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 30100: 0 players, 10 bots (no ports/hubs)
-Tick 30100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 30200: 0 players, 10 bots (no ports/hubs)
-Tick 30200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 30300: 0 players, 10 bots (no ports/hubs)
-Tick 30300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 30400: 0 players, 10 bots (no ports/hubs)
-Tick 30400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 30500: 0 players, 10 bots (no ports/hubs)
-Tick 30500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 30600: 0 players, 10 bots (no ports/hubs)
-Tick 30600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 30700: 0 players, 10 bots (no ports/hubs)
-Tick 30700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 30800: 0 players, 10 bots (no ports/hubs)
-Tick 30800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 30900: 0 players, 10 bots (no ports/hubs)
-Tick 30900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 31000: 0 players, 10 bots (no ports/hubs)
-Tick 31000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 31100: 0 players, 10 bots (no ports/hubs)
-Tick 31100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 31200: 0 players, 10 bots (no ports/hubs)
-Tick 31200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 31300: 0 players, 10 bots (no ports/hubs)
-Tick 31300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 31400: 0 players, 10 bots (no ports/hubs)
-Tick 31400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 31500: 0 players, 10 bots (no ports/hubs)
-Tick 31500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 31600: 0 players, 10 bots (no ports/hubs)
-Tick 31600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 31700: 0 players, 10 bots (no ports/hubs)
-Tick 31700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 31800: 0 players, 10 bots (no ports/hubs)
-Tick 31800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 31900: 0 players, 10 bots (no ports/hubs)
-Tick 31900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 32000: 0 players, 10 bots (no ports/hubs)
-Tick 32000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 32100: 0 players, 10 bots (no ports/hubs)
-Tick 32100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 32200: 0 players, 10 bots (no ports/hubs)
-Tick 32200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 32300: 0 players, 10 bots (no ports/hubs)
-Tick 32300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 32400: 0 players, 10 bots (no ports/hubs)
-Tick 32400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 32500: 0 players, 10 bots (no ports/hubs)
-Tick 32500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 32600: 0 players, 10 bots (no ports/hubs)
-Tick 32600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 32700: 0 players, 10 bots (no ports/hubs)
-Tick 32700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 32800: 0 players, 10 bots (no ports/hubs)
-Tick 32800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 32900: 0 players, 10 bots (no ports/hubs)
-Tick 32900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 33000: 0 players, 10 bots (no ports/hubs)
-Tick 33000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 33100: 0 players, 10 bots (no ports/hubs)
-Tick 33100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 33200: 0 players, 10 bots (no ports/hubs)
-Tick 33200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 33300: 0 players, 10 bots (no ports/hubs)
-Tick 33300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 33400: 0 players, 10 bots (no ports/hubs)
-Tick 33400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 33500: 0 players, 10 bots (no ports/hubs)
-Tick 33500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 33600: 0 players, 10 bots (no ports/hubs)
-Tick 33600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 33700: 0 players, 10 bots (no ports/hubs)
-Tick 33700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 33800: 0 players, 10 bots (no ports/hubs)
-Tick 33800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 33900: 0 players, 10 bots (no ports/hubs)
-Tick 33900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 34000: 0 players, 10 bots (no ports/hubs)
-Tick 34000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 34100: 0 players, 10 bots (no ports/hubs)
-Tick 34100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 34200: 0 players, 10 bots (no ports/hubs)
-Tick 34200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 34300: 0 players, 10 bots (no ports/hubs)
-Tick 34300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 34400: 0 players, 10 bots (no ports/hubs)
-Tick 34400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 34500: 0 players, 10 bots (no ports/hubs)
-Tick 34500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 34600: 0 players, 10 bots (no ports/hubs)
-Tick 34600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 34700: 0 players, 10 bots (no ports/hubs)
-Tick 34700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 34800: 0 players, 10 bots (no ports/hubs)
-Tick 34800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 34900: 0 players, 10 bots (no ports/hubs)
-Tick 34900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 35000: 0 players, 10 bots (no ports/hubs)
-Tick 35000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 35100: 0 players, 10 bots (no ports/hubs)
-Tick 35100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 35200: 0 players, 10 bots (no ports/hubs)
-Tick 35200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 35300: 0 players, 10 bots (no ports/hubs)
-Tick 35300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 35400: 0 players, 10 bots (no ports/hubs)
-Tick 35400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 35500: 0 players, 10 bots (no ports/hubs)
-Tick 35500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 35600: 0 players, 10 bots (no ports/hubs)
-Tick 35600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 35700: 0 players, 10 bots (no ports/hubs)
-Tick 35700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 35800: 0 players, 10 bots (no ports/hubs)
-Tick 35800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 35900: 0 players, 10 bots (no ports/hubs)
-Tick 35900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 36000: 0 players, 10 bots (no ports/hubs)
-Tick 36000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 36100: 0 players, 10 bots (no ports/hubs)
-Tick 36100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 36200: 0 players, 10 bots (no ports/hubs)
-Tick 36200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 36300: 0 players, 10 bots (no ports/hubs)
-Tick 36300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 36400: 0 players, 10 bots (no ports/hubs)
-Tick 36400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 36500: 0 players, 10 bots (no ports/hubs)
-Tick 36500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 36600: 0 players, 10 bots (no ports/hubs)
-Tick 36600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 36700: 0 players, 10 bots (no ports/hubs)
-Tick 36700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 36800: 0 players, 10 bots (no ports/hubs)
-Tick 36800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 36900: 0 players, 10 bots (no ports/hubs)
-Tick 36900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 37000: 0 players, 10 bots (no ports/hubs)
-Tick 37000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 37100: 0 players, 10 bots (no ports/hubs)
-Tick 37100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 37200: 0 players, 10 bots (no ports/hubs)
-Tick 37200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 37300: 0 players, 10 bots (no ports/hubs)
-Tick 37300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 37400: 0 players, 10 bots (no ports/hubs)
-Tick 37400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 37500: 0 players, 10 bots (no ports/hubs)
-Tick 37500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 37600: 0 players, 10 bots (no ports/hubs)
-Tick 37600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 37700: 0 players, 10 bots (no ports/hubs)
-Tick 37700: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 37800: 0 players, 10 bots (no ports/hubs)
-Tick 37800: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 37900: 0 players, 10 bots (no ports/hubs)
-Tick 37900: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 38000: 0 players, 10 bots (no ports/hubs)
-Tick 38000: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 38100: 0 players, 10 bots (no ports/hubs)
-Tick 38100: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 38200: 0 players, 10 bots (no ports/hubs)
-Tick 38200: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 38300: 0 players, 10 bots (no ports/hubs)
-Tick 38300: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 38400: 0 players, 10 bots (no ports/hubs)
-Tick 38400: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 38500: 0 players, 10 bots (no ports/hubs)
-Tick 38500: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 38600: 0 players, 10 bots (no ports/hubs)
-Tick 38600: 0 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 38700: 0 players, 10 bots (no ports/hubs)
-Tick 38700: 0 players, 10 bots
-Client connected: NwHYFJ7KWlYmyylPAAAJ
-Player test (NwHYFJ7KWlYmyylPAAAJ) joined the game
-🔧 Sending static data to NwHYFJ7KWlYmyylPAAAJ: 500 ports, 50 hubs
+⚡ Broadcasting dynamic state - Tick 2100: 1 players, 2 bots (no ports/hubs)
+Tick 2100: 1 players, 2 bots
+Player test arrived at Port A3, traded for 3482 profit
+⚡ Broadcasting dynamic state - Tick 2200: 1 players, 2 bots (no ports/hubs)
+Tick 2200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 2300: 1 players, 2 bots (no ports/hubs)
+Tick 2300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 2400: 1 players, 2 bots (no ports/hubs)
+Tick 2400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 2500: 1 players, 2 bots (no ports/hubs)
+Tick 2500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 2600: 1 players, 2 bots (no ports/hubs)
+Tick 2600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 2700: 1 players, 2 bots (no ports/hubs)
+Tick 2700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 2800: 1 players, 2 bots (no ports/hubs)
+Tick 2800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 2900: 1 players, 2 bots (no ports/hubs)
+Tick 2900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 3000: 1 players, 2 bots (no ports/hubs)
+Tick 3000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 3100: 1 players, 2 bots (no ports/hubs)
+Tick 3100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 3200: 1 players, 2 bots (no ports/hubs)
+Tick 3200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 3300: 1 players, 2 bots (no ports/hubs)
+Tick 3300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 3400: 1 players, 2 bots (no ports/hubs)
+Tick 3400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 3500: 1 players, 2 bots (no ports/hubs)
+Tick 3500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 3600: 1 players, 2 bots (no ports/hubs)
+Tick 3600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 3700: 1 players, 2 bots (no ports/hubs)
+Tick 3700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 3800: 1 players, 2 bots (no ports/hubs)
+Tick 3800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 3900: 1 players, 2 bots (no ports/hubs)
+Tick 3900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 4000: 1 players, 2 bots (no ports/hubs)
+Tick 4000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 4100: 1 players, 2 bots (no ports/hubs)
+Tick 4100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 4200: 1 players, 2 bots (no ports/hubs)
+Tick 4200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 4300: 1 players, 2 bots (no ports/hubs)
+Tick 4300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 4400: 1 players, 2 bots (no ports/hubs)
+Tick 4400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 4500: 1 players, 2 bots (no ports/hubs)
+Tick 4500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 4600: 1 players, 2 bots (no ports/hubs)
+Tick 4600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 4700: 1 players, 2 bots (no ports/hubs)
+Tick 4700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 4800: 1 players, 2 bots (no ports/hubs)
+Tick 4800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 4900: 1 players, 2 bots (no ports/hubs)
+Tick 4900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 5000: 1 players, 2 bots (no ports/hubs)
+Tick 5000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 5100: 1 players, 2 bots (no ports/hubs)
+Tick 5100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 5200: 1 players, 2 bots (no ports/hubs)
+Tick 5200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 5300: 1 players, 2 bots (no ports/hubs)
+Tick 5300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 5400: 1 players, 2 bots (no ports/hubs)
+Tick 5400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 5500: 1 players, 2 bots (no ports/hubs)
+Tick 5500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 5600: 1 players, 2 bots (no ports/hubs)
+Tick 5600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 5700: 1 players, 2 bots (no ports/hubs)
+Tick 5700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 5800: 1 players, 2 bots (no ports/hubs)
+Tick 5800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 5900: 1 players, 2 bots (no ports/hubs)
+Tick 5900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 6000: 1 players, 2 bots (no ports/hubs)
+Tick 6000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 6100: 1 players, 2 bots (no ports/hubs)
+Tick 6100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 6200: 1 players, 2 bots (no ports/hubs)
+Tick 6200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 6300: 1 players, 2 bots (no ports/hubs)
+Tick 6300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 6400: 1 players, 2 bots (no ports/hubs)
+Tick 6400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 6500: 1 players, 2 bots (no ports/hubs)
+Tick 6500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 6600: 1 players, 2 bots (no ports/hubs)
+Tick 6600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 6700: 1 players, 2 bots (no ports/hubs)
+Tick 6700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 6800: 1 players, 2 bots (no ports/hubs)
+Tick 6800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 6900: 1 players, 2 bots (no ports/hubs)
+Tick 6900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 7000: 1 players, 2 bots (no ports/hubs)
+Tick 7000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 7100: 1 players, 2 bots (no ports/hubs)
+Tick 7100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 7200: 1 players, 2 bots (no ports/hubs)
+Tick 7200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 7300: 1 players, 2 bots (no ports/hubs)
+Tick 7300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 7400: 1 players, 2 bots (no ports/hubs)
+Tick 7400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 7500: 1 players, 2 bots (no ports/hubs)
+Tick 7500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 7600: 1 players, 2 bots (no ports/hubs)
+Tick 7600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 7700: 1 players, 2 bots (no ports/hubs)
+Tick 7700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 7800: 1 players, 2 bots (no ports/hubs)
+Tick 7800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 7900: 1 players, 2 bots (no ports/hubs)
+Tick 7900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 8000: 1 players, 2 bots (no ports/hubs)
+Tick 8000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 8100: 1 players, 2 bots (no ports/hubs)
+Tick 8100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 8200: 1 players, 2 bots (no ports/hubs)
+Tick 8200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 8300: 1 players, 2 bots (no ports/hubs)
+Tick 8300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 8400: 1 players, 2 bots (no ports/hubs)
+Tick 8400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 8500: 1 players, 2 bots (no ports/hubs)
+Tick 8500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 8600: 1 players, 2 bots (no ports/hubs)
+Tick 8600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 8700: 1 players, 2 bots (no ports/hubs)
+Tick 8700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 8800: 1 players, 2 bots (no ports/hubs)
+Tick 8800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 8900: 1 players, 2 bots (no ports/hubs)
+Tick 8900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 9000: 1 players, 2 bots (no ports/hubs)
+Tick 9000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 9100: 1 players, 2 bots (no ports/hubs)
+Tick 9100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 9200: 1 players, 2 bots (no ports/hubs)
+Tick 9200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 9300: 1 players, 2 bots (no ports/hubs)
+Tick 9300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 9400: 1 players, 2 bots (no ports/hubs)
+Tick 9400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 9500: 1 players, 2 bots (no ports/hubs)
+Tick 9500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 9600: 1 players, 2 bots (no ports/hubs)
+Tick 9600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 9700: 1 players, 2 bots (no ports/hubs)
+Tick 9700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 9800: 1 players, 2 bots (no ports/hubs)
+Tick 9800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 9900: 1 players, 2 bots (no ports/hubs)
+Tick 9900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 10000: 1 players, 2 bots (no ports/hubs)
+Tick 10000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 10100: 1 players, 2 bots (no ports/hubs)
+Tick 10100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 10200: 1 players, 2 bots (no ports/hubs)
+Tick 10200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 10300: 1 players, 2 bots (no ports/hubs)
+Tick 10300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 10400: 1 players, 2 bots (no ports/hubs)
+Tick 10400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 10500: 1 players, 2 bots (no ports/hubs)
+Tick 10500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 10600: 1 players, 2 bots (no ports/hubs)
+Tick 10600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 10700: 1 players, 2 bots (no ports/hubs)
+Tick 10700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 10800: 1 players, 2 bots (no ports/hubs)
+Tick 10800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 10900: 1 players, 2 bots (no ports/hubs)
+Tick 10900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 11000: 1 players, 2 bots (no ports/hubs)
+Tick 11000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 11100: 1 players, 2 bots (no ports/hubs)
+Tick 11100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 11200: 1 players, 2 bots (no ports/hubs)
+Tick 11200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 11300: 1 players, 2 bots (no ports/hubs)
+Tick 11300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 11400: 1 players, 2 bots (no ports/hubs)
+Tick 11400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 11500: 1 players, 2 bots (no ports/hubs)
+Tick 11500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 11600: 1 players, 2 bots (no ports/hubs)
+Tick 11600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 11700: 1 players, 2 bots (no ports/hubs)
+Tick 11700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 11800: 1 players, 2 bots (no ports/hubs)
+Tick 11800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 11900: 1 players, 2 bots (no ports/hubs)
+Tick 11900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 12000: 1 players, 2 bots (no ports/hubs)
+Tick 12000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 12100: 1 players, 2 bots (no ports/hubs)
+Tick 12100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 12200: 1 players, 2 bots (no ports/hubs)
+Tick 12200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 12300: 1 players, 2 bots (no ports/hubs)
+Tick 12300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 12400: 1 players, 2 bots (no ports/hubs)
+Tick 12400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 12500: 1 players, 2 bots (no ports/hubs)
+Tick 12500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 12600: 1 players, 2 bots (no ports/hubs)
+Tick 12600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 12700: 1 players, 2 bots (no ports/hubs)
+Tick 12700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 12800: 1 players, 2 bots (no ports/hubs)
+Tick 12800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 12900: 1 players, 2 bots (no ports/hubs)
+Tick 12900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 13000: 1 players, 2 bots (no ports/hubs)
+Tick 13000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 13100: 1 players, 2 bots (no ports/hubs)
+Tick 13100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 13200: 1 players, 2 bots (no ports/hubs)
+Tick 13200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 13300: 1 players, 2 bots (no ports/hubs)
+Tick 13300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 13400: 1 players, 2 bots (no ports/hubs)
+Tick 13400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 13500: 1 players, 2 bots (no ports/hubs)
+Tick 13500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 13600: 1 players, 2 bots (no ports/hubs)
+Tick 13600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 13700: 1 players, 2 bots (no ports/hubs)
+Tick 13700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 13800: 1 players, 2 bots (no ports/hubs)
+Tick 13800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 13900: 1 players, 2 bots (no ports/hubs)
+Tick 13900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 14000: 1 players, 2 bots (no ports/hubs)
+Tick 14000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 14100: 1 players, 2 bots (no ports/hubs)
+Tick 14100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 14200: 1 players, 2 bots (no ports/hubs)
+Tick 14200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 14300: 1 players, 2 bots (no ports/hubs)
+Tick 14300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 14400: 1 players, 2 bots (no ports/hubs)
+Tick 14400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 14500: 1 players, 2 bots (no ports/hubs)
+Tick 14500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 14600: 1 players, 2 bots (no ports/hubs)
+Tick 14600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 14700: 1 players, 2 bots (no ports/hubs)
+Tick 14700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 14800: 1 players, 2 bots (no ports/hubs)
+Tick 14800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 14900: 1 players, 2 bots (no ports/hubs)
+Tick 14900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 15000: 1 players, 2 bots (no ports/hubs)
+Tick 15000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 15100: 1 players, 2 bots (no ports/hubs)
+Tick 15100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 15200: 1 players, 2 bots (no ports/hubs)
+Tick 15200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 15300: 1 players, 2 bots (no ports/hubs)
+Tick 15300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 15400: 1 players, 2 bots (no ports/hubs)
+Tick 15400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 15500: 1 players, 2 bots (no ports/hubs)
+Tick 15500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 15600: 1 players, 2 bots (no ports/hubs)
+Tick 15600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 15700: 1 players, 2 bots (no ports/hubs)
+Tick 15700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 15800: 1 players, 2 bots (no ports/hubs)
+Tick 15800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 15900: 1 players, 2 bots (no ports/hubs)
+Tick 15900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 16000: 1 players, 2 bots (no ports/hubs)
+Tick 16000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 16100: 1 players, 2 bots (no ports/hubs)
+Tick 16100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 16200: 1 players, 2 bots (no ports/hubs)
+Tick 16200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 16300: 1 players, 2 bots (no ports/hubs)
+Tick 16300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 16400: 1 players, 2 bots (no ports/hubs)
+Tick 16400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 16500: 1 players, 2 bots (no ports/hubs)
+Tick 16500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 16600: 1 players, 2 bots (no ports/hubs)
+Tick 16600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 16700: 1 players, 2 bots (no ports/hubs)
+Tick 16700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 16800: 1 players, 2 bots (no ports/hubs)
+Tick 16800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 16900: 1 players, 2 bots (no ports/hubs)
+Tick 16900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 17000: 1 players, 2 bots (no ports/hubs)
+Tick 17000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 17100: 1 players, 2 bots (no ports/hubs)
+Tick 17100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 17200: 1 players, 2 bots (no ports/hubs)
+Tick 17200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 17300: 1 players, 2 bots (no ports/hubs)
+Tick 17300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 17400: 1 players, 2 bots (no ports/hubs)
+Tick 17400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 17500: 1 players, 2 bots (no ports/hubs)
+Tick 17500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 17600: 1 players, 2 bots (no ports/hubs)
+Tick 17600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 17700: 1 players, 2 bots (no ports/hubs)
+Tick 17700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 17800: 1 players, 2 bots (no ports/hubs)
+Tick 17800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 17900: 1 players, 2 bots (no ports/hubs)
+Tick 17900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 18000: 1 players, 2 bots (no ports/hubs)
+Tick 18000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 18100: 1 players, 2 bots (no ports/hubs)
+Tick 18100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 18200: 1 players, 2 bots (no ports/hubs)
+Tick 18200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 18300: 1 players, 2 bots (no ports/hubs)
+Tick 18300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 18400: 1 players, 2 bots (no ports/hubs)
+Tick 18400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 18500: 1 players, 2 bots (no ports/hubs)
+Tick 18500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 18600: 1 players, 2 bots (no ports/hubs)
+Tick 18600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 18700: 1 players, 2 bots (no ports/hubs)
+Tick 18700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 18800: 1 players, 2 bots (no ports/hubs)
+Tick 18800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 18900: 1 players, 2 bots (no ports/hubs)
+Tick 18900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 19000: 1 players, 2 bots (no ports/hubs)
+Tick 19000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 19100: 1 players, 2 bots (no ports/hubs)
+Tick 19100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 19200: 1 players, 2 bots (no ports/hubs)
+Tick 19200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 19300: 1 players, 2 bots (no ports/hubs)
+Tick 19300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 19400: 1 players, 2 bots (no ports/hubs)
+Tick 19400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 19500: 1 players, 2 bots (no ports/hubs)
+Tick 19500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 19600: 1 players, 2 bots (no ports/hubs)
+Tick 19600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 19700: 1 players, 2 bots (no ports/hubs)
+Tick 19700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 19800: 1 players, 2 bots (no ports/hubs)
+Tick 19800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 19900: 1 players, 2 bots (no ports/hubs)
+Tick 19900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 20000: 1 players, 2 bots (no ports/hubs)
+Tick 20000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 20100: 1 players, 2 bots (no ports/hubs)
+Tick 20100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 20200: 1 players, 2 bots (no ports/hubs)
+Tick 20200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 20300: 1 players, 2 bots (no ports/hubs)
+Tick 20300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 20400: 1 players, 2 bots (no ports/hubs)
+Tick 20400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 20500: 1 players, 2 bots (no ports/hubs)
+Tick 20500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 20600: 1 players, 2 bots (no ports/hubs)
+Tick 20600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 20700: 1 players, 2 bots (no ports/hubs)
+Tick 20700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 20800: 1 players, 2 bots (no ports/hubs)
+Tick 20800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 20900: 1 players, 2 bots (no ports/hubs)
+Tick 20900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 21000: 1 players, 2 bots (no ports/hubs)
+Tick 21000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 21100: 1 players, 2 bots (no ports/hubs)
+Tick 21100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 21200: 1 players, 2 bots (no ports/hubs)
+Tick 21200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 21300: 1 players, 2 bots (no ports/hubs)
+Tick 21300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 21400: 1 players, 2 bots (no ports/hubs)
+Tick 21400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 21500: 1 players, 2 bots (no ports/hubs)
+Tick 21500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 21600: 1 players, 2 bots (no ports/hubs)
+Tick 21600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 21700: 1 players, 2 bots (no ports/hubs)
+Tick 21700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 21800: 1 players, 2 bots (no ports/hubs)
+Tick 21800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 21900: 1 players, 2 bots (no ports/hubs)
+Tick 21900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 22000: 1 players, 2 bots (no ports/hubs)
+Tick 22000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 22100: 1 players, 2 bots (no ports/hubs)
+Tick 22100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 22200: 1 players, 2 bots (no ports/hubs)
+Tick 22200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 22300: 1 players, 2 bots (no ports/hubs)
+Tick 22300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 22400: 1 players, 2 bots (no ports/hubs)
+Tick 22400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 22500: 1 players, 2 bots (no ports/hubs)
+Tick 22500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 22600: 1 players, 2 bots (no ports/hubs)
+Tick 22600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 22700: 1 players, 2 bots (no ports/hubs)
+Tick 22700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 22800: 1 players, 2 bots (no ports/hubs)
+Tick 22800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 22900: 1 players, 2 bots (no ports/hubs)
+Tick 22900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 23000: 1 players, 2 bots (no ports/hubs)
+Tick 23000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 23100: 1 players, 2 bots (no ports/hubs)
+Tick 23100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 23200: 1 players, 2 bots (no ports/hubs)
+Tick 23200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 23300: 1 players, 2 bots (no ports/hubs)
+Tick 23300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 23400: 1 players, 2 bots (no ports/hubs)
+Tick 23400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 23500: 1 players, 2 bots (no ports/hubs)
+Tick 23500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 23600: 1 players, 2 bots (no ports/hubs)
+Tick 23600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 23700: 1 players, 2 bots (no ports/hubs)
+Tick 23700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 23800: 1 players, 2 bots (no ports/hubs)
+Tick 23800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 23900: 1 players, 2 bots (no ports/hubs)
+Tick 23900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 24000: 1 players, 2 bots (no ports/hubs)
+Tick 24000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 24100: 1 players, 2 bots (no ports/hubs)
+Tick 24100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 24200: 1 players, 2 bots (no ports/hubs)
+Tick 24200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 24300: 1 players, 2 bots (no ports/hubs)
+Tick 24300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 24400: 1 players, 2 bots (no ports/hubs)
+Tick 24400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 24500: 1 players, 2 bots (no ports/hubs)
+Tick 24500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 24600: 1 players, 2 bots (no ports/hubs)
+Tick 24600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 24700: 1 players, 2 bots (no ports/hubs)
+Tick 24700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 24800: 1 players, 2 bots (no ports/hubs)
+Tick 24800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 24900: 1 players, 2 bots (no ports/hubs)
+Tick 24900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 25000: 1 players, 2 bots (no ports/hubs)
+Tick 25000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 25100: 1 players, 2 bots (no ports/hubs)
+Tick 25100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 25200: 1 players, 2 bots (no ports/hubs)
+Tick 25200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 25300: 1 players, 2 bots (no ports/hubs)
+Tick 25300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 25400: 1 players, 2 bots (no ports/hubs)
+Tick 25400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 25500: 1 players, 2 bots (no ports/hubs)
+Tick 25500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 25600: 1 players, 2 bots (no ports/hubs)
+Tick 25600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 25700: 1 players, 2 bots (no ports/hubs)
+Tick 25700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 25800: 1 players, 2 bots (no ports/hubs)
+Tick 25800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 25900: 1 players, 2 bots (no ports/hubs)
+Tick 25900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 26000: 1 players, 2 bots (no ports/hubs)
+Tick 26000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 26100: 1 players, 2 bots (no ports/hubs)
+Tick 26100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 26200: 1 players, 2 bots (no ports/hubs)
+Tick 26200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 26300: 1 players, 2 bots (no ports/hubs)
+Tick 26300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 26400: 1 players, 2 bots (no ports/hubs)
+Tick 26400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 26500: 1 players, 2 bots (no ports/hubs)
+Tick 26500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 26600: 1 players, 2 bots (no ports/hubs)
+Tick 26600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 26700: 1 players, 2 bots (no ports/hubs)
+Tick 26700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 26800: 1 players, 2 bots (no ports/hubs)
+Tick 26800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 26900: 1 players, 2 bots (no ports/hubs)
+Tick 26900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 27000: 1 players, 2 bots (no ports/hubs)
+Tick 27000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 27100: 1 players, 2 bots (no ports/hubs)
+Tick 27100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 27200: 1 players, 2 bots (no ports/hubs)
+Tick 27200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 27300: 1 players, 2 bots (no ports/hubs)
+Tick 27300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 27400: 1 players, 2 bots (no ports/hubs)
+Tick 27400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 27500: 1 players, 2 bots (no ports/hubs)
+Tick 27500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 27600: 1 players, 2 bots (no ports/hubs)
+Tick 27600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 27700: 1 players, 2 bots (no ports/hubs)
+Tick 27700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 27800: 1 players, 2 bots (no ports/hubs)
+Tick 27800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 27900: 1 players, 2 bots (no ports/hubs)
+Tick 27900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 28000: 1 players, 2 bots (no ports/hubs)
+Tick 28000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 28100: 1 players, 2 bots (no ports/hubs)
+Tick 28100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 28200: 1 players, 2 bots (no ports/hubs)
+Tick 28200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 28300: 1 players, 2 bots (no ports/hubs)
+Tick 28300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 28400: 1 players, 2 bots (no ports/hubs)
+Tick 28400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 28500: 1 players, 2 bots (no ports/hubs)
+Tick 28500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 28600: 1 players, 2 bots (no ports/hubs)
+Tick 28600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 28700: 1 players, 2 bots (no ports/hubs)
+Tick 28700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 28800: 1 players, 2 bots (no ports/hubs)
+Tick 28800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 28900: 1 players, 2 bots (no ports/hubs)
+Tick 28900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 29000: 1 players, 2 bots (no ports/hubs)
+Tick 29000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 29100: 1 players, 2 bots (no ports/hubs)
+Tick 29100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 29200: 1 players, 2 bots (no ports/hubs)
+Tick 29200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 29300: 1 players, 2 bots (no ports/hubs)
+Tick 29300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 29400: 1 players, 2 bots (no ports/hubs)
+Tick 29400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 29500: 1 players, 2 bots (no ports/hubs)
+Tick 29500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 29600: 1 players, 2 bots (no ports/hubs)
+Tick 29600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 29700: 1 players, 2 bots (no ports/hubs)
+Tick 29700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 29800: 1 players, 2 bots (no ports/hubs)
+Tick 29800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 29900: 1 players, 2 bots (no ports/hubs)
+Tick 29900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 30000: 1 players, 2 bots (no ports/hubs)
+Tick 30000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 30100: 1 players, 2 bots (no ports/hubs)
+Tick 30100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 30200: 1 players, 2 bots (no ports/hubs)
+Tick 30200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 30300: 1 players, 2 bots (no ports/hubs)
+Tick 30300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 30400: 1 players, 2 bots (no ports/hubs)
+Tick 30400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 30500: 1 players, 2 bots (no ports/hubs)
+Tick 30500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 30600: 1 players, 2 bots (no ports/hubs)
+Tick 30600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 30700: 1 players, 2 bots (no ports/hubs)
+Tick 30700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 30800: 1 players, 2 bots (no ports/hubs)
+Tick 30800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 30900: 1 players, 2 bots (no ports/hubs)
+Tick 30900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 31000: 1 players, 2 bots (no ports/hubs)
+Tick 31000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 31100: 1 players, 2 bots (no ports/hubs)
+Tick 31100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 31200: 1 players, 2 bots (no ports/hubs)
+Tick 31200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 31300: 1 players, 2 bots (no ports/hubs)
+Tick 31300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 31400: 1 players, 2 bots (no ports/hubs)
+Tick 31400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 31500: 1 players, 2 bots (no ports/hubs)
+Tick 31500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 31600: 1 players, 2 bots (no ports/hubs)
+Tick 31600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 31700: 1 players, 2 bots (no ports/hubs)
+Tick 31700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 31800: 1 players, 2 bots (no ports/hubs)
+Tick 31800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 31900: 1 players, 2 bots (no ports/hubs)
+Tick 31900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 32000: 1 players, 2 bots (no ports/hubs)
+Tick 32000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 32100: 1 players, 2 bots (no ports/hubs)
+Tick 32100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 32200: 1 players, 2 bots (no ports/hubs)
+Tick 32200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 32300: 1 players, 2 bots (no ports/hubs)
+Tick 32300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 32400: 1 players, 2 bots (no ports/hubs)
+Tick 32400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 32500: 1 players, 2 bots (no ports/hubs)
+Tick 32500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 32600: 1 players, 2 bots (no ports/hubs)
+Tick 32600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 32700: 1 players, 2 bots (no ports/hubs)
+Tick 32700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 32800: 1 players, 2 bots (no ports/hubs)
+Tick 32800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 32900: 1 players, 2 bots (no ports/hubs)
+Tick 32900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 33000: 1 players, 2 bots (no ports/hubs)
+Tick 33000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 33100: 1 players, 2 bots (no ports/hubs)
+Tick 33100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 33200: 1 players, 2 bots (no ports/hubs)
+Tick 33200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 33300: 1 players, 2 bots (no ports/hubs)
+Tick 33300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 33400: 1 players, 2 bots (no ports/hubs)
+Tick 33400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 33500: 1 players, 2 bots (no ports/hubs)
+Tick 33500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 33600: 1 players, 2 bots (no ports/hubs)
+Tick 33600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 33700: 1 players, 2 bots (no ports/hubs)
+Tick 33700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 33800: 1 players, 2 bots (no ports/hubs)
+Tick 33800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 33900: 1 players, 2 bots (no ports/hubs)
+Tick 33900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 34000: 1 players, 2 bots (no ports/hubs)
+Tick 34000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 34100: 1 players, 2 bots (no ports/hubs)
+Tick 34100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 34200: 1 players, 2 bots (no ports/hubs)
+Tick 34200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 34300: 1 players, 2 bots (no ports/hubs)
+Tick 34300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 34400: 1 players, 2 bots (no ports/hubs)
+Tick 34400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 34500: 1 players, 2 bots (no ports/hubs)
+Tick 34500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 34600: 1 players, 2 bots (no ports/hubs)
+Tick 34600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 34700: 1 players, 2 bots (no ports/hubs)
+Tick 34700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 34800: 1 players, 2 bots (no ports/hubs)
+Tick 34800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 34900: 1 players, 2 bots (no ports/hubs)
+Tick 34900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 35000: 1 players, 2 bots (no ports/hubs)
+Tick 35000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 35100: 1 players, 2 bots (no ports/hubs)
+Tick 35100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 35200: 1 players, 2 bots (no ports/hubs)
+Tick 35200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 35300: 1 players, 2 bots (no ports/hubs)
+Tick 35300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 35400: 1 players, 2 bots (no ports/hubs)
+Tick 35400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 35500: 1 players, 2 bots (no ports/hubs)
+Tick 35500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 35600: 1 players, 2 bots (no ports/hubs)
+Tick 35600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 35700: 1 players, 2 bots (no ports/hubs)
+Tick 35700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 35800: 1 players, 2 bots (no ports/hubs)
+Tick 35800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 35900: 1 players, 2 bots (no ports/hubs)
+Tick 35900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 36000: 1 players, 2 bots (no ports/hubs)
+Tick 36000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 36100: 1 players, 2 bots (no ports/hubs)
+Tick 36100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 36200: 1 players, 2 bots (no ports/hubs)
+Tick 36200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 36300: 1 players, 2 bots (no ports/hubs)
+Tick 36300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 36400: 1 players, 2 bots (no ports/hubs)
+Tick 36400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 36500: 1 players, 2 bots (no ports/hubs)
+Tick 36500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 36600: 1 players, 2 bots (no ports/hubs)
+Tick 36600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 36700: 1 players, 2 bots (no ports/hubs)
+Tick 36700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 36800: 1 players, 2 bots (no ports/hubs)
+Tick 36800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 36900: 1 players, 2 bots (no ports/hubs)
+Tick 36900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 37000: 1 players, 2 bots (no ports/hubs)
+Tick 37000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 37100: 1 players, 2 bots (no ports/hubs)
+Tick 37100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 37200: 1 players, 2 bots (no ports/hubs)
+Tick 37200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 37300: 1 players, 2 bots (no ports/hubs)
+Tick 37300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 37400: 1 players, 2 bots (no ports/hubs)
+Tick 37400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 37500: 1 players, 2 bots (no ports/hubs)
+Tick 37500: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 37600: 1 players, 2 bots (no ports/hubs)
+Tick 37600: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 37700: 1 players, 2 bots (no ports/hubs)
+Tick 37700: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 37800: 1 players, 2 bots (no ports/hubs)
+Tick 37800: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 37900: 1 players, 2 bots (no ports/hubs)
+Tick 37900: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 38000: 1 players, 2 bots (no ports/hubs)
+Tick 38000: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 38100: 1 players, 2 bots (no ports/hubs)
+Tick 38100: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 38200: 1 players, 2 bots (no ports/hubs)
+Tick 38200: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 38300: 1 players, 2 bots (no ports/hubs)
+Tick 38300: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 38400: 1 players, 2 bots (no ports/hubs)
+Tick 38400: 1 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 38500: 1 players, 2 bots (no ports/hubs)
+Tick 38500: 1 players, 2 bots
+Client connected: pPI1RtRjUzVyCA99AAAF
+Player test (pPI1RtRjUzVyCA99AAAF) joined the game
+🔧 Sending static data to pPI1RtRjUzVyCA99AAAF: 10 ports, 2 hubs
 Player test joined the game
-⚡ Broadcasting dynamic state - Tick 38800: 1 players, 10 bots (no ports/hubs)
-Tick 38800: 1 players, 10 bots
-Player test arrived at Port H10, traded for 5000 profit
-Player test arrived at Port H25, traded for 5000 profit
-⚡ Broadcasting dynamic state - Tick 38900: 1 players, 10 bots (no ports/hubs)
-Tick 38900: 1 players, 10 bots
-Player test arrived at Port K1, traded for 5000 profit
-⚡ Broadcasting dynamic state - Tick 39000: 1 players, 10 bots (no ports/hubs)
-Tick 39000: 1 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 39100: 1 players, 10 bots (no ports/hubs)
-Tick 39100: 1 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 39200: 1 players, 10 bots (no ports/hubs)
-Tick 39200: 1 players, 10 bots
-⚡ Broadcasting dynamic state - Tick 39300: 1 players, 10 bots (no ports/hubs)
-Tick 39300: 1 players, 10 bots
-Player test arrived at Port H25, traded for 4779 profit
-⚡ Broadcasting dynamic state - Tick 39400: 1 players, 10 bots (no ports/hubs)
-Tick 39400: 1 players, 10 bots
-Player test arrived at Port H10, traded for 4900 profit
+⚡ Broadcasting dynamic state - Tick 38600: 2 players, 2 bots (no ports/hubs)
+Tick 38600: 2 players, 2 bots
+Player test (pPI1RtRjUzVyCA99AAAF) left the game
+Client disconnected: pPI1RtRjUzVyCA99AAAF
+Client connected: 2q5-ioux3XBOtfeDAAAH
+Player test (2q5-ioux3XBOtfeDAAAH) joined the game
+🔧 Sending static data to 2q5-ioux3XBOtfeDAAAH: 10 ports, 2 hubs
+Player test joined the game
+⚡ Broadcasting dynamic state - Tick 38700: 2 players, 2 bots (no ports/hubs)
+Tick 38700: 2 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 38800: 2 players, 2 bots (no ports/hubs)
+Tick 38800: 2 players, 2 bots
+Player test arrived at Port A8, traded for 2493 profit
+Player test arrived at Port A8, traded for 2337 profit
+⚡ Broadcasting dynamic state - Tick 38900: 2 players, 2 bots (no ports/hubs)
+Tick 38900: 2 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 39000: 2 players, 2 bots (no ports/hubs)
+Tick 39000: 2 players, 2 bots
+Player test arrived at Port A4, traded for 5000 profit
+⚡ Broadcasting dynamic state - Tick 39100: 2 players, 2 bots (no ports/hubs)
+Tick 39100: 2 players, 2 bots
+⚡ Broadcasting dynamic state - Tick 39200: 2 players, 2 bots (no ports/hubs)
+Tick 39200: 2 players, 2 bots

@@ -113,8 +113,17 @@ function NewApp() {
   
   // Handle player actions
   const handleTrade = () => {
+    console.log('handleTrade called - gameClient:', !!gameClientRef.current)
     if (gameClientRef.current) {
+      const myPlayer = gameClientRef.current.getMyPlayer()
+      console.log('Player state:', myPlayer)
+      console.log('Player position:', myPlayer?.position)
+      console.log('Player currentPortId:', myPlayer?.currentPortId)
+      console.log('Player actionPoints:', myPlayer?.actionPoints)
+      console.log('Player cooldownRemaining:', myPlayer?.cooldownRemaining)
+      
       const action: PlayerAction = { type: 'TRADE' }
+      console.log('Sending trade action:', action)
       gameClientRef.current.sendAction(action)
     }
   }
@@ -188,7 +197,7 @@ function NewApp() {
               Strategic 3D space trading with competitive AI
             </p>
             <div style={{ marginBottom: '20px', color: '#666', fontSize: '12px' }}>
-              Client v1.0.24 | Server v1.0.1
+              Client v1.0.28 | Server v1.0.1
             </div>
             
             <div style={{ marginBottom: '20px' }}>
