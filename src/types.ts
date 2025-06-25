@@ -50,6 +50,7 @@ export interface Player {
   position: Vector3
   currentPort: TradingPort
   destinationPort: TradingPort | null
+  startPosition: Vector3 | null
   progress: number
   speed: number
   isMoving: boolean
@@ -58,6 +59,7 @@ export interface Player {
   totalProfit: number
   cargoHolds: number
   shipType: ShipType
+  lastActionTime: number
 }
 
 export interface TradeOption {

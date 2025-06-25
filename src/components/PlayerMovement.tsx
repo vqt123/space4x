@@ -19,7 +19,8 @@ export function PlayerMovement({ player, setPlayer, setPorts }: PlayerMovementPr
           return prevPlayer
         }
         
-        const distance = prevPlayer.currentPort.position.distanceTo(prevPlayer.destinationPort.position)
+        const startPosition = prevPlayer.startPosition || prevPlayer.position
+        const distance = startPosition.distanceTo(prevPlayer.destinationPort.position)
         const travelTime = distance / prevPlayer.speed
         const progressDelta = delta / travelTime
         
@@ -28,7 +29,7 @@ export function PlayerMovement({ player, setPlayer, setPorts }: PlayerMovementPr
         if (newProgress >= 1) {
           // Arrived at destination
           const destination = prevPlayer.destinationPort
-          const travelCost = calculateTravelCost(prevPlayer.currentPort.position.distanceTo(destination.position))
+          const travelCost = calculateTravelCost(distance, prevPlayer.shipType)
           
           // Check if this is a hub (negative ID) or a port
           if (destination.id < 0) {
@@ -40,6 +41,7 @@ export function PlayerMovement({ player, setPlayer, setPorts }: PlayerMovementPr
               position: destination.position.clone(),
               currentPort: nearestPort, // Keep reference to last port
               destinationPort: null,
+              startPosition: null,
               progress: 0,
               isMoving: false,
               actionPoints: prevPlayer.actionPoints - travelCost
@@ -63,6 +65,7 @@ export function PlayerMovement({ player, setPlayer, setPorts }: PlayerMovementPr
               position: destination.position.clone(),
               currentPort: destination,
               destinationPort: null,
+              startPosition: null,
               progress: 0,
               isMoving: false,
               actionPoints: prevPlayer.actionPoints - totalCost,
@@ -74,7 +77,7 @@ export function PlayerMovement({ player, setPlayer, setPorts }: PlayerMovementPr
         
         // Update position during travel
         const newPosition = new Vector3().lerpVectors(
-          prevPlayer.currentPort.position,
+          startPosition,
           prevPlayer.destinationPort.position,
           newProgress
         )

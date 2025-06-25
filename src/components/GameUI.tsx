@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { Player, TradingPort, TradeOption, UpgradeHub, HubTravelOption } from '../types'
 import { calculateTradeOptions, findNearestUpgradeHub, getCargoHoldUpgradeCost, calculateTravelCost, FIXED_TRADE_COST } from '../utils'
 
@@ -22,8 +22,8 @@ function getProfitTradeColor(port: TradingPort): string {
 
 export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoHoldUpgrade, onTravelToHub }: GameUIProps) {
   const tradeOptions = useMemo(() => 
-    calculateTradeOptions(player.currentPort, ports, player.cargoHolds, player.shipType), 
-    [player.currentPort, ports, player.cargoHolds, player.shipType]
+    calculateTradeOptions(player.currentPort, ports, player.cargoHolds, player.shipType, player.position), 
+    [player.currentPort, ports, player.cargoHolds, player.shipType, player.position]
   )
   
   const nearestHub = useMemo(() => 
@@ -31,8 +31,22 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
     [player.position, upgradeHubs]
   )
   
-  const isAtHub = nearestHub && player.position.distanceTo(nearestHub.position) < 2
-  const isAtPort = player.currentPort && player.position.distanceTo(player.currentPort.position) < 2
+  const isAtHub = nearestHub && player.position.distanceTo(nearestHub.position) < 0.25
+  const isAtPort = player.currentPort && player.position.distanceTo(player.currentPort.position) < 0.25
+  
+  // Check if player is on cooldown
+  const [isOnCooldown, setIsOnCooldown] = React.useState(false)
+  React.useEffect(() => {
+    const checkCooldown = () => {
+      const timeSinceLastAction = Date.now() - player.lastActionTime
+      setIsOnCooldown(timeSinceLastAction < 500)
+    }
+    
+    checkCooldown()
+    const interval = setInterval(checkCooldown, 50) // Check every 50ms for smooth UI
+    
+    return () => clearInterval(interval)
+  }, [player.lastActionTime])
   
   const cargoHoldUpgrade = useMemo(() => {
     const canUpgrade = player.cargoHolds < player.shipType.maxCargoHolds
@@ -131,14 +145,14 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
                 </div>
                 <button
                   onClick={() => onCargoHoldUpgrade?.()}
-                  disabled={!onCargoHoldUpgrade || player.credits < cargoHoldUpgrade.cost}
+                  disabled={!onCargoHoldUpgrade || player.credits < cargoHoldUpgrade.cost || isOnCooldown}
                   style={{
-                    background: player.credits >= cargoHoldUpgrade.cost ? '#4488ff' : '#666',
-                    color: player.credits >= cargoHoldUpgrade.cost ? 'white' : '#ccc',
+                    background: isOnCooldown ? '#444' : (player.credits >= cargoHoldUpgrade.cost ? '#4488ff' : '#666'),
+                    color: isOnCooldown ? '#888' : (player.credits >= cargoHoldUpgrade.cost ? 'white' : '#ccc'),
                     border: 'none',
                     padding: '6px 12px',
                     borderRadius: '4px',
-                    cursor: player.credits >= cargoHoldUpgrade.cost ? 'pointer' : 'not-allowed',
+                    cursor: (player.credits >= cargoHoldUpgrade.cost && !isOnCooldown) ? 'pointer' : 'not-allowed',
                     fontSize: '12px'
                   }}
                 >
@@ -207,15 +221,15 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
           {tradeOptions.map((option, index) => {
             const isCurrentPort = index === 0
             const canAfford = player.actionPoints >= option.totalCost
-            const canTrade = isAtPort && !isAtHub
+            const canTrade = isAtPort
             const canTravel = canAfford // Can travel from anywhere if you can afford it
             
             return (
               <div key={option.port.id} style={{ 
                 margin: '10px 0', 
                 padding: '12px', 
-                background: isCurrentPort && !isAtHub ? 'rgba(0, 255, 136, 0.15)' : 'rgba(255, 255, 255, 0.1)',
-                border: isCurrentPort && !isAtHub ? '1px solid #00ff88' : '1px solid transparent',
+                background: isCurrentPort && isAtPort ? 'rgba(0, 255, 136, 0.15)' : 'rgba(255, 255, 255, 0.1)',
+                border: isCurrentPort && isAtPort ? '1px solid #00ff88' : '1px solid transparent',
                 borderRadius: '6px',
                 opacity: (isCurrentPort ? canTrade && canAfford : canTravel) ? 1 : 0.6
               }}>
@@ -239,17 +253,17 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
                     </div>
                   </div>
                   <div>
-                    {isCurrentPort && !isAtHub ? (
+                    {isCurrentPort && isAtPort ? (
                       <button 
                         onClick={() => onTrade(option)}
-                        disabled={!canAfford}
+                        disabled={!canAfford || isOnCooldown}
                         style={{
-                          background: canAfford ? '#00ff88' : '#666',
-                          color: canAfford ? 'black' : '#ccc',
+                          background: isOnCooldown ? '#444' : (canAfford ? '#00ff88' : '#666'),
+                          color: isOnCooldown ? '#888' : (canAfford ? 'black' : '#ccc'),
                           border: 'none',
                           padding: '8px 16px',
                           borderRadius: '4px',
-                          cursor: canAfford ? 'pointer' : 'not-allowed',
+                          cursor: (canAfford && !isOnCooldown) ? 'pointer' : 'not-allowed',
                           fontWeight: 'bold'
                         }}
                       >
@@ -258,14 +272,14 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
                     ) : (
                       <button 
                         onClick={() => onTravel(option.port)}
-                        disabled={!canTravel}
+                        disabled={!canTravel || isOnCooldown}
                         style={{
-                          background: canTravel ? '#0088ff' : '#666',
-                          color: canTravel ? 'white' : '#ccc',
+                          background: isOnCooldown ? '#444' : (canTravel ? '#0088ff' : '#666'),
+                          color: isOnCooldown ? '#888' : (canTravel ? 'white' : '#ccc'),
                           border: 'none',
                           padding: '8px 16px',
                           borderRadius: '4px',
-                          cursor: canTravel ? 'pointer' : 'not-allowed'
+                          cursor: (canTravel && !isOnCooldown) ? 'pointer' : 'not-allowed'
                         }}
                       >
                         Travel ({option.totalCost} AP)

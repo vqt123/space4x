@@ -5,6 +5,7 @@ import { generatePortsInSphere, generateUpgradeHubs, calculateTravelCost, SHIP_T
 import { Scene } from './components/Scene'
 import { GameUI } from './components/GameUI'
 import { Leaderboard } from './components/Leaderboard'
+import { CooldownBar } from './components/CooldownBar'
 
 function App() {
   const [ports, setPorts] = useState<TradingPort[]>(() => generatePortsInSphere(500, 50))
@@ -19,6 +20,7 @@ function App() {
       position: startPort.position.clone(),
       currentPort: startPort,
       destinationPort: null,
+      startPosition: null,
       progress: 0,
       speed: 3,
       isMoving: false,
@@ -26,12 +28,21 @@ function App() {
       credits: 0,
       totalProfit: 0,
       cargoHolds: startingShip.startingCargoHolds,
-      shipType: startingShip
+      shipType: startingShip,
+      lastActionTime: 0
     }
   })
   
   const handleTravel = (destination: TradingPort) => {
-    const distance = player.currentPort.position.distanceTo(destination.position)
+    const currentTime = Date.now()
+    const timeSinceLastAction = currentTime - player.lastActionTime
+    
+    // Check cooldown (0.5 seconds = 500ms)
+    if (timeSinceLastAction < 500) {
+      return // Action on cooldown
+    }
+    
+    const distance = player.position.distanceTo(destination.position)
     const travelCost = calculateTravelCost(distance, player.shipType)
     const totalCost = travelCost + FIXED_TRADE_COST
     
@@ -39,13 +50,23 @@ function App() {
       setPlayer(prevPlayer => ({
         ...prevPlayer,
         destinationPort: destination,
+        startPosition: prevPlayer.position.clone(),
         progress: 0,
-        isMoving: true
+        isMoving: true,
+        lastActionTime: currentTime
       }))
     }
   }
   
   const handleTrade = (option: TradeOption) => {
+    const currentTime = Date.now()
+    const timeSinceLastAction = currentTime - player.lastActionTime
+    
+    // Check cooldown (0.5 seconds = 500ms)
+    if (timeSinceLastAction < 500) {
+      return // Action on cooldown
+    }
+    
     if (player.actionPoints >= option.totalCost) {
       // Reduce port cargo after player trades
       setPorts(prevPorts => 
@@ -66,13 +87,22 @@ function App() {
           credits: prevPlayer.credits + option.profit,
           totalProfit: prevPlayer.totalProfit + option.profit,
           actionPoints: prevPlayer.actionPoints - option.totalCost,
-          currentPort: updatedCurrentPort
+          currentPort: updatedCurrentPort,
+          lastActionTime: currentTime
         }
       })
     }
   }
   
   const handleCargoHoldUpgrade = () => {
+    const currentTime = Date.now()
+    const timeSinceLastAction = currentTime - player.lastActionTime
+    
+    // Check cooldown (0.5 seconds = 500ms)
+    if (timeSinceLastAction < 500) {
+      return // Action on cooldown
+    }
+    
     const cost = getCargoHoldUpgradeCost(player.cargoHolds)
     const canUpgrade = player.cargoHolds < player.shipType.maxCargoHolds
     
@@ -80,12 +110,21 @@ function App() {
       setPlayer(prevPlayer => ({
         ...prevPlayer,
         credits: prevPlayer.credits - cost,
-        cargoHolds: prevPlayer.cargoHolds + 1
+        cargoHolds: prevPlayer.cargoHolds + 1,
+        lastActionTime: currentTime
       }))
     }
   }
   
   const handleTravelToHub = (hub: UpgradeHub) => {
+    const currentTime = Date.now()
+    const timeSinceLastAction = currentTime - player.lastActionTime
+    
+    // Check cooldown (0.5 seconds = 500ms)
+    if (timeSinceLastAction < 500) {
+      return // Action on cooldown
+    }
+    
     const distance = player.position.distanceTo(hub.position)
     const travelCost = calculateTravelCost(distance, player.shipType)
     
@@ -93,8 +132,10 @@ function App() {
       setPlayer(prevPlayer => ({
         ...prevPlayer,
         destinationPort: null, // Clear port destination
+        startPosition: prevPlayer.position.clone(),
         isMoving: true,
-        progress: 0
+        progress: 0,
+        lastActionTime: currentTime
       }))
       
       // Create a temporary "port" at the hub location for movement system
@@ -138,6 +179,7 @@ function App() {
   
   return (
     <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
+      <CooldownBar lastActionTime={player.lastActionTime} />
       <Canvas camera={{ position: [150, 150, 150], fov: 75 }}>
         <Scene ports={ports} upgradeHubs={upgradeHubs} player={player} setPlayer={setPlayer} setPorts={setPorts} onBotsUpdate={handleBotsUpdate} />
       </Canvas>

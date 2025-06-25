@@ -38,7 +38,8 @@ Space4X is a strategic 3D space trading game featuring competitive economics, re
 1. **Assess Current Options**: View current port vs 3 nearest destinations
 2. **Analyze Profit/Action Ratios**: Make optimal resource allocation decisions
 3. **Execute Trade or Travel**: Commit action points for maximum return
-4. **Monitor Competition**: Track performance against AI traders via leaderboard
+4. **Wait for Cooldown**: 0.5 second delay between all actions
+5. **Monitor Competition**: Track performance against AI traders via leaderboard
 
 ### Resource Management
 - **Action Points**: Limited resource creating strategic constraints
@@ -46,6 +47,13 @@ Space4X is a strategic 3D space trading game featuring competitive economics, re
 - **Trade Costs**: Fixed 10 action points per trade
 - **Cargo Holds**: Ship-dependent (25-100 starting, upgradeable at hubs)
 - **Ship Selection**: Balance speed vs capacity vs upgrade costs
+
+### Action Cooldown System
+- **Universal Cooldown**: 0.5 seconds between all player and bot actions
+- **Actions Affected**: Trading, traveling, cargo hold upgrades
+- **Purpose**: Prevents action spamming and creates realistic pacing
+- **Visual Feedback**: Buttons disabled and grayed out during cooldown
+- **Cooldown Indicator**: Shows "⏱️ Cooldown Active" in player stats
 
 ## User Interface Design
 

@@ -67,23 +67,44 @@ export function findNearestPorts(currentPort: TradingPort, allPorts: TradingPort
     .slice(0, count)
 }
 
-export function calculateTradeOptions(currentPort: TradingPort, allPorts: TradingPort[], cargoHolds: number, shipType?: ShipType): TradeOption[] {
-  const nearestPorts = findNearestPorts(currentPort, allPorts)
+export function calculateTradeOptions(currentPort: TradingPort, allPorts: TradingPort[], cargoHolds: number, shipType?: ShipType, playerPosition?: Vector3): TradeOption[] {
+  // Use player position if provided, otherwise use current port position
+  const referencePosition = playerPosition || currentPort.position
   
-  // Current port option (no travel)
-  const currentProfit = calculateTradeProfit(currentPort, cargoHolds)
-  const currentOption: TradeOption = {
-    port: currentPort,
-    distance: 0,
-    travelCost: 0,
-    profit: currentProfit,
-    totalCost: FIXED_TRADE_COST,
-    profitPerAction: currentProfit / FIXED_TRADE_COST
+  // Find nearest ports from the reference position
+  // Only exclude current port if we're actually at it
+  const isAtCurrentPort = referencePosition.distanceTo(currentPort.position) < 0.25
+  const portsToConsider = isAtCurrentPort 
+    ? allPorts.filter(port => port.id !== currentPort.id)
+    : allPorts
+    
+  const nearestPorts = portsToConsider
+    .map(port => ({
+      ...port,
+      distance: referencePosition.distanceTo(port.position)
+    }))
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 3)
+  
+  // Current port option (only if player is actually at the port)
+  const options: TradeOption[] = []
+  
+  if (isAtCurrentPort) {
+    const currentProfit = calculateTradeProfit(currentPort, cargoHolds)
+    const currentOption: TradeOption = {
+      port: currentPort,
+      distance: 0,
+      travelCost: 0,
+      profit: currentProfit,
+      totalCost: FIXED_TRADE_COST,
+      profitPerAction: currentProfit / FIXED_TRADE_COST
+    }
+    options.push(currentOption)
   }
   
   // Travel options
   const travelOptions: TradeOption[] = nearestPorts.map(port => {
-    const distance = currentPort.position.distanceTo(port.position)
+    const distance = referencePosition.distanceTo(port.position)
     const travelCost = calculateTravelCost(distance, shipType)
     const profit = calculateTradeProfit(port, cargoHolds)
     const totalCost = travelCost + FIXED_TRADE_COST
@@ -98,7 +119,7 @@ export function calculateTradeOptions(currentPort: TradingPort, allPorts: Tradin
     }
   })
   
-  return [currentOption, ...travelOptions]
+  return [...options, ...travelOptions]
 }
 
 export function generateUpgradeHubs(count: number, radius: number): UpgradeHub[] {
