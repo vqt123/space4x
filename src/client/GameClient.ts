@@ -90,6 +90,13 @@ export class GameClient {
   }
   
   /**
+   * Force resize of the renderer
+   */
+  forceResize(): void {
+    this.renderer.forceResize()
+  }
+  
+  /**
    * Register callback for state changes
    */
   onStateChange(callback: (state: ClientGameState) => void): void {

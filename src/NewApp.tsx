@@ -39,7 +39,6 @@ function NewApp() {
           
           // Set up state update callback
           gameClient.onStateChange((newState) => {
-            console.log('Game state updated:', newState)
             setGameState(newState)
           })
         } catch (error) {
@@ -76,6 +75,14 @@ function NewApp() {
       console.log('Attempting to connect...')
       await gameClientRef.current.connect(playerName.trim())
       console.log('Successfully connected to game server')
+      
+      // Force canvas resize after connection (canvas becomes visible)
+      setTimeout(() => {
+        if (gameClientRef.current) {
+          console.log('Triggering force resize after connection')
+          gameClientRef.current.forceResize()
+        }
+      }, 100)
     } catch (error) {
       console.error('Failed to connect:', error)
       setConnectionError(error instanceof Error ? error.message : 'Connection failed')
@@ -122,22 +129,26 @@ function NewApp() {
   // Calculate cooldown remaining
   const cooldownRemaining = myPlayer?.cooldownRemaining || 0
   
-  // Connection screen
-  if (!gameState.connected && !isConnecting) {
-    return (
-      <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
-        {/* Hidden canvas for GameClient initialization */}
-        <canvas 
-          ref={canvasRef}
-          style={{ 
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%', 
-            height: '100%', 
-            display: 'none'
-          }} 
-        />
+  // Always render the canvas, but show/hide UI based on connection state
+  return (
+    <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
+      {/* Three.js canvas - always visible */}
+      <canvas 
+        ref={canvasRef}
+        style={{ 
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%', 
+          height: '100%', 
+          display: 'block',
+          background: '#000011',
+          zIndex: 0
+        }} 
+      />
+      
+      {/* Connection screen overlay */}
+      {!gameState.connected && !isConnecting && (
         
         <div style={{
           position: 'absolute',
@@ -164,7 +175,7 @@ function NewApp() {
               Strategic 3D space trading with competitive AI
             </p>
             <div style={{ marginBottom: '20px', color: '#666', fontSize: '12px' }}>
-              Client v1.0.4 | Server v1.0.1
+              Client v1.0.19 | Server v1.0.1
             </div>
             
             <div style={{ marginBottom: '20px' }}>
@@ -228,31 +239,19 @@ function NewApp() {
             </div>
           </div>
         </div>
-      </div>
-    )
-  }
-  
-  // Main game view
-  return (
-    <div style={{ width: '100vw', height: '100vh', position: 'relative' }}>
-      {/* Cooldown bar at top */}
-      {myPlayer && (
-        <CooldownBar 
-          lastActionTime={Date.now() - cooldownRemaining} 
-          cooldownDuration={500} 
-        />
       )}
       
-      {/* Three.js canvas */}
-      <canvas 
-        ref={canvasRef}
-        style={{ 
-          width: '100%', 
-          height: '100%', 
-          display: 'block',
-          background: '#000011'
-        }} 
-      />
+      {/* Game UI - only show when connected */}
+      {gameState.connected && (
+        <>
+          {/* Cooldown bar at top */}
+          {myPlayer && (
+            <CooldownBar 
+              lastActionTime={Date.now() - cooldownRemaining} 
+              cooldownDuration={500} 
+            />
+          )}
+      
       
       {/* Debug overlay */}
       <div style={{
@@ -291,39 +290,41 @@ function NewApp() {
         myPlayerId={gameState.myPlayerId}
       />
       
-      {/* Debug info */}
-      {true && (
-        <div style={{
-          position: 'absolute',
-          bottom: 20,
-          left: 20,
-          background: 'rgba(0, 0, 0, 0.7)',
-          color: 'white',
-          padding: '10px',
-          borderRadius: '4px',
-          fontFamily: 'monospace',
-          fontSize: '12px'
-        }}>
-          <div>Tick: {gameState.tick}</div>
-          <div>Players: {gameState.players.size}</div>
-          <div>Bots: {gameState.bots.size}</div>
-          <div>Ports: {gameState.ports.size}</div>
-          <button 
-            onClick={handleDisconnect}
-            style={{
-              marginTop: '5px',
-              padding: '4px 8px',
-              background: '#ff4444',
+          {/* Debug info */}
+          {true && (
+            <div style={{
+              position: 'absolute',
+              bottom: 20,
+              left: 20,
+              background: 'rgba(0, 0, 0, 0.7)',
               color: 'white',
-              border: 'none',
-              borderRadius: '2px',
-              fontSize: '10px',
-              cursor: 'pointer'
-            }}
-          >
-            Disconnect
-          </button>
-        </div>
+              padding: '10px',
+              borderRadius: '4px',
+              fontFamily: 'monospace',
+              fontSize: '12px'
+            }}>
+              <div>Tick: {gameState.tick}</div>
+              <div>Players: {gameState.players.size}</div>
+              <div>Bots: {gameState.bots.size}</div>
+              <div>Ports: {gameState.ports.size}</div>
+              <button 
+                onClick={handleDisconnect}
+                style={{
+                  marginTop: '5px',
+                  padding: '4px 8px',
+                  background: '#ff4444',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '2px',
+                  fontSize: '10px',
+                  cursor: 'pointer'
+                }}
+              >
+                Disconnect
+              </button>
+            </div>
+          )}
+        </>
       )}
     </div>
   )

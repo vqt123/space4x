@@ -11,6 +11,8 @@ nohup npm --prefix server run dev > server.log 2>&1 &
 bash -c "cd server && npm run dev" > server.log 2>&1 &
 ```
 
+**META-RULE**: When the user says "you forgot X" or points out a repeated mistake, IMMEDIATELY update this CLAUDE.md file to add instructions preventing that mistake in the future. This ensures continuous improvement and prevents wasting the user's time.
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## CRITICAL DEVELOPMENT WORKFLOW - ALWAYS FOLLOW
@@ -21,6 +23,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 3. Then proceed with code implementation
 
 This ensures continuity if work is interrupted and maintains clear documentation of the system architecture.
+
+**CRITICAL CLIENT UPDATE WORKFLOW - NEVER FORGET**:
+After ANY change to client-side code (src/), ALWAYS do these steps IN ORDER:
+1. Update version number in NewApp.tsx (e.g., v1.0.5 → v1.0.6)
+2. Kill and restart Vite dev server: `pkill -f vite && npm run dev > client.log 2>&1 &`
+3. Wait 3 seconds for restart
+4. Test that version number updated in browser
+5. Then proceed with testing
+
+**Forgetting to restart the client wastes time and causes confusion.**
+
+**CRITICAL TESTING RULE**: NEVER ask the user to test until you have successfully tested it yourself using the browser automation test. The user will reject any request to test that hasn't been verified working first.
+
+**BROWSER TESTING WORKFLOW - ALWAYS FOLLOW**:
+1. Use ONLY `test_browser.js` for browser testing - DO NOT use puppeteer MCP tool
+2. Start server FIRST: `nohup npm --prefix server run dev > server/server.log 2>&1 &`
+3. Ensure vite is running: `nohup npm run dev > client.log 2>&1 &`
+4. Wait for both to start: `sleep 10` (CONNECTION_REFUSED means not ready)
+5. Run test: `node test_browser.js`
+6. Check screenshots: `screenshot_initial.png`, `screenshot_after_join.png`
+7. If vite won't start, kill all node: `pkill -f node` then restart
+
+**NEVER USE cd WITH && IN BACKGROUND COMMANDS!**
 
 ## CLIENT-SERVER DEVELOPMENT WORKFLOW
 
@@ -53,6 +78,14 @@ npm run build      # Build client for production
 - Separate concerns into dedicated component files
 - Use proper TypeScript interfaces and types in separate files when appropriate
 - Never proactively create documentation files unless explicitly requested
+
+## Known Issues & Solutions
+
+**Canvas Not Rendering (Black Screen)**:
+- Problem: Canvas hidden with `display: none` prevents WebGL initialization
+- Solution: Use `visibility: hidden` instead to maintain dimensions
+- Canvas needs proper size (not 0x0) for ThreeRenderer initialization
+- Check console for "canvas size: 0 0" as indicator of this issue
 
 ## Project Overview
 

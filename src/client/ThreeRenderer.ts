@@ -30,29 +30,62 @@ export class ThreeRenderer {
   private coneGeometry: THREE.ConeGeometry
   
   // Camera control
-  private cameraDistance: number = 100
+  private cameraDistance: number = 20
   private cameraTarget: THREE.Vector3 = new THREE.Vector3()
   
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas
     
+    console.log('ThreeRenderer constructor - canvas size:', canvas.clientWidth, canvas.clientHeight)
+    
     // Create scene
     this.scene = new THREE.Scene()
-    this.scene.background = new THREE.Color(0x000011)
+    this.scene.background = new THREE.Color(0x00ff00) // Bright green like working test
     
-    // Create camera
-    this.camera = new THREE.PerspectiveCamera(
-      75,
-      canvas.clientWidth / canvas.clientHeight,
-      0.1,
-      1000
-    )
+    // Ensure canvas has dimensions
+    const width = canvas.clientWidth || canvas.offsetWidth || 800
+    const height = canvas.clientHeight || canvas.offsetHeight || 600
     
-    // Create renderer
-    this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
-    this.renderer.setSize(canvas.clientWidth, canvas.clientHeight)
+    console.log('ThreeRenderer using dimensions:', width, height)
+    
+    // Create camera - simple setup like working test
+    this.camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
+    this.camera.position.set(0, 0, 5)  // Simple z=5 position like working test
+    this.camera.lookAt(0, 0, 0)
+    
+    console.log('Camera positioned at:', this.camera.position)
+    console.log('Camera looking at origin')
+    
+    // Create renderer with WebGL debugging
+    this.renderer = new THREE.WebGLRenderer({ 
+      canvas, 
+      antialias: true,
+      alpha: false,
+      powerPreference: "high-performance"
+    })
+    
+    // Debug WebGL context
+    const gl = this.renderer.getContext()
+    console.log('WebGL context:', gl)
+    console.log('WebGL version:', gl.getParameter(gl.VERSION))
+    console.log('WebGL vendor:', gl.getParameter(gl.VENDOR))
+    console.log('WebGL renderer:', gl.getParameter(gl.RENDERER))
+    
+    // Ensure renderer uses the full canvas
+    this.renderer.setPixelRatio(window.devicePixelRatio || 1)
+    
+    // Test immediate rendering with bright background
+    this.renderer.setClearColor(0x00ff00, 1) // Bright green
+    this.renderer.clear()
+    console.log('Cleared renderer to green')
+    
+    this.renderer.setSize(width, height)
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
+    
+    // Debug renderer state
+    console.log('Renderer info:', this.renderer.info)
+    console.log('Renderer capabilities:', this.renderer.capabilities)
     
     // Create reusable geometries
     this.sphereGeometry = new THREE.SphereGeometry(0.5, 8, 6)
@@ -89,6 +122,9 @@ export class ThreeRenderer {
     this.setupLighting()
     this.setupStars()
     this.setupEventListeners()
+    this.addTestObjects()
+    
+    console.log('ThreeRenderer initialized with', this.scene.children.length, 'objects')
   }
   
   /**
@@ -152,7 +188,7 @@ export class ThreeRenderer {
     this.canvas.addEventListener('wheel', (event) => {
       event.preventDefault()
       this.cameraDistance += event.deltaY * 0.01
-      this.cameraDistance = Math.max(10, Math.min(200, this.cameraDistance))
+      this.cameraDistance = Math.max(5, Math.min(50, this.cameraDistance))
     })
   }
   
@@ -160,9 +196,22 @@ export class ThreeRenderer {
    * Handle window resize
    */
   private handleResize(): void {
-    this.camera.aspect = this.canvas.clientWidth / this.canvas.clientHeight
+    const width = this.canvas.clientWidth || this.canvas.offsetWidth || 800
+    const height = this.canvas.clientHeight || this.canvas.offsetHeight || 600
+    
+    console.log('ThreeRenderer resize to:', width, height)
+    
+    this.camera.aspect = width / height
     this.camera.updateProjectionMatrix()
-    this.renderer.setSize(this.canvas.clientWidth, this.canvas.clientHeight)
+    this.renderer.setSize(width, height)
+  }
+  
+  /**
+   * Force resize check - call when canvas becomes visible
+   */
+  forceResize(): void {
+    console.log('ThreeRenderer forceResize called')
+    this.handleResize()
   }
   
   /**
@@ -346,13 +395,69 @@ export class ThreeRenderer {
    * Render the scene
    */
   render(): void {
+    // Simple render like working test
     this.renderer.render(this.scene, this.camera)
+    
+    // Minimal debug logging
+    if (Math.random() < 0.001) { // Log occasionally
+      console.log('RENDER: Scene objects:', this.scene.children.length, 
+                  'Canvas:', this.canvas.width, 'x', this.canvas.height)
+    }
   }
   
+  /**
+   * Add test objects to verify rendering works
+   */
+  private addTestObjects(): void {
+    console.log('Adding test objects to scene')
+    
+    // Add a MASSIVE bright yellow cube directly in front of camera
+    const giantCube = new THREE.Mesh(
+      new THREE.BoxGeometry(10, 10, 10),
+      new THREE.MeshBasicMaterial({ 
+        color: 0xffff00,
+        wireframe: false
+      })
+    )
+    giantCube.position.set(0, 0, 0)
+    this.scene.add(giantCube)
+    console.log('Added giant yellow cube at origin')
+    
+    // Add a huge bright test cube at origin
+    const testCube = new THREE.Mesh(
+      new THREE.BoxGeometry(6, 6, 6),
+      new THREE.MeshBasicMaterial({ 
+        color: 0xff0000,
+        wireframe: true
+      })
+    )
+    testCube.position.set(0, 0, 0)
+    this.scene.add(testCube)
+    console.log('Added red wireframe cube at origin')
+    
+    // Add some closer test spheres
+    const positions = [
+      [-3, 0, 0], [3, 0, 0], [0, -3, 0], [0, 3, 0], [0, 0, -3], [0, 0, 3]
+    ]
+    
+    positions.forEach((pos, i) => {
+      const sphere = new THREE.Mesh(
+        new THREE.SphereGeometry(1.5, 8, 6),
+        new THREE.MeshBasicMaterial({ 
+          color: 0x00ff88
+        })
+      )
+      sphere.position.set(pos[0], pos[1], pos[2])
+      this.scene.add(sphere)
+    })
+    console.log('Added 6 green spheres around origin')
+  }
+
   /**
    * Start the render loop
    */
   startRenderLoop(): void {
+    console.log('Starting render loop')
     const animate = () => {
       requestAnimationFrame(animate)
       this.render()
