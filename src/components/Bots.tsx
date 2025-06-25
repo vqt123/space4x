@@ -36,7 +36,9 @@ export function Bots({ ports, count = 10, setPorts, onBotsUpdate }: BotsProps) {
           speed: 1,
           actionPoints: Math.floor(Math.random() * 200) + 300, // 300-500 starting points
           totalProfit: 0,
-          name: botNames[i] || `Bot-${i}`
+          name: botNames[i] || `Bot-${i}`,
+          shipType: { id: 'standard', name: 'Standard', startingCargoHolds: 1, maxCargoHolds: 1, travelCostMultiplier: 1.0, purchaseCost: 0, description: 'Basic bot ship' },
+          cargoHolds: 1
         })
       }
       setBots(initialBots)
@@ -79,15 +81,15 @@ export function Bots({ ports, count = 10, setPorts, onBotsUpdate }: BotsProps) {
           const destination = bot.destinationPort
           const travelCost = calculateTravelCost(distance)
           const totalCost = travelCost + destination.tradeCost
-          const profit = calculateTradeProfit(destination)
+          const profit = calculateTradeProfit(destination, bot.cargoHolds)
           
           // Only trade if bot can afford it
           if (bot.actionPoints >= totalCost) {
-            // Reduce port profit after bot trades
+            // Reduce port cargo after bot trades
             setPorts(prevPorts => 
               prevPorts.map(port => 
                 port.id === destination.id 
-                  ? { ...port, currentProfitMultiplier: port.currentProfitMultiplier * 0.9 } // Bots cause 10% reduction
+                  ? { ...port, remainingCargo: Math.max(0, port.remainingCargo - bot.cargoHolds) } // Bots reduce cargo
                   : port
               )
             )

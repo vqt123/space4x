@@ -46,11 +46,11 @@ function App() {
   
   const handleTrade = (option: TradeOption) => {
     if (player.actionPoints >= option.totalCost) {
-      // Reduce port profit (diminishing returns) FIRST
+      // Reduce port cargo after player trades
       setPorts(prevPorts => 
         prevPorts.map(port => 
           port.id === option.port.id 
-            ? { ...port, currentProfitMultiplier: port.currentProfitMultiplier * 0.85 } // 15% reduction
+            ? { ...port, remainingCargo: Math.max(0, port.remainingCargo - player.cargoHolds) }
             : port
         )
       )
@@ -64,7 +64,7 @@ function App() {
           ...prevPlayer,
           totalProfit: prevPlayer.totalProfit + option.profit,
           actionPoints: prevPlayer.actionPoints - option.totalCost,
-          currentPort: { ...updatedCurrentPort, currentProfitMultiplier: updatedCurrentPort.currentProfitMultiplier * 0.85 }
+          currentPort: updatedCurrentPort
         }
       })
     }
@@ -102,7 +102,8 @@ function App() {
         position: hub.position,
         name: hub.name,
         baseProfit: 0,
-        currentProfitMultiplier: 1,
+        remainingCargo: 0,
+        maxCargo: 0,
         tradeCost: 0
       }
       

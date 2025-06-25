@@ -61,7 +61,7 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
       {/* Player Stats */}
       <div style={{ marginBottom: '20px', padding: '10px', background: 'rgba(0, 255, 136, 0.1)', borderRadius: '4px' }}>
         <div><strong>Ship:</strong> {player.shipType.name}</div>
-        <div><strong>Cargo Holds:</strong> {player.cargoHolds}/{player.shipType.maxCargoHolds} ({player.cargoHolds * player.shipType.cargoPerHold} units)</div>
+        <div><strong>Cargo Holds:</strong> {player.cargoHolds}/{player.shipType.maxCargoHolds}</div>
         <div><strong>Action Points:</strong> {player.actionPoints}</div>
         <div><strong>Total Profit:</strong> {player.totalProfit} credits</div>
         <div><strong>Location:</strong> {player.currentPort.name}</div>
@@ -114,7 +114,7 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
                 <strong>Cargo Hold Expansion</strong>
               </div>
               <div style={{ fontSize: '11px', color: '#ccc', marginBottom: '8px' }}>
-                Add +1 cargo hold (+{player.shipType.cargoPerHold} units capacity)
+                Add +1 cargo hold
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ color: '#ff6600' }}>
@@ -199,6 +199,7 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
             const isCurrentPort = index === 0
             const canAfford = player.actionPoints >= option.totalCost
             const canTrade = isAtPort && !isAtHub
+            const canTravel = canAfford // Can travel from anywhere if you can afford it
             
             return (
               <div key={option.port.id} style={{ 
@@ -207,7 +208,7 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
                 background: isCurrentPort && !isAtHub ? 'rgba(0, 255, 136, 0.15)' : 'rgba(255, 255, 255, 0.1)',
                 border: isCurrentPort && !isAtHub ? '1px solid #00ff88' : '1px solid transparent',
                 borderRadius: '6px',
-                opacity: canTrade && canAfford ? 1 : 0.6
+                opacity: (isCurrentPort ? canTrade && canAfford : canTravel) ? 1 : 0.6
               }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                   <div style={{ flex: 1 }}>
@@ -226,7 +227,7 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
                         📊 Profit/Action: {option.profitPerAction.toFixed(2)}
                       </div>
                       <div style={{ fontSize: '11px', color: '#888' }}>
-                        Efficiency: {(option.port.currentProfitMultiplier * 100).toFixed(0)}%
+                        Cargo: {option.port.remainingCargo}/{option.port.maxCargo}
                       </div>
                     </div>
                   </div>
@@ -250,14 +251,14 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
                     ) : (
                       <button 
                         onClick={() => onTravel(option.port)}
-                        disabled={!canTrade || !canAfford}
+                        disabled={!canTravel}
                         style={{
-                          background: canTrade && canAfford ? '#0088ff' : '#666',
-                          color: canTrade && canAfford ? 'white' : '#ccc',
+                          background: canTravel ? '#0088ff' : '#666',
+                          color: canTravel ? 'white' : '#ccc',
                           border: 'none',
                           padding: '8px 16px',
                           borderRadius: '4px',
-                          cursor: canTrade && canAfford ? 'pointer' : 'not-allowed'
+                          cursor: canTravel ? 'pointer' : 'not-allowed'
                         }}
                       >
                         {isAtHub ? 'Travel to Port' : 'Travel & Trade'}

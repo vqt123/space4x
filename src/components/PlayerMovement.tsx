@@ -47,13 +47,13 @@ export function PlayerMovement({ player, setPlayer, setPorts }: PlayerMovementPr
           } else {
             // Traveling to regular port - trade automatically
             const totalCost = travelCost + destination.tradeCost
-            const profit = calculateTradeProfit(destination, prevPlayer.upgrades)
+            const profit = calculateTradeProfit(destination, prevPlayer.cargoHolds)
             
-            // Reduce port profit after trading
+            // Reduce port cargo after trading
             setPorts(prevPorts => 
               prevPorts.map(port => 
                 port.id === destination.id 
-                  ? { ...port, currentProfitMultiplier: port.currentProfitMultiplier * 0.85 }
+                  ? { ...port, remainingCargo: Math.max(0, port.remainingCargo - prevPlayer.cargoHolds) }
                   : port
               )
             )

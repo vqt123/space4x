@@ -15,7 +15,6 @@ export interface ShipType {
   name: string
   startingCargoHolds: number
   maxCargoHolds: number
-  cargoPerHold: number
   travelCostMultiplier: number
   purchaseCost: number
   description: string

@@ -1,5 +1,5 @@
 import { Vector3 } from 'three'
-import { TradingPort, TradeOption, UpgradeHub, CargoHoldUpgrade, ShipType } from './types'
+import { TradingPort, TradeOption, UpgradeHub, ShipType } from './types'
 
 export function generatePortsInSphere(count: number, radius: number): TradingPort[] {
   const ports: TradingPort[] = []
@@ -33,21 +33,17 @@ export function generatePortsInSphere(count: number, radius: number): TradingPor
   return ports
 }
 
-export function calculateTradeProfit(port: TradingPort, cargoHolds: number, shipType?: ShipType): number {
+export function calculateTradeProfit(port: TradingPort, cargoHolds: number): number {
   // Port efficiency based on remaining cargo
   const portEfficiency = port.remainingCargo / port.maxCargo
   const baseProfit = Math.floor(port.baseProfit * portEfficiency)
   
-  // Calculate total cargo capacity
-  const cargoPerHold = shipType ? shipType.cargoPerHold : 50
-  const totalCargoCapacity = cargoHolds * cargoPerHold
+  // Cargo holds that can be filled (limited by ship capacity and available cargo)
+  const cargoHoldsFilled = Math.min(cargoHolds, port.remainingCargo)
   
-  // Calculate cargo that can be extracted (limited by ship capacity and available cargo)
-  const cargoExtracted = Math.min(totalCargoCapacity, port.remainingCargo)
-  
-  // Profit per unit of cargo
-  const profitPerUnit = baseProfit / 100 // Normalize to 100 units base
-  const totalProfit = Math.floor(cargoExtracted * profitPerUnit)
+  // Profit per cargo hold
+  const profitPerHold = baseProfit / 100 // Normalize to 100 holds base
+  const totalProfit = Math.floor(cargoHoldsFilled * profitPerHold)
   
   return totalProfit
 }
@@ -73,7 +69,7 @@ export function calculateTradeOptions(currentPort: TradingPort, allPorts: Tradin
   const nearestPorts = findNearestPorts(currentPort, allPorts)
   
   // Current port option (no travel)
-  const currentProfit = calculateTradeProfit(currentPort, cargoHolds, shipType)
+  const currentProfit = calculateTradeProfit(currentPort, cargoHolds)
   const currentOption: TradeOption = {
     port: currentPort,
     distance: 0,
@@ -85,9 +81,9 @@ export function calculateTradeOptions(currentPort: TradingPort, allPorts: Tradin
   
   // Travel options
   const travelOptions: TradeOption[] = nearestPorts.map(port => {
-    const distance = port.distance
+    const distance = currentPort.position.distanceTo(port.position)
     const travelCost = calculateTravelCost(distance, shipType)
-    const profit = calculateTradeProfit(port, cargoHolds, shipType)
+    const profit = calculateTradeProfit(port, cargoHolds)
     const totalCost = travelCost + port.tradeCost
     
     return {
@@ -145,7 +141,6 @@ export const SHIP_TYPES: ShipType[] = [
     name: 'Merchant Freighter',
     startingCargoHolds: 2,
     maxCargoHolds: 8,
-    cargoPerHold: 50,
     travelCostMultiplier: 1.0,
     purchaseCost: 0, // Starting ship
     description: 'Balanced trading vessel with expandable cargo capacity'
@@ -155,7 +150,6 @@ export const SHIP_TYPES: ShipType[] = [
     name: 'Scout Courier',
     startingCargoHolds: 1,
     maxCargoHolds: 4,
-    cargoPerHold: 50,
     travelCostMultiplier: 0.7,
     purchaseCost: 5000,
     description: 'Fast ship with limited cargo but excellent speed'
@@ -165,7 +159,6 @@ export const SHIP_TYPES: ShipType[] = [
     name: 'Heavy Hauler',
     startingCargoHolds: 4,
     maxCargoHolds: 12,
-    cargoPerHold: 75,
     travelCostMultiplier: 1.5,
     purchaseCost: 15000,
     description: 'High-capacity vessel for serious bulk trading'
@@ -175,7 +168,6 @@ export const SHIP_TYPES: ShipType[] = [
     name: 'Mega Freighter',
     startingCargoHolds: 6,
     maxCargoHolds: 20,
-    cargoPerHold: 100,
     travelCostMultiplier: 2.0,
     purchaseCost: 40000,
     description: 'Massive ship for industrial-scale cargo operations'
