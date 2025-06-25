@@ -4,10 +4,8 @@ export interface TradingPort {
   id: number
   position: Vector3
   name: string
-  baseProfit: number
   remainingCargo: number
   maxCargo: number
-  tradeCost: number
 }
 
 export interface ShipType {

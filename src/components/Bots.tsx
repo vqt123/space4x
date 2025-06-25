@@ -3,7 +3,7 @@ import { useFrame } from '@react-three/fiber'
 import { Vector3 } from 'three'
 import * as THREE from 'three'
 import { Bot, TradingPort } from '../types'
-import { calculateTravelCost, calculateTradeProfit } from '../utils'
+import { calculateTravelCost, calculateTradeProfit, FIXED_TRADE_COST } from '../utils'
 import { TravelLine } from './TravelLine'
 
 interface BotsProps {
@@ -80,7 +80,7 @@ export function Bots({ ports, count = 10, setPorts, onBotsUpdate }: BotsProps) {
           // Bot arrived at destination - calculate costs and profits
           const destination = bot.destinationPort
           const travelCost = calculateTravelCost(distance)
-          const totalCost = travelCost + destination.tradeCost
+          const totalCost = travelCost + FIXED_TRADE_COST
           const profit = calculateTradeProfit(destination, bot.cargoHolds)
           
           // Only trade if bot can afford it
@@ -97,7 +97,7 @@ export function Bots({ ports, count = 10, setPorts, onBotsUpdate }: BotsProps) {
             // Find a new profitable destination
             const affordablePorts = ports.filter(port => {
               const dist = destination.position.distanceTo(port.position)
-              const cost = calculateTravelCost(dist) + port.tradeCost
+              const cost = calculateTravelCost(dist) + FIXED_TRADE_COST
               return port.id !== destination.id && bot.actionPoints - totalCost >= cost
             })
             

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Player, TradingPort, TradeOption, UpgradeHub, HubTravelOption } from '../types'
-import { calculateTradeOptions, findNearestUpgradeHub, getCargoHoldUpgradeCost, calculateTravelCost } from '../utils'
+import { calculateTradeOptions, findNearestUpgradeHub, getCargoHoldUpgradeCost, calculateTravelCost, FIXED_TRADE_COST } from '../utils'
 
 interface GameUIProps {
   player: Player
@@ -10,6 +10,13 @@ interface GameUIProps {
   onTrade: (option: TradeOption) => void
   onCargoHoldUpgrade?: () => void
   onTravelToHub?: (hub: UpgradeHub) => void
+}
+
+function getProfitTradeColor(profitPerAction: number): string {
+  if (profitPerAction >= 7.5) return '#00ff88' // Green: 75%+
+  if (profitPerAction >= 5) return '#ffff00' // Yellow: 50-75%
+  if (profitPerAction >= 2.5) return '#ff8800' // Orange: 25-50%
+  return '#ff4444' // Red: 0-25%
 }
 
 export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoHoldUpgrade, onTravelToHub }: GameUIProps) {
@@ -221,18 +228,17 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoH
                       </div>
                     )}
                     <div style={{ margin: '8px 0', fontSize: '14px' }}>
-                      <div>💰 Profit: <span style={{ color: '#00ff88' }}>{option.profit}</span> credits</div>
                       {isCurrentPort ? (
-                        <div>⚡ Trade Cost: <span style={{ color: '#ff6600' }}>{option.port.tradeCost}</span> action points</div>
+                        <div>⚡ Trade Cost: <span style={{ color: '#ff6600' }}>{FIXED_TRADE_COST}</span> action points</div>
                       ) : (
                         <>
                           <div>🚀 Travel Cost: <span style={{ color: '#ff6600' }}>{option.travelCost}</span> action points</div>
-                          <div>⚡ Trade Cost: <span style={{ color: '#ff6600' }}>{option.port.tradeCost}</span> action points</div>
+                          <div>⚡ Trade Cost: <span style={{ color: '#ff6600' }}>{FIXED_TRADE_COST}</span> action points</div>
                           <div>📊 Total Cost: <span style={{ color: '#ff6600' }}>{option.totalCost}</span> action points</div>
                         </>
                       )}
-                      <div style={{ fontWeight: 'bold', color: '#ffff00' }}>
-                        📊 Profit/Action: {option.profitPerAction.toFixed(2)}
+                      <div style={{ fontWeight: 'bold', color: getProfitTradeColor(option.profitPerAction), fontSize: '16px' }}>
+                        💰 Profit/Trade: {option.profitPerAction.toFixed(1)}
                       </div>
                       <div style={{ fontSize: '11px', color: '#888' }}>
                         Cargo: {option.port.remainingCargo}/{option.port.maxCargo}

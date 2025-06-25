@@ -23,10 +23,8 @@ export function generatePortsInSphere(count: number, radius: number): TradingPor
       id: i,
       position,
       name: `Port ${String.fromCharCode(65 + Math.floor(i / 26))}${i % 26 + 1}`,
-      baseProfit: Math.floor(Math.random() * 80) + 40, // 40-120 base profit
       remainingCargo: 5000, // All ports start with full cargo
-      maxCargo: 5000,
-      tradeCost: Math.floor(Math.random() * 15) + 10 // 10-25 action cost to trade
+      maxCargo: 5000
     })
   }
   
@@ -48,6 +46,8 @@ export function calculateTradeProfit(port: TradingPort, cargoHolds: number): num
   
   return totalProfit
 }
+
+export const FIXED_TRADE_COST = 10 // All trades cost 10 action points
 
 export function calculateTravelCost(distance: number, shipType?: ShipType): number {
   const baseCost = Math.ceil(distance) // 1 action point per unit of distance
@@ -76,8 +76,8 @@ export function calculateTradeOptions(currentPort: TradingPort, allPorts: Tradin
     distance: 0,
     travelCost: 0,
     profit: currentProfit,
-    totalCost: currentPort.tradeCost,
-    profitPerAction: currentProfit / currentPort.tradeCost
+    totalCost: FIXED_TRADE_COST,
+    profitPerAction: currentProfit / FIXED_TRADE_COST
   }
   
   // Travel options
@@ -85,7 +85,7 @@ export function calculateTradeOptions(currentPort: TradingPort, allPorts: Tradin
     const distance = currentPort.position.distanceTo(port.position)
     const travelCost = calculateTravelCost(distance, shipType)
     const profit = calculateTradeProfit(port, cargoHolds)
-    const totalCost = travelCost + port.tradeCost
+    const totalCost = travelCost + FIXED_TRADE_COST
     
     return {
       port,

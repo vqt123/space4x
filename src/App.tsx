@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber'
 import React, { useState } from 'react'
 import { Bot, TradingPort, Player, TradeOption, UpgradeHub } from './types'
-import { generatePortsInSphere, generateUpgradeHubs, calculateTravelCost, SHIP_TYPES } from './utils'
+import { generatePortsInSphere, generateUpgradeHubs, calculateTravelCost, SHIP_TYPES, FIXED_TRADE_COST } from './utils'
 import { Scene } from './components/Scene'
 import { GameUI } from './components/GameUI'
 import { Leaderboard } from './components/Leaderboard'
@@ -32,7 +32,7 @@ function App() {
   const handleTravel = (destination: TradingPort) => {
     const distance = player.currentPort.position.distanceTo(destination.position)
     const travelCost = calculateTravelCost(distance, player.shipType)
-    const totalCost = travelCost + destination.tradeCost
+    const totalCost = travelCost + FIXED_TRADE_COST
     
     if (player.actionPoints >= totalCost) {
       setPlayer(prevPlayer => ({
@@ -101,10 +101,8 @@ function App() {
         id: -hub.id, // Negative ID to distinguish from real ports
         position: hub.position,
         name: hub.name,
-        baseProfit: 0,
         remainingCargo: 0,
         maxCargo: 0,
-        tradeCost: 0
       }
       
       setPlayer(prevPlayer => ({

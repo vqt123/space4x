@@ -2,7 +2,7 @@ import React from 'react'
 import { useFrame } from '@react-three/fiber'
 import { Vector3 } from 'three'
 import { Player, TradingPort } from '../types'
-import { calculateTravelCost, calculateTradeProfit } from '../utils'
+import { calculateTravelCost, calculateTradeProfit, FIXED_TRADE_COST } from '../utils'
 
 interface PlayerMovementProps {
   player: Player
@@ -46,7 +46,7 @@ export function PlayerMovement({ player, setPlayer, setPorts }: PlayerMovementPr
             }
           } else {
             // Traveling to regular port - trade automatically
-            const totalCost = travelCost + destination.tradeCost
+            const totalCost = travelCost + FIXED_TRADE_COST
             const profit = calculateTradeProfit(destination, prevPlayer.cargoHolds)
             
             // Reduce port cargo after trading
