@@ -5,8 +5,20 @@ export interface TradingPort {
   position: Vector3
   name: string
   baseProfit: number
-  currentProfitMultiplier: number
+  remainingCargo: number
+  maxCargo: number
   tradeCost: number
+}
+
+export interface ShipType {
+  id: string
+  name: string
+  startingCargoHolds: number
+  maxCargoHolds: number
+  cargoPerHold: number
+  travelCostMultiplier: number
+  purchaseCost: number
+  description: string
 }
 
 export interface Bot {
@@ -19,6 +31,8 @@ export interface Bot {
   actionPoints: number
   totalProfit: number
   name: string
+  shipType: ShipType
+  cargoHolds: number
 }
 
 export interface UpgradeHub {
@@ -27,13 +41,11 @@ export interface UpgradeHub {
   name: string
 }
 
-export interface Upgrade {
+export interface CargoHoldUpgrade {
   id: number
   name: string
   description: string
   cost: number
-  maxLevel: number
-  type: 'engine' | 'scanner' | 'profit' | 'capacity'
 }
 
 export interface Player {
@@ -45,7 +57,8 @@ export interface Player {
   isMoving: boolean
   actionPoints: number
   totalProfit: number
-  upgrades: Record<number, number> // upgradeId -> level
+  cargoHolds: number
+  shipType: ShipType
 }
 
 export interface TradeOption {

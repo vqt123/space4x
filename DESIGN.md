@@ -18,11 +18,17 @@ Space4X is a strategic 3D space trading game featuring competitive economics, re
 - **Economics**: Base profit (40-120 credits), trade cost (10-25 action points)
 - **Diminishing Returns**: Efficiency decreases by 15% (player) or 10% (bots) per trade
 
+### Ship Types & Fleet Diversity
+- **Merchant Freighter** (Starting): 100 cargo, 1.0x travel cost (balanced)
+- **Scout Courier**: 50 cargo, 0.7x travel cost (speed specialist)
+- **Heavy Hauler**: 300 cargo, 1.5x travel cost (capacity specialist)
+- **Mega Freighter**: 500 cargo, 2.0x travel cost (end-game domination)
+
 ### Competitive Ecosystem
-- **Player**: Blue cone ship with 500 starting action points
-- **AI Traders**: 10 named bots (Alpha, Beta, Gamma, etc.) with 300-500 action points
-- **Intelligent Behavior**: Bots make strategic decisions based on resource constraints
-- **Economic Competition**: All entities compete for profitable trading opportunities
+- **Player**: Starts with Merchant Freighter, 500 action points
+- **AI Traders**: 10 named bots with varied ship types and 300-500 action points
+- **Intelligent Behavior**: Bots make strategic decisions based on ship capabilities
+- **Economic Competition**: All entities compete for finite port cargo resources
 
 ## Core Gameplay Loop
 
@@ -34,16 +40,18 @@ Space4X is a strategic 3D space trading game featuring competitive economics, re
 
 ### Resource Management
 - **Action Points**: Limited resource creating strategic constraints
-- **Travel Costs**: 1 action point per unit of distance
+- **Travel Costs**: Ship-dependent (0.7x to 2.0x base distance cost)
 - **Trade Costs**: Variable per port (10-25 action points)
-- **Profit Optimization**: Balance travel investment vs immediate gains
+- **Cargo Capacity**: Ship-dependent (50-500 units affecting profit per trade)
+- **Ship Selection**: Balance speed vs capacity vs upgrade costs
 
 ## User Interface Design
 
 ### Trading Terminal (Left Panel)
-- **Player Stats**: Action points, total profit, current location
+- **Player Stats**: Action points, total profit, current location, ship type
+- **Ship Information**: Cargo capacity, travel cost multiplier, current cargo
 - **Trade Options**: Current port + 3 nearest destinations with full analytics
-- **Decision Support**: Profit, cost, profit/action ratio, efficiency percentage
+- **Decision Support**: Profit, cost, profit/action ratio, port cargo remaining
 - **Visual Hierarchy**: Current port highlighted, affordability indicators
 
 ### Live Leaderboard (Right Panel)
@@ -59,11 +67,12 @@ Space4X is a strategic 3D space trading game featuring competitive economics, re
 
 ## Economic Systems
 
-### Diminishing Returns
-- **Port Efficiency**: Starts at 100%, decreases with each trade
-- **Player Impact**: 15% reduction per trade (higher impact)
-- **Bot Impact**: 10% reduction per trade (competitive pressure)
-- **Strategic Implication**: Encourages movement and prevents camping
+### Cargo-Based Economy
+- **Port Cargo Capacity**: Each port starts with 5000 cargo units of available business
+- **Cargo Depletion**: Ships extract cargo equal to their capacity per trade
+- **Dynamic Efficiency**: Port efficiency = remaining_cargo / 5000 (0-100%)
+- **Cargo Regeneration**: Ports slowly regenerate 100 cargo units per game cycle
+- **Resource Competition**: All traders compete for finite port cargo resources
 
 ### Dynamic Pricing
 - **Real-time Updates**: Port profitability changes based on trading activity

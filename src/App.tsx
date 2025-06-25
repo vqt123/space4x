@@ -1,7 +1,7 @@
 import { Canvas } from '@react-three/fiber'
 import React, { useState } from 'react'
 import { Bot, TradingPort, Player, TradeOption, UpgradeHub } from './types'
-import { generatePortsInSphere, generateUpgradeHubs, calculateTravelCost } from './utils'
+import { generatePortsInSphere, generateUpgradeHubs, calculateTravelCost, SHIP_TYPES } from './utils'
 import { Scene } from './components/Scene'
 import { GameUI } from './components/GameUI'
 import { Leaderboard } from './components/Leaderboard'
@@ -14,6 +14,7 @@ function App() {
   // Initialize player at a random port
   const [player, setPlayer] = useState<Player>(() => {
     const startPort = ports[Math.floor(Math.random() * ports.length)]
+    const startingShip = SHIP_TYPES[0] // Merchant Freighter
     return {
       position: startPort.position.clone(),
       currentPort: startPort,
@@ -23,13 +24,14 @@ function App() {
       isMoving: false,
       actionPoints: 500,
       totalProfit: 0,
-      upgrades: {}
+      cargoHolds: startingShip.startingCargoHolds,
+      shipType: startingShip
     }
   })
   
   const handleTravel = (destination: TradingPort) => {
     const distance = player.currentPort.position.distanceTo(destination.position)
-    const travelCost = calculateTravelCost(distance)
+    const travelCost = calculateTravelCost(distance, player.shipType)
     const totalCost = travelCost + destination.tradeCost
     
     if (player.actionPoints >= totalCost) {
@@ -68,21 +70,23 @@ function App() {
     }
   }
   
-  const handleUpgrade = (upgradeId: number) => {
-    const { UPGRADE_DEFINITIONS } = require('./utils')
-    const upgrade = UPGRADE_DEFINITIONS.find((u: any) => u.id === upgradeId)
-    if (upgrade && player.totalProfit >= upgrade.cost) {
+  const handleCargoHoldUpgrade = () => {
+    const { getCargoHoldUpgradeCost } = require('./utils')
+    const cost = getCargoHoldUpgradeCost(player.cargoHolds)
+    const canUpgrade = player.cargoHolds < player.shipType.maxCargoHolds
+    
+    if (canUpgrade && player.totalProfit >= cost) {
       setPlayer(prevPlayer => ({
         ...prevPlayer,
-        totalProfit: prevPlayer.totalProfit - upgrade.cost,
-        upgrades: { ...prevPlayer.upgrades, [upgradeId]: 1 }
+        totalProfit: prevPlayer.totalProfit - cost,
+        cargoHolds: prevPlayer.cargoHolds + 1
       }))
     }
   }
   
   const handleTravelToHub = (hub: UpgradeHub) => {
     const distance = player.position.distanceTo(hub.position)
-    const travelCost = calculateTravelCost(distance)
+    const travelCost = calculateTravelCost(distance, player.shipType)
     
     if (player.actionPoints >= travelCost) {
       setPlayer(prevPlayer => ({
@@ -143,7 +147,7 @@ function App() {
         upgradeHubs={upgradeHubs}
         onTravel={handleTravel} 
         onTrade={handleTrade}
-        onUpgrade={handleUpgrade}
+        onCargoHoldUpgrade={handleCargoHoldUpgrade}
         onTravelToHub={handleTravelToHub}
       />
       <Leaderboard player={player} bots={bots} />

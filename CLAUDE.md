@@ -103,6 +103,15 @@ interface Bot {
 - Separate concerns into dedicated component files
 - Use proper TypeScript interfaces and types in separate files when appropriate
 
+## Development Workflow
+
+**IMPORTANT**: Before implementing any new features or making significant code changes, ALWAYS:
+1. Update DESIGN.md with the new feature specifications and architecture details
+2. Update TODO.md with implementation tasks and progress tracking
+3. Then proceed with code implementation
+
+This ensures continuity if work is interrupted and maintains clear documentation of the system architecture.
+
 ## Current Focus
 
 Performance optimizations are not a current priority. The game runs smoothly and all core systems are functional. Focus is on expanding gameplay mechanics and features rather than technical optimizations.

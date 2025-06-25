@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { Player, TradingPort, TradeOption, UpgradeHub, HubTravelOption } from '../types'
-import { calculateTradeOptions, findNearestUpgradeHub, UPGRADE_DEFINITIONS, calculateTravelCost } from '../utils'
+import { calculateTradeOptions, findNearestUpgradeHub, getCargoHoldUpgradeCost, calculateTravelCost } from '../utils'
 
 interface GameUIProps {
   player: Player
@@ -8,14 +8,14 @@ interface GameUIProps {
   upgradeHubs: UpgradeHub[]
   onTravel: (destination: TradingPort) => void
   onTrade: (option: TradeOption) => void
-  onUpgrade?: (upgradeId: number) => void
+  onCargoHoldUpgrade?: () => void
   onTravelToHub?: (hub: UpgradeHub) => void
 }
 
-export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onUpgrade, onTravelToHub }: GameUIProps) {
+export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onCargoHoldUpgrade, onTravelToHub }: GameUIProps) {
   const tradeOptions = useMemo(() => 
-    calculateTradeOptions(player.currentPort, ports, player.upgrades), 
-    [player.currentPort, ports, player.upgrades]
+    calculateTradeOptions(player.currentPort, ports, player.cargoHolds, player.shipType), 
+    [player.currentPort, ports, player.cargoHolds, player.shipType]
   )
   
   const nearestHub = useMemo(() => 
@@ -26,10 +26,11 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onUpgrad
   const isAtHub = nearestHub && player.position.distanceTo(nearestHub.position) < 2
   const isAtPort = player.currentPort && player.position.distanceTo(player.currentPort.position) < 2
   
-  const nextUpgrade = useMemo(() => {
-    const ownedUpgrades = Object.keys(player.upgrades).length
-    return UPGRADE_DEFINITIONS[ownedUpgrades] || null
-  }, [player.upgrades])
+  const cargoHoldUpgrade = useMemo(() => {
+    const canUpgrade = player.cargoHolds < player.shipType.maxCargoHolds
+    const cost = canUpgrade ? getCargoHoldUpgradeCost(player.cargoHolds) : 0
+    return { canUpgrade, cost }
+  }, [player.cargoHolds, player.shipType.maxCargoHolds])
   
   const hubTravelOption = useMemo((): HubTravelOption | null => {
     if (!nearestHub) return null
@@ -37,9 +38,9 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onUpgrad
     return {
       hub: nearestHub,
       distance,
-      travelCost: calculateTravelCost(distance)
+      travelCost: calculateTravelCost(distance, player.shipType)
     }
-  }, [nearestHub, player.position])
+  }, [nearestHub, player.position, player.shipType])
   
   return (
     <div style={{
@@ -59,6 +60,8 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onUpgrad
       
       {/* Player Stats */}
       <div style={{ marginBottom: '20px', padding: '10px', background: 'rgba(0, 255, 136, 0.1)', borderRadius: '4px' }}>
+        <div><strong>Ship:</strong> {player.shipType.name}</div>
+        <div><strong>Cargo Holds:</strong> {player.cargoHolds}/{player.shipType.maxCargoHolds} ({player.cargoHolds * player.shipType.cargoPerHold} units)</div>
         <div><strong>Action Points:</strong> {player.actionPoints}</div>
         <div><strong>Total Profit:</strong> {player.totalProfit} credits</div>
         <div><strong>Location:</strong> {player.currentPort.name}</div>
@@ -102,31 +105,31 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onUpgrad
             )}
           </div>
           
-          {isAtHub && nextUpgrade && (
+          {isAtHub && cargoHoldUpgrade.canUpgrade && (
             <div style={{ marginTop: '10px', padding: '8px', background: 'rgba(0, 0, 0, 0.3)', borderRadius: '4px' }}>
               <div style={{ fontSize: '13px', fontWeight: 'bold', color: '#4488ff' }}>
                 Available Upgrade:
               </div>
               <div style={{ margin: '5px 0' }}>
-                <strong>{nextUpgrade.name}</strong>
+                <strong>Cargo Hold Expansion</strong>
               </div>
               <div style={{ fontSize: '11px', color: '#ccc', marginBottom: '8px' }}>
-                {nextUpgrade.description}
+                Add +1 cargo hold (+{player.shipType.cargoPerHold} units capacity)
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ color: '#ff6600' }}>
-                  Cost: {nextUpgrade.cost} credits
+                  Cost: {cargoHoldUpgrade.cost} credits
                 </div>
                 <button
-                  onClick={() => onUpgrade?.(nextUpgrade.id)}
-                  disabled={!onUpgrade || player.totalProfit < nextUpgrade.cost}
+                  onClick={() => onCargoHoldUpgrade?.()}
+                  disabled={!onCargoHoldUpgrade || player.totalProfit < cargoHoldUpgrade.cost}
                   style={{
-                    background: player.totalProfit >= nextUpgrade.cost ? '#4488ff' : '#666',
-                    color: player.totalProfit >= nextUpgrade.cost ? 'white' : '#ccc',
+                    background: player.totalProfit >= cargoHoldUpgrade.cost ? '#4488ff' : '#666',
+                    color: player.totalProfit >= cargoHoldUpgrade.cost ? 'white' : '#ccc',
                     border: 'none',
                     padding: '6px 12px',
                     borderRadius: '4px',
-                    cursor: player.totalProfit >= nextUpgrade.cost ? 'pointer' : 'not-allowed',
+                    cursor: player.totalProfit >= cargoHoldUpgrade.cost ? 'pointer' : 'not-allowed',
                     fontSize: '12px'
                   }}
                 >
@@ -136,9 +139,9 @@ export function GameUI({ player, ports, upgradeHubs, onTravel, onTrade, onUpgrad
             </div>
           )}
           
-          {isAtHub && !nextUpgrade && (
+          {isAtHub && !cargoHoldUpgrade.canUpgrade && (
             <div style={{ marginTop: '8px', color: '#00ff88', fontSize: '12px' }}>
-              ✅ All upgrades purchased!
+              ✅ Maximum cargo holds reached!
             </div>
           )}
         </div>

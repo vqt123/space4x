@@ -1,5 +1,5 @@
 import { Vector3 } from 'three'
-import { TradingPort, TradeOption, UpgradeHub, Upgrade } from './types'
+import { TradingPort, TradeOption, UpgradeHub, CargoHoldUpgrade, ShipType } from './types'
 
 export function generatePortsInSphere(count: number, radius: number): TradingPort[] {
   const ports: TradingPort[] = []
@@ -24,7 +24,8 @@ export function generatePortsInSphere(count: number, radius: number): TradingPor
       position,
       name: `Port ${String.fromCharCode(65 + Math.floor(i / 26))}${i % 26 + 1}`,
       baseProfit: Math.floor(Math.random() * 80) + 40, // 40-120 base profit
-      currentProfitMultiplier: 1.0, // Starts at 100%
+      remainingCargo: 5000, // All ports start with full cargo
+      maxCargo: 5000,
       tradeCost: Math.floor(Math.random() * 15) + 10 // 10-25 action cost to trade
     })
   }
@@ -32,24 +33,29 @@ export function generatePortsInSphere(count: number, radius: number): TradingPor
   return ports
 }
 
-export function calculateTradeProfit(port: TradingPort, playerUpgrades: Record<number, number> = {}): number {
-  const baseProfit = Math.floor(port.baseProfit * port.currentProfitMultiplier)
+export function calculateTradeProfit(port: TradingPort, cargoHolds: number, shipType?: ShipType): number {
+  // Port efficiency based on remaining cargo
+  const portEfficiency = port.remainingCargo / port.maxCargo
+  const baseProfit = Math.floor(port.baseProfit * portEfficiency)
   
-  // Calculate total upgrade bonus
-  let upgradeBonus = 0
-  Object.entries(playerUpgrades).forEach(([upgradeId, level]) => {
-    const upgrade = UPGRADE_DEFINITIONS.find(u => u.id === parseInt(upgradeId))
-    if (upgrade && level > 0) {
-      // Each upgrade gives 5% more profit per level
-      upgradeBonus += parseInt(upgradeId) * 5
-    }
-  })
+  // Calculate total cargo capacity
+  const cargoPerHold = shipType ? shipType.cargoPerHold : 50
+  const totalCargoCapacity = cargoHolds * cargoPerHold
   
-  return Math.floor(baseProfit * (1 + upgradeBonus / 100))
+  // Calculate cargo that can be extracted (limited by ship capacity and available cargo)
+  const cargoExtracted = Math.min(totalCargoCapacity, port.remainingCargo)
+  
+  // Profit per unit of cargo
+  const profitPerUnit = baseProfit / 100 // Normalize to 100 units base
+  const totalProfit = Math.floor(cargoExtracted * profitPerUnit)
+  
+  return totalProfit
 }
 
-export function calculateTravelCost(distance: number): number {
-  return Math.ceil(distance) // 1 action point per unit of distance
+export function calculateTravelCost(distance: number, shipType?: ShipType): number {
+  const baseCost = Math.ceil(distance) // 1 action point per unit of distance
+  const multiplier = shipType ? shipType.travelCostMultiplier : 1.0
+  return Math.ceil(baseCost * multiplier)
 }
 
 export function findNearestPorts(currentPort: TradingPort, allPorts: TradingPort[], count: number = 3): TradingPort[] {
@@ -63,11 +69,11 @@ export function findNearestPorts(currentPort: TradingPort, allPorts: TradingPort
     .slice(0, count)
 }
 
-export function calculateTradeOptions(currentPort: TradingPort, allPorts: TradingPort[], playerUpgrades: Record<number, number> = {}): TradeOption[] {
+export function calculateTradeOptions(currentPort: TradingPort, allPorts: TradingPort[], cargoHolds: number, shipType?: ShipType): TradeOption[] {
   const nearestPorts = findNearestPorts(currentPort, allPorts)
   
   // Current port option (no travel)
-  const currentProfit = calculateTradeProfit(currentPort, playerUpgrades)
+  const currentProfit = calculateTradeProfit(currentPort, cargoHolds, shipType)
   const currentOption: TradeOption = {
     port: currentPort,
     distance: 0,
@@ -80,8 +86,8 @@ export function calculateTradeOptions(currentPort: TradingPort, allPorts: Tradin
   // Travel options
   const travelOptions: TradeOption[] = nearestPorts.map(port => {
     const distance = port.distance
-    const travelCost = calculateTravelCost(distance)
-    const profit = calculateTradeProfit(port, playerUpgrades)
+    const travelCost = calculateTravelCost(distance, shipType)
+    const profit = calculateTradeProfit(port, cargoHolds, shipType)
     const totalCost = travelCost + port.tradeCost
     
     return {
@@ -133,25 +139,50 @@ export function findNearestUpgradeHub(position: Vector3, hubs: UpgradeHub[]): Up
     .sort((a, b) => a.distance - b.distance)[0]
 }
 
-export const UPGRADE_DEFINITIONS: Upgrade[] = [
-  { id: 1, name: "Trade Optimization I", description: "Increase trade profit by 5%", cost: 500, maxLevel: 1, type: "profit" },
-  { id: 2, name: "Trade Optimization II", description: "Increase trade profit by 10%", cost: 1200, maxLevel: 1, type: "profit" },
-  { id: 3, name: "Trade Optimization III", description: "Increase trade profit by 15%", cost: 2000, maxLevel: 1, type: "profit" },
-  { id: 4, name: "Trade Optimization IV", description: "Increase trade profit by 20%", cost: 3000, maxLevel: 1, type: "profit" },
-  { id: 5, name: "Trade Optimization V", description: "Increase trade profit by 25%", cost: 4200, maxLevel: 1, type: "profit" },
-  { id: 6, name: "Trade Optimization VI", description: "Increase trade profit by 30%", cost: 5600, maxLevel: 1, type: "profit" },
-  { id: 7, name: "Trade Optimization VII", description: "Increase trade profit by 35%", cost: 7200, maxLevel: 1, type: "profit" },
-  { id: 8, name: "Trade Optimization VIII", description: "Increase trade profit by 40%", cost: 9000, maxLevel: 1, type: "profit" },
-  { id: 9, name: "Trade Optimization IX", description: "Increase trade profit by 45%", cost: 11000, maxLevel: 1, type: "profit" },
-  { id: 10, name: "Trade Optimization X", description: "Increase trade profit by 50%", cost: 13200, maxLevel: 1, type: "profit" },
-  { id: 11, name: "Trade Optimization XI", description: "Increase trade profit by 55%", cost: 15600, maxLevel: 1, type: "profit" },
-  { id: 12, name: "Trade Optimization XII", description: "Increase trade profit by 60%", cost: 18200, maxLevel: 1, type: "profit" },
-  { id: 13, name: "Trade Optimization XIII", description: "Increase trade profit by 65%", cost: 21000, maxLevel: 1, type: "profit" },
-  { id: 14, name: "Trade Optimization XIV", description: "Increase trade profit by 70%", cost: 24000, maxLevel: 1, type: "profit" },
-  { id: 15, name: "Trade Optimization XV", description: "Increase trade profit by 75%", cost: 27200, maxLevel: 1, type: "profit" },
-  { id: 16, name: "Trade Optimization XVI", description: "Increase trade profit by 80%", cost: 30600, maxLevel: 1, type: "profit" },
-  { id: 17, name: "Trade Optimization XVII", description: "Increase trade profit by 85%", cost: 34200, maxLevel: 1, type: "profit" },
-  { id: 18, name: "Trade Optimization XVIII", description: "Increase trade profit by 90%", cost: 38000, maxLevel: 1, type: "profit" },
-  { id: 19, name: "Trade Optimization XIX", description: "Increase trade profit by 95%", cost: 42000, maxLevel: 1, type: "profit" },
-  { id: 20, name: "Trade Optimization XX", description: "Increase trade profit by 100%", cost: 46200, maxLevel: 1, type: "profit" }
+export const SHIP_TYPES: ShipType[] = [
+  {
+    id: 'merchant_freighter',
+    name: 'Merchant Freighter',
+    startingCargoHolds: 2,
+    maxCargoHolds: 8,
+    cargoPerHold: 50,
+    travelCostMultiplier: 1.0,
+    purchaseCost: 0, // Starting ship
+    description: 'Balanced trading vessel with expandable cargo capacity'
+  },
+  {
+    id: 'scout_courier',
+    name: 'Scout Courier',
+    startingCargoHolds: 1,
+    maxCargoHolds: 4,
+    cargoPerHold: 50,
+    travelCostMultiplier: 0.7,
+    purchaseCost: 5000,
+    description: 'Fast ship with limited cargo but excellent speed'
+  },
+  {
+    id: 'heavy_hauler',
+    name: 'Heavy Hauler',
+    startingCargoHolds: 4,
+    maxCargoHolds: 12,
+    cargoPerHold: 75,
+    travelCostMultiplier: 1.5,
+    purchaseCost: 15000,
+    description: 'High-capacity vessel for serious bulk trading'
+  },
+  {
+    id: 'mega_freighter',
+    name: 'Mega Freighter',
+    startingCargoHolds: 6,
+    maxCargoHolds: 20,
+    cargoPerHold: 100,
+    travelCostMultiplier: 2.0,
+    purchaseCost: 40000,
+    description: 'Massive ship for industrial-scale cargo operations'
+  }
 ]
+
+export function getCargoHoldUpgradeCost(currentHolds: number): number {
+  // Escalating costs: 1000, 2000, 3500, 5500, 8000, 11000, etc.
+  return 1000 + (currentHolds - 1) * 1500 + Math.pow(currentHolds - 1, 2) * 250
+}
