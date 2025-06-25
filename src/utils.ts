@@ -34,15 +34,16 @@ export function generatePortsInSphere(count: number, radius: number): TradingPor
 }
 
 export function calculateTradeProfit(port: TradingPort, cargoHolds: number): number {
-  // Port efficiency based on remaining cargo
+  // Port efficiency based on remaining cargo (0-1)
   const portEfficiency = port.remainingCargo / port.maxCargo
-  const baseProfit = Math.floor(port.baseProfit * portEfficiency)
   
   // Cargo holds that can be filled (limited by ship capacity and available cargo)
   const cargoHoldsFilled = Math.min(cargoHolds, port.remainingCargo)
   
-  // Profit per cargo hold
-  const profitPerHold = baseProfit / 100 // Normalize to 100 holds base
+  // Profit per cargo hold = efficiency * 100 credits
+  // At 100% efficiency: 100 credits per hold
+  // At 50% efficiency: 50 credits per hold, etc.
+  const profitPerHold = portEfficiency * 100
   const totalProfit = Math.floor(cargoHoldsFilled * profitPerHold)
   
   return totalProfit
@@ -139,8 +140,8 @@ export const SHIP_TYPES: ShipType[] = [
   {
     id: 'merchant_freighter',
     name: 'Merchant Freighter',
-    startingCargoHolds: 2,
-    maxCargoHolds: 8,
+    startingCargoHolds: 50,
+    maxCargoHolds: 200,
     travelCostMultiplier: 1.0,
     purchaseCost: 0, // Starting ship
     description: 'Balanced trading vessel with expandable cargo capacity'
@@ -148,8 +149,8 @@ export const SHIP_TYPES: ShipType[] = [
   {
     id: 'scout_courier',
     name: 'Scout Courier',
-    startingCargoHolds: 1,
-    maxCargoHolds: 4,
+    startingCargoHolds: 25,
+    maxCargoHolds: 100,
     travelCostMultiplier: 0.7,
     purchaseCost: 5000,
     description: 'Fast ship with limited cargo but excellent speed'
@@ -157,8 +158,8 @@ export const SHIP_TYPES: ShipType[] = [
   {
     id: 'heavy_hauler',
     name: 'Heavy Hauler',
-    startingCargoHolds: 4,
-    maxCargoHolds: 12,
+    startingCargoHolds: 75,
+    maxCargoHolds: 300,
     travelCostMultiplier: 1.5,
     purchaseCost: 15000,
     description: 'High-capacity vessel for serious bulk trading'
@@ -166,8 +167,8 @@ export const SHIP_TYPES: ShipType[] = [
   {
     id: 'mega_freighter',
     name: 'Mega Freighter',
-    startingCargoHolds: 6,
-    maxCargoHolds: 20,
+    startingCargoHolds: 100,
+    maxCargoHolds: 500,
     travelCostMultiplier: 2.0,
     purchaseCost: 40000,
     description: 'Massive ship for industrial-scale cargo operations'
@@ -175,6 +176,9 @@ export const SHIP_TYPES: ShipType[] = [
 ]
 
 export function getCargoHoldUpgradeCost(currentHolds: number): number {
-  // Escalating costs: 1000, 2000, 3500, 5500, 8000, 11000, etc.
-  return 1000 + (currentHolds - 1) * 1500 + Math.pow(currentHolds - 1, 2) * 250
+  // Escalating costs for cargo hold upgrades
+  // Each upgrade costs more than the previous one
+  // Starting from first upgrade (51st hold) costs 1000, then exponentially increasing
+  const upgradeNumber = currentHolds - 49 // First upgrade is when going from 50 to 51
+  return Math.floor(1000 * Math.pow(1.1, upgradeNumber))
 }

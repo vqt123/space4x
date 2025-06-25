@@ -37,8 +37,8 @@ export function Bots({ ports, count = 10, setPorts, onBotsUpdate }: BotsProps) {
           actionPoints: Math.floor(Math.random() * 200) + 300, // 300-500 starting points
           totalProfit: 0,
           name: botNames[i] || `Bot-${i}`,
-          shipType: { id: 'standard', name: 'Standard', startingCargoHolds: 1, maxCargoHolds: 1, travelCostMultiplier: 1.0, purchaseCost: 0, description: 'Basic bot ship' },
-          cargoHolds: 1
+          shipType: { id: 'standard', name: 'Standard', startingCargoHolds: 25, maxCargoHolds: 100, travelCostMultiplier: 1.0, purchaseCost: 0, description: 'Basic bot ship' },
+          cargoHolds: 25
         })
       }
       setBots(initialBots)
