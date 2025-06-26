@@ -208,12 +208,13 @@ export class GameWorld {
       timestamp: Date.now(),
       players: this.serializePlayers(tick),
       bots: this.serializeBots(),
+      ports: this.serializePorts(),
       leaderboard: this.leaderboard
     }
     
     // Log every 10 seconds to show the optimization is working
     if (tick % 100 === 0) {
-      console.log(`⚡ Broadcasting dynamic state - Tick ${tick}: ${dynamicState.players.length} players, ${dynamicState.bots.length} bots (no ports/hubs)`)
+      console.log(`⚡ Broadcasting dynamic state - Tick ${tick}: ${dynamicState.players.length} players, ${dynamicState.bots.length} bots, ${dynamicState.ports.length} ports`)
     }
     
     this.dynamicStateCallback(dynamicState)

@@ -90,6 +90,7 @@ export interface DynamicStateUpdate {
   timestamp: number
   players: PlayerState[]
   bots: BotState[]
+  ports: PortState[]
   leaderboard: LeaderboardEntry[]
 }
 

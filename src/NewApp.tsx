@@ -244,7 +244,7 @@ function NewApp() {
               Strategic 3D space trading with competitive AI
             </p>
             <div style={{ marginBottom: '20px', color: '#666', fontSize: '12px' }}>
-              Client v1.0.59 | Server v1.0.1
+              Client v1.0.60 | Server v1.0.2
             </div>
             
             <div style={{ marginBottom: '20px' }}>

@@ -221,7 +221,7 @@ export class WebSocketClient {
   private handleDynamicStateUpdate(update: DynamicStateUpdate): void {
     // Debug: Log update frequency (less verbose than legacy)
     if (update.tick % 100 === 0) { // Log every 10 seconds
-      console.log(`⚡ OPTIMIZATION: Dynamic update every 100ms - Tick ${update.tick}: ${update.players.length} players, ${update.bots.length} bots (ports/hubs NOT sent!)`)
+      console.log(`⚡ OPTIMIZATION: Dynamic update every 100ms - Tick ${update.tick}: ${update.players.length} players, ${update.bots.length} bots, ${update.ports.length} ports`)
     }
     
     // Create new Maps to trigger React re-renders
@@ -235,12 +235,18 @@ export class WebSocketClient {
       newBots.set(bot.id, bot)
     }
     
+    const newPorts = new Map()
+    for (const port of update.ports) {
+      newPorts.set(port.id, port)
+    }
+    
     // Update state with new objects to trigger React re-renders
     this.gameState = {
       ...this.gameState,
       tick: update.tick,
       players: newPlayers,
       bots: newBots,
+      ports: newPorts,
       leaderboard: update.leaderboard
     }
     

@@ -227,7 +227,7 @@ export class GameClient {
   showHoverLine(portId: number): void {
     const myPlayer = this.getMyPlayer()
     const gameState = this.getGameState()
-    const port = gameState?.ports?.get(portId)
+    const port = gameState.ports.get(portId)
     
     if (myPlayer && port) {
       this.renderer.showHoverLine(myPlayer.position, port.position)
