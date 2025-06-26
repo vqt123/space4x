@@ -25,6 +25,7 @@ function NewApp() {
   const [cameraMode, setCameraMode] = useState('FOLLOW')
   const [myPlayer, setMyPlayer] = useState<any>(undefined)
   const [gameClientReady, setGameClientReady] = useState(false)
+  const [lastActionTime, setLastActionTime] = useState(0)
   
   // Initialize game client when canvas is ready
   useEffect(() => {
@@ -159,6 +160,7 @@ function NewApp() {
       const action: PlayerAction = { type: 'TRADE' }
       console.log('Sending trade action:', action)
       gameClientRef.current.sendAction(action)
+      setLastActionTime(Date.now())
     }
   }
   
@@ -166,6 +168,7 @@ function NewApp() {
     if (gameClientRef.current) {
       const action: PlayerAction = { type: 'TRAVEL', targetId: targetPortId }
       gameClientRef.current.sendAction(action)
+      setLastActionTime(Date.now())
     }
   }
   
@@ -173,6 +176,7 @@ function NewApp() {
     if (gameClientRef.current) {
       const action: PlayerAction = { type: 'UPGRADE_CARGO' }
       gameClientRef.current.sendAction(action)
+      setLastActionTime(Date.now())
     }
   }
   
@@ -193,9 +197,6 @@ function NewApp() {
   
   // Calculate trade options
   const tradeOptions = gameClientRef.current?.calculateTradeOptions() || []
-  
-  // Calculate cooldown remaining
-  const cooldownRemaining = myPlayer?.cooldownRemaining || 0
   
   // Always render the canvas, but show/hide UI based on connection state
   return (
@@ -243,7 +244,7 @@ function NewApp() {
               Strategic 3D space trading with competitive AI
             </p>
             <div style={{ marginBottom: '20px', color: '#666', fontSize: '12px' }}>
-              Client v1.0.56 | Server v1.0.1
+              Client v1.0.57 | Server v1.0.1
             </div>
             
             <div style={{ marginBottom: '20px' }}>
@@ -353,7 +354,7 @@ function NewApp() {
         player={myPlayer}
         tradeOptions={tradeOptions}
         isConnected={gameState.connected}
-        cooldownRemaining={cooldownRemaining}
+        cooldownRemaining={0}
         onTrade={handleTrade}
         onTravel={handleTravel}
         onUpgrade={handleUpgrade}
@@ -365,7 +366,7 @@ function NewApp() {
           {/* Cooldown bar at top */}
           {myPlayer && (
             <CooldownBar 
-              lastActionTime={Date.now() - cooldownRemaining} 
+              lastActionTime={lastActionTime} 
               cooldownDuration={500} 
             />
           )}
