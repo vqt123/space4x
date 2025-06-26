@@ -35,10 +35,10 @@ Space4X is a strategic 3D space trading game featuring competitive economics, re
 ## Core Gameplay Loop
 
 ### Strategic Decision Making
-1. **Assess Current Options**: View current port vs 3 nearest destinations
+1. **Assess Current Options**: View current port vs 5 nearest destinations with hover preview
 2. **Analyze Profit/Action Ratios**: Make optimal resource allocation decisions
 3. **Execute Trade or Travel**: Commit action points for maximum return
-4. **Wait for Cooldown**: 0.5 second delay between all actions
+4. **Wait for Cooldown**: 0.5 second delay between all actions (client-side visual feedback)
 5. **Monitor Competition**: Track performance against AI traders via leaderboard
 
 ### Resource Management
@@ -60,9 +60,10 @@ Space4X is a strategic 3D space trading game featuring competitive economics, re
 ### Trading Terminal (Left Panel)
 - **Player Stats**: Action points, total profit, current location, ship type
 - **Ship Information**: Cargo capacity, travel cost multiplier, current cargo
-- **Trade Options**: Current port + 3 nearest destinations with full analytics
+- **Trade Options**: Current port + 5 nearest destinations with full analytics
 - **Decision Support**: Profit, cost, profit/action ratio, port cargo remaining
 - **Visual Hierarchy**: Current port highlighted, affordability indicators
+- **Hover Preview**: Orange line connecting player to port when hovering over trade options
 
 ### Live Leaderboard (Right Panel)
 - **Real-time Rankings**: Player vs AI traders by total credits
@@ -72,8 +73,9 @@ Space4X is a strategic 3D space trading game featuring competitive economics, re
 ### 3D Visualization
 - **Spatial Awareness**: Universe layout and entity positions
 - **Travel Feedback**: Lines showing destination paths for all entities
-- **Center-focused View**: Always oriented toward universe center
+- **Center-focused View**: Camera positioned behind player, always looking toward universe center
 - **Zoom Control**: Mouse wheel for different viewing distances
+- **Interactive Hover**: Visual line preview when hovering over port trade options
 
 ## Economic Systems
 
@@ -85,9 +87,10 @@ Space4X is a strategic 3D space trading game featuring competitive economics, re
 - **Credits vs Total Profit**: Credits are spendable, Total Profit tracks lifetime earnings
 
 ### Dynamic Pricing
-- **Real-time Updates**: Port profitability changes based on trading activity
+- **Real-time Updates**: Port profitability changes based on trading activity with live UI updates
 - **Market Forces**: High-efficiency ports become targets for multiple traders
 - **Strategic Depth**: Timing and route planning become crucial
+- **Port Statistics**: Real-time cargo remaining and efficiency updates after each trade
 
 ## Technical Architecture
 

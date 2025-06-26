@@ -1,5 +1,21 @@
 # Space4X - Development Roadmap & TODO
 
+## Recent Completed Tasks (December 2024)
+
+### UI Improvements & Bug Fixes ✅ COMPLETED
+- [x] **Fixed Duplicate Keys**: Added unique ID fields to LeaderboardEntry interface to fix React key warnings
+- [x] **Cooldown Bar Enhancement**: Implemented client-side cooldown animation (500ms) independent of server state
+- [x] **Camera Positioning**: Fixed camera to position behind player while looking toward universe center
+- [x] **Port Display Expansion**: Increased trade options from 3 to 5 nearest ports
+- [x] **Hover Line Preview**: Added orange line visualization when hovering over port trade options
+- [x] **Real-time Port Updates**: Fixed port statistics not updating after trades by including ports in dynamic state broadcasts
+- [x] **Error Propagation**: Removed null checks to allow early error detection and easier debugging
+
+### Technical Debt Resolution ✅ COMPLETED
+- [x] **Server-Client Type Sync**: Synchronized LeaderboardEntry and DynamicStateUpdate interfaces between server and client
+- [x] **WebSocket Optimization**: Implemented proper dynamic state updates including port data every 100ms
+- [x] **Client State Management**: Fixed React state updates to trigger proper re-renders for port statistics
+
 ## Current Priority: Client-Server Architecture Conversion
 
 ### Phase 1: Server Foundation 🚀 (IN PROGRESS)
