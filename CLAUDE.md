@@ -58,7 +58,7 @@ After ANY change to client-side code (src/), ALWAYS do these steps IN ORDER:
 
 **NEVER USE cd WITH && IN BACKGROUND COMMANDS!**
 
-## CLIENT-SERVER DEVELOPMENT WORKFLOW
+## Client-Server Development Workflow
 
 **Current Priority**: Converting from single-client to client-server architecture
 
@@ -89,6 +89,7 @@ npm run build      # Build client for production
 - Separate concerns into dedicated component files
 - Use proper TypeScript interfaces and types in separate files when appropriate
 - Never proactively create documentation files unless explicitly requested
+- **DEVELOPMENT PHILOSOPHY**: don't null check. let errors propogate early so we can find root causes for problems
 
 ## Known Issues & Solutions
 

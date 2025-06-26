@@ -16,6 +16,7 @@ export class ThreeRenderer {
   private botMeshes: Map<number, THREE.Mesh> = new Map()
   private hubMeshes: Map<number, THREE.Mesh> = new Map()
   private travelLines: Map<string, THREE.Line> = new Map()
+  private hoverLine: THREE.Line | null = null
   
   // Materials (reused)
   private portMaterial: THREE.MeshStandardMaterial
@@ -23,6 +24,7 @@ export class ThreeRenderer {
   private botMaterial: THREE.MeshStandardMaterial
   private hubMaterial: THREE.MeshStandardMaterial
   private lineMaterial: THREE.LineBasicMaterial
+  private hoverLineMaterial: THREE.LineBasicMaterial
   
   // Geometries (reused)
   private sphereGeometry: THREE.SphereGeometry
@@ -142,6 +144,7 @@ export class ThreeRenderer {
     })
     
     this.lineMaterial = new THREE.LineBasicMaterial({ color: 0x0088ff, opacity: 0.8, transparent: true })
+    this.hoverLineMaterial = new THREE.LineBasicMaterial({ color: 0xff8800, opacity: 0.9, transparent: true, linewidth: 2 })
     
     this.setupLighting()
     this.setupTestCube()
@@ -569,7 +572,7 @@ export class ThreeRenderer {
       this.camera.position.set(x + this.cameraOffset.x, y + this.cameraOffset.y, z + this.cameraOffset.z)
       this.camera.lookAt(this.cameraOffset)
     } else {
-      // Follow camera mode - follow the player
+      // Follow camera mode - position camera behind player pointing toward center
       if (this.followPlayerId) {
         const playerMesh = this.playerMeshes.get(this.followPlayerId)
         if (playerMesh) {
@@ -577,16 +580,17 @@ export class ThreeRenderer {
           const playerPos = playerMesh.position
           
           // Position camera behind player looking toward center
-          const direction = new THREE.Vector3(0, 0, 0).sub(playerPos).normalize()
-          this.camera.position.copy(playerPos).add(direction.multiplyScalar(this.cameraDistance))
+          // Direction from center to player (outward)
+          const centerToPlayer = playerPos.clone().normalize()
+          // Position camera behind player along this direction
+          this.camera.position.copy(playerPos).add(centerToPlayer.multiplyScalar(this.cameraDistance))
           this.camera.position.add(this.cameraOffset)
           
-          // Look at player position offset
-          const lookTarget = playerPos.clone().add(this.cameraOffset)
-          this.camera.lookAt(lookTarget)
+          // Look toward the center of the universe
+          this.camera.lookAt(this.cameraOffset)
         }
       } else {
-        // No player to follow - default position
+        // No player to follow - default position looking at center
         this.camera.position.set(this.cameraOffset.x, this.cameraOffset.y, this.cameraDistance + this.cameraOffset.z)
         this.camera.lookAt(this.cameraOffset)
       }
@@ -724,6 +728,33 @@ export class ThreeRenderer {
   }
   
   /**
+   * Show hover line between player and target port
+   */
+  showHoverLine(playerPosition: [number, number, number], portPosition: [number, number, number]): void {
+    this.hideHoverLine() // Remove existing line first
+    
+    const points = [
+      new THREE.Vector3(playerPosition[0], playerPosition[1], playerPosition[2]),
+      new THREE.Vector3(portPosition[0], portPosition[1], portPosition[2])
+    ]
+    
+    const geometry = new THREE.BufferGeometry().setFromPoints(points)
+    this.hoverLine = new THREE.Line(geometry, this.hoverLineMaterial)
+    this.scene.add(this.hoverLine)
+  }
+  
+  /**
+   * Hide hover line
+   */
+  hideHoverLine(): void {
+    if (this.hoverLine) {
+      this.scene.remove(this.hoverLine)
+      this.hoverLine.geometry.dispose()
+      this.hoverLine = null
+    }
+  }
+
+  /**
    * Clean up resources
    */
   dispose(): void {
@@ -758,6 +789,7 @@ export class ThreeRenderer {
     this.botMaterial.dispose()
     this.hubMaterial.dispose()
     this.lineMaterial.dispose()
+    this.hoverLineMaterial.dispose()
     
     // Dispose of renderer
     this.renderer.dispose()

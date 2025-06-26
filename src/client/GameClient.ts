@@ -149,7 +149,7 @@ export class GameClient {
         )
       }))
       .sort((a, b) => a.distance - b.distance)
-      .slice(0, 3)
+      .slice(0, 5)
     
     // Add current port as trade option if at port
     const currentPort = gameState.ports.get(currentPortId)
@@ -219,6 +219,26 @@ export class GameClient {
    */
   getFPS(): number {
     return this.renderer.getFPS()
+  }
+
+  /**
+   * Show hover line between player and port
+   */
+  showHoverLine(portId: number): void {
+    const myPlayer = this.getMyPlayer()
+    const gameState = this.getGameState()
+    const port = gameState?.ports?.get(portId)
+    
+    if (myPlayer && port) {
+      this.renderer.showHoverLine(myPlayer.position, port.position)
+    }
+  }
+
+  /**
+   * Hide hover line
+   */
+  hideHoverLine(): void {
+    this.renderer.hideHoverLine()
   }
   
   /**

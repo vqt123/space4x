@@ -244,7 +244,7 @@ function NewApp() {
               Strategic 3D space trading with competitive AI
             </p>
             <div style={{ marginBottom: '20px', color: '#666', fontSize: '12px' }}>
-              Client v1.0.57 | Server v1.0.1
+              Client v1.0.59 | Server v1.0.1
             </div>
             
             <div style={{ marginBottom: '20px' }}>
@@ -358,6 +358,8 @@ function NewApp() {
         onTrade={handleTrade}
         onTravel={handleTravel}
         onUpgrade={handleUpgrade}
+        onPortHover={(portId) => gameClientRef.current?.showHoverLine(portId)}
+        onPortHoverEnd={() => gameClientRef.current?.hideHoverLine()}
       />
       
       {/* Cooldown bar and leaderboard - only show when connected */}

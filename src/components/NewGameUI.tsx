@@ -9,6 +9,8 @@ interface NewGameUIProps {
   onTrade: () => void
   onTravel: (portId: number) => void
   onUpgrade: () => void
+  onPortHover?: (portId: number) => void
+  onPortHoverEnd?: () => void
 }
 
 function getProfitTradeColor(efficiency: number): string {
@@ -24,7 +26,9 @@ export function NewGameUI({
   isConnected, 
   cooldownRemaining,
   onTrade, 
-  onTravel
+  onTravel,
+  onPortHover,
+  onPortHoverEnd
 }: NewGameUIProps) {
   
   if (!isConnected) {
@@ -162,14 +166,20 @@ export function NewGameUI({
           const canAct = !isOnCooldown && canAfford
           
           return (
-            <div key={option.port.id} style={{ 
-              margin: '10px 0', 
-              padding: '12px', 
-              background: isCurrentPort ? 'rgba(0, 255, 136, 0.15)' : 'rgba(255, 255, 255, 0.1)',
-              border: isCurrentPort ? '1px solid #00ff88' : '1px solid transparent',
-              borderRadius: '6px',
-              opacity: canAct ? 1 : 0.6
-            }}>
+            <div 
+              key={option.port.id} 
+              style={{ 
+                margin: '10px 0', 
+                padding: '12px', 
+                background: isCurrentPort ? 'rgba(0, 255, 136, 0.15)' : 'rgba(255, 255, 255, 0.1)',
+                border: isCurrentPort ? '1px solid #00ff88' : '1px solid transparent',
+                borderRadius: '6px',
+                opacity: canAct ? 1 : 0.6,
+                cursor: 'pointer'
+              }}
+              onMouseEnter={() => onPortHover?.(option.port.id)}
+              onMouseLeave={() => onPortHoverEnd?.()}
+            >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                 <div style={{ flex: 1 }}>
                   <strong style={{ color: isCurrentPort ? '#00ff88' : 'white' }}>
