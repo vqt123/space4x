@@ -20,7 +20,7 @@ export class GameClient {
     
     this.setupWebSocketCallbacks()
     
-    // Start render loop immediately for FPS tracking
+    // Start render loop immediately
     this.renderer.startRenderLoop()
   }
   
@@ -149,7 +149,19 @@ export class GameClient {
         )
       }))
       .sort((a, b) => a.distance - b.distance)
-      .slice(0, 5)
+      .slice(0, 4) // Take 4 ports to leave room for 1 hub
+    
+    // Find closest hub
+    const nearestHub = Array.from(gameState.hubs.values())
+      .map(hub => ({
+        hub,
+        distance: Math.sqrt(
+          Math.pow(hub.position[0] - playerPos[0], 2) +
+          Math.pow(hub.position[1] - playerPos[1], 2) +
+          Math.pow(hub.position[2] - playerPos[2], 2)
+        )
+      }))
+      .sort((a, b) => a.distance - b.distance)[0]
     
     // Add current port as trade option if at port
     const currentPort = gameState.ports.get(currentPortId)
@@ -165,7 +177,7 @@ export class GameClient {
       })
     }
     
-    // Add travel options
+    // Add travel options for ports
     for (const { port, distance } of nearbyPorts) {
       const travelCost = this.calculateTravelCost(distance, myPlayer.shipType)
       const profit = this.calculateTradeProfit(port, myPlayer.cargoHolds)
@@ -178,6 +190,69 @@ export class GameClient {
         profit,
         totalCost,
         profitPerAction: profit / 10 // Profit per trade (excluding travel)
+      })
+    }
+
+    // Find nearby enemies (within 20 units) and add them as combat options
+    const nearbyEnemies = Array.from(gameState.enemies.values())
+      .map(enemy => ({
+        enemy,
+        distance: Math.sqrt(
+          Math.pow(enemy.position[0] - playerPos[0], 2) +
+          Math.pow(enemy.position[1] - playerPos[1], 2) +
+          Math.pow(enemy.position[2] - playerPos[2], 2)
+        )
+      }))
+      .filter(({ distance }) => distance <= 20) // Only show enemies within 20 units
+      .sort((a, b) => a.distance - b.distance)
+      .slice(0, 2) // Show max 2 enemies to avoid clutter
+
+    // Add nearby enemies as combat options
+    for (const { enemy, distance } of nearbyEnemies) {
+      const travelCost = this.calculateTravelCost(distance, myPlayer.shipType)
+      
+      // Create enemy as a special port option for UI display
+      const enemyAsPort = {
+        id: enemy.id + 10000, // Use high ID to avoid conflicts with ports
+        position: enemy.position,
+        name: `⚔️ ${enemy.name}`, // Add combat icon
+        remainingCargo: 0, // Enemies don't have cargo
+        maxCargo: 1,
+        efficiency: 1.0 // Full efficiency for combat
+      }
+      
+      options.push({
+        port: enemyAsPort,
+        distance,
+        travelCost,
+        profit: enemy.credits, // Potential credits from combat
+        totalCost: travelCost,
+        profitPerAction: enemy.credits / 10 // Rough estimate
+      })
+    }
+    
+    // Add closest hub as travel option AT THE TOP
+    if (nearestHub) {
+      const travelCost = this.calculateTravelCost(nearestHub.distance, myPlayer.shipType)
+      
+      // Create hub as a special port option for UI display
+      const hubAsPort = {
+        id: nearestHub.hub.id,
+        position: nearestHub.hub.position,
+        name: `🏭 ${nearestHub.hub.name}`, // Add hub icon
+        remainingCargo: 999, // Hubs don't deplete
+        maxCargo: 999,
+        efficiency: 1.0 // Full efficiency for upgrades
+      }
+      
+      // Add hub at the beginning of the options array
+      options.unshift({
+        port: hubAsPort,
+        distance: nearestHub.distance,
+        travelCost,
+        profit: 0, // Hubs are for upgrades, not trading
+        totalCost: travelCost,
+        profitPerAction: 0
       })
     }
     
@@ -214,12 +289,6 @@ export class GameClient {
     return distance <= tolerance
   }
   
-  /**
-   * Get current FPS
-   */
-  getFPS(): number {
-    return this.renderer.getFPS()
-  }
 
   /**
    * Show hover line between player and port

@@ -17,6 +17,10 @@ export interface PlayerState {
   cargoHolds: number
   shipType: ShipType
   cooldownRemaining: number
+  shields: number
+  maxShields: number
+  energy: number
+  maxEnergy: number
 }
 
 export interface BotState {
@@ -30,6 +34,10 @@ export interface BotState {
   totalProfit: number
   cargoHolds: number
   shipType: ShipType
+  shields: number
+  maxShields: number
+  energy: number
+  maxEnergy: number
 }
 
 export interface PortState {
@@ -64,6 +72,9 @@ export interface ShipType {
   travelCostMultiplier: number
   purchaseCost: number
   description: string
+  maxShields: number
+  maxEnergy: number
+  maxEnergyPerBlast: number
 }
 
 // Original full game state update (kept for backwards compatibility)
@@ -95,7 +106,7 @@ export interface DynamicStateUpdate {
 }
 
 export interface PlayerAction {
-  type: 'TRADE' | 'TRAVEL' | 'UPGRADE_CARGO'
+  type: 'TRADE' | 'TRAVEL' | 'UPGRADE_CARGO' | 'ENGAGE_COMBAT' | 'FIRE_BLAST' | 'BUY_SHIELDS' | 'BUY_ENERGY'
   targetId?: number
 }
 
@@ -108,6 +119,23 @@ export interface TradeOption {
   profitPerAction: number
 }
 
+export interface EnemyNPCState {
+  id: number
+  name: string
+  position: [number, number, number]
+  currentPortId: number
+  destinationPortId: number
+  progress: number
+  shields: number
+  maxShields: number
+  energy: number
+  maxEnergy: number
+  maxEnergyPerBlast: number
+  credits: number
+  isInCombat: boolean
+  combatTargetId?: string | number
+}
+
 /**
  * Client-side game state (interpolated from server updates)
  */
@@ -116,8 +144,10 @@ export interface ClientGameState {
   tick: number
   players: Map<string, PlayerState>
   bots: Map<number, BotState>
+  enemies: Map<number, EnemyNPCState>
   ports: Map<number, PortState>
   hubs: Map<number, HubState>
   leaderboard: LeaderboardEntry[]
   myPlayerId?: string
+  serverVersion?: string
 }

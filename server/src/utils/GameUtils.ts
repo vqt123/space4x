@@ -15,7 +15,10 @@ export const SHIP_TYPES: ShipType[] = [
     maxCargoHolds: 200,
     travelCostMultiplier: 1.0,
     purchaseCost: 0, // Starting ship
-    description: 'Balanced trading vessel with expandable cargo capacity'
+    description: 'Balanced trading vessel with expandable cargo capacity',
+    maxShields: 500,
+    maxEnergy: 1000,
+    maxEnergyPerBlast: 50
   },
   {
     id: 'scout_courier',
@@ -24,7 +27,10 @@ export const SHIP_TYPES: ShipType[] = [
     maxCargoHolds: 100,
     travelCostMultiplier: 0.7,
     purchaseCost: 5000,
-    description: 'Fast ship with limited cargo but excellent speed'
+    description: 'Fast ship with limited cargo but excellent speed',
+    maxShields: 300,
+    maxEnergy: 800,
+    maxEnergyPerBlast: 40
   },
   {
     id: 'heavy_hauler',
@@ -33,7 +39,10 @@ export const SHIP_TYPES: ShipType[] = [
     maxCargoHolds: 300,
     travelCostMultiplier: 1.5,
     purchaseCost: 15000,
-    description: 'High-capacity vessel for serious bulk trading'
+    description: 'High-capacity vessel for serious bulk trading',
+    maxShields: 800,
+    maxEnergy: 1200,
+    maxEnergyPerBlast: 60
   },
   {
     id: 'mega_freighter',
@@ -42,7 +51,10 @@ export const SHIP_TYPES: ShipType[] = [
     maxCargoHolds: 500,
     travelCostMultiplier: 2.0,
     purchaseCost: 40000,
-    description: 'Massive ship for industrial-scale cargo operations'
+    description: 'Massive ship for industrial-scale cargo operations',
+    maxShields: 1200,
+    maxEnergy: 1500,
+    maxEnergyPerBlast: 75
   }
 ]
 

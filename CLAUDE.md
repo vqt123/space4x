@@ -22,6 +22,20 @@ timeout 10s node debug_connection.js
 node debug_connection.js > debug.log 2>&1 & sleep 5 && pkill -f debug_connection
 ```
 
+**CRITICAL**: NEVER use bash commands with excessive sleep times (>10s) - they cause 2-minute timeouts:
+```bash
+# WRONG - causes timeout after 2 minutes:
+nohup npm run dev > client.log 2>&1 & sleep 30
+
+# CORRECT - use shorter sleeps or separate commands:
+nohup npm run dev > client.log 2>&1 &
+sleep 5
+# OR use separate bash calls:
+nohup npm run dev > client.log 2>&1 & 
+# then in next command:
+sleep 5 && node test_browser.js
+```
+
 **META-RULE**: When the user says "you forgot X" or points out a repeated mistake, IMMEDIATELY update this CLAUDE.md file to add instructions preventing that mistake in the future. This ensures continuous improvement and prevents wasting the user's time.
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
@@ -58,6 +72,8 @@ After ANY change to client-side code (src/), ALWAYS do these steps IN ORDER:
 
 **NEVER USE cd WITH && IN BACKGROUND COMMANDS!**
 
+**CRITICAL**: Never put items above the critical development workflow section in CLAUDE.md.
+
 ## Client-Server Development Workflow
 
 **Current Priority**: Converting from single-client to client-server architecture
@@ -82,6 +98,20 @@ npm run build      # Build client for production
 2. **Client Second**: Convert existing React Three Fiber to pure Three.js
 3. **Integration**: Connect client and server via WebSocket
 4. **Testing**: Multi-client testing and performance validation
+
+## Version Number Locations
+
+**Client Version**: Located in `src/NewApp.tsx` around line 247
+```typescript
+Client v1.0.62 | Server v1.0.2
+```
+
+**Server Version**: Defined at top of `server/src/server.ts` (main entry point)
+```typescript
+const SERVER_VERSION = '1.0.2'
+```
+
+**Important**: Version numbers are displayed in the UI and server logs. Always update both locations when bumping versions.
 
 ## Code Guidelines
 

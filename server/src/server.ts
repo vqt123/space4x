@@ -5,6 +5,8 @@ import cors from 'cors'
 import { GameLoop } from './core/GameLoop'
 import { PlayerAction, StaticDataUpdate, DynamicStateUpdate } from './types/ServerTypes'
 
+const SERVER_VERSION = '1.0.2'
+
 /**
  * Space4X Game Server
  * 
@@ -92,7 +94,8 @@ class Space4XServer {
           // Send initial game state to new player
           socket.emit('game_joined', {
             playerId: player.id,
-            playerName: player.name
+            playerName: player.name,
+            serverVersion: SERVER_VERSION
           })
           
           // Send static data to the new player
@@ -173,7 +176,7 @@ class Space4XServer {
       
       // Start the HTTP server
       this.server.listen(this.port, () => {
-        console.log(`🚀 Space4X server v1.0.1 running on port ${this.port}`)
+        console.log(`🚀 Space4X server v${SERVER_VERSION} running on port ${this.port}`)
         console.log(`📊 Health check: http://localhost:${this.port}/health`)
         console.log(`📈 Stats: http://localhost:${this.port}/stats`)
         console.log(`🎮 WebSocket server ready for connections`)

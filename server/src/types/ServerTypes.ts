@@ -103,6 +103,9 @@ export interface ShipType {
   travelCostMultiplier: number
   purchaseCost: number
   description: string
+  maxShields: number
+  maxEnergy: number
+  maxEnergyPerBlast: number
 }
 
 export interface ServerPlayer {
@@ -121,6 +124,10 @@ export interface ServerPlayer {
   shipType: ShipType
   lastActionTick: number
   name: string
+  shields: number
+  maxShields: number
+  energy: number
+  maxEnergy: number
 }
 
 export interface ServerBot {
@@ -136,12 +143,33 @@ export interface ServerBot {
   shipType: ShipType
   cargoHolds: number
   lastActionTick: number
+  shields: number
+  maxShields: number
+  energy: number
+  maxEnergy: number
 }
 
 export interface UpgradeHub {
   id: number
   position: Vector3
   name: string
+}
+
+export interface EnemyNPCState {
+  id: number
+  name: string
+  position: [number, number, number]
+  currentPortId: number
+  destinationPortId: number
+  progress: number
+  shields: number
+  maxShields: number
+  energy: number
+  maxEnergy: number
+  maxEnergyPerBlast: number
+  credits: number
+  isInCombat: boolean
+  combatTargetId?: string | number
 }
 
 export interface LeaderboardEntry {
@@ -157,7 +185,7 @@ export interface LeaderboardEntry {
  * Network message interfaces
  */
 export interface PlayerAction {
-  type: 'TRADE' | 'TRAVEL' | 'UPGRADE_CARGO'
+  type: 'TRADE' | 'TRAVEL' | 'UPGRADE_CARGO' | 'ENGAGE_COMBAT' | 'FIRE_BLAST' | 'BUY_SHIELDS' | 'BUY_ENERGY'
   targetId?: number
 }
 
@@ -167,6 +195,7 @@ export interface GameStateUpdate {
   timestamp: number
   players: PlayerState[]
   bots: BotState[]
+  enemies: EnemyNPCState[]
   ports: PortState[]
   hubs: HubState[]
   leaderboard: LeaderboardEntry[]
@@ -185,6 +214,7 @@ export interface DynamicStateUpdate {
   timestamp: number
   players: PlayerState[]
   bots: BotState[]
+  enemies: EnemyNPCState[]
   ports: PortState[]
   leaderboard: LeaderboardEntry[]
 }
@@ -206,6 +236,10 @@ export interface PlayerState {
   cargoHolds: number
   shipType: ShipType
   cooldownRemaining: number
+  shields: number
+  maxShields: number
+  energy: number
+  maxEnergy: number
 }
 
 export interface BotState {
@@ -219,6 +253,10 @@ export interface BotState {
   totalProfit: number
   cargoHolds: number
   shipType: ShipType
+  shields: number
+  maxShields: number
+  energy: number
+  maxEnergy: number
 }
 
 export interface PortState {

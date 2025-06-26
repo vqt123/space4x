@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { ClientGameState, PlayerState, BotState, PortState, HubState } from '../types/ClientTypes'
+import { ClientGameState, PlayerState, BotState, EnemyNPCState, PortState, HubState } from '../types/ClientTypes'
 
 /**
  * Pure Three.js renderer for Space4X client
@@ -14,6 +14,7 @@ export class ThreeRenderer {
   private portMeshes: Map<number, THREE.Mesh> = new Map()
   private playerMeshes: Map<string, THREE.Mesh> = new Map()
   private botMeshes: Map<number, THREE.Mesh> = new Map()
+  private enemyMeshes: Map<number, THREE.Mesh> = new Map()
   private hubMeshes: Map<number, THREE.Mesh> = new Map()
   private travelLines: Map<string, THREE.Line> = new Map()
   private hoverLine: THREE.Line | null = null
@@ -22,6 +23,7 @@ export class ThreeRenderer {
   private portMaterial: THREE.MeshStandardMaterial
   private playerMaterial: THREE.MeshStandardMaterial
   private botMaterial: THREE.MeshStandardMaterial
+  private enemyMaterial: THREE.MeshStandardMaterial
   private hubMaterial: THREE.MeshStandardMaterial
   private lineMaterial: THREE.LineBasicMaterial
   private hoverLineMaterial: THREE.LineBasicMaterial
@@ -48,10 +50,6 @@ export class ThreeRenderer {
   // Interpolation toggle for testing
   private useInterpolation: boolean = true
   
-  // FPS tracking
-  private frameCount: number = 0
-  private lastTime: number = 0
-  private fps: number = 0
   
   // Interpolation for smooth movement
   private interpolationData: Map<string, {
@@ -65,8 +63,6 @@ export class ThreeRenderer {
   // Test cube for smooth animation comparison
   private testCube: THREE.Mesh | null = null
   
-  // FPS display element
-  private fpsElement: HTMLDivElement | null = null
   
   constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas
@@ -139,6 +135,10 @@ export class ThreeRenderer {
       color: 0xff8800
     })
     
+    this.enemyMaterial = new THREE.MeshBasicMaterial({
+      color: 0xff0000  // Red color to distinguish enemies
+    })
+    
     this.hubMaterial = new THREE.MeshBasicMaterial({
       color: 0x4488ff
     })
@@ -148,7 +148,6 @@ export class ThreeRenderer {
     
     this.setupLighting()
     this.setupTestCube()
-    this.setupFPSDisplay()
     this.setupEventListeners()
     
     console.log('ThreeRenderer initialized with', this.scene.children.length, 'objects')
@@ -182,32 +181,6 @@ export class ThreeRenderer {
     */
   }
   
-  /**
-   * Set up FPS display as overlay on canvas
-   */
-  private setupFPSDisplay(): void {
-    this.fpsElement = document.createElement('div')
-    this.fpsElement.style.position = 'absolute'
-    this.fpsElement.style.top = '10px'
-    this.fpsElement.style.right = '10px'
-    this.fpsElement.style.background = 'rgba(0, 0, 0, 0.8)'
-    this.fpsElement.style.color = '#00ff88'
-    this.fpsElement.style.padding = '8px 12px'
-    this.fpsElement.style.borderRadius = '4px'
-    this.fpsElement.style.fontFamily = 'monospace'
-    this.fpsElement.style.fontSize = '16px'
-    this.fpsElement.style.fontWeight = 'bold'
-    this.fpsElement.style.border = '1px solid rgba(255,255,255,0.3)'
-    this.fpsElement.style.zIndex = '1000'
-    this.fpsElement.style.pointerEvents = 'none' // Don't interfere with mouse events
-    this.fpsElement.textContent = '0 FPS'
-    
-    // Add to canvas parent
-    const canvasParent = this.canvas.parentElement
-    if (canvasParent) {
-      canvasParent.appendChild(this.fpsElement)
-    }
-  }
   
   
   /**
@@ -336,6 +309,7 @@ export class ThreeRenderer {
     this.updatePorts(gameState.ports)
     this.updatePlayers(gameState.players)
     this.updateBots(gameState.bots)
+    this.updateEnemies(gameState.enemies)
     this.updateHubs(gameState.hubs)
     // Don't update camera here - it's updated in render loop
   }
@@ -471,6 +445,55 @@ export class ThreeRenderer {
       if (!bots.has(botId)) {
         this.scene.remove(mesh)
         this.botMeshes.delete(botId)
+      }
+    }
+  }
+
+  /**
+   * Update enemy meshes
+   */
+  private updateEnemies(enemies: Map<number, EnemyNPCState>): void {
+    // Add/update enemy meshes
+    for (const [enemyId, enemy] of enemies) {
+      let mesh = this.enemyMeshes.get(enemyId)
+      
+      if (!mesh) {
+        mesh = new THREE.Mesh(this.coneGeometry, this.enemyMaterial)
+        // No shadows for performance
+        mesh.scale.set(0.8, 1.2, 0.8) // Slightly different shape than bots - taller and thinner
+        this.scene.add(mesh)
+        this.enemyMeshes.set(enemyId, mesh)
+      }
+      
+      // Update position with or without interpolation
+      const targetPos = new THREE.Vector3(enemy.position[0], enemy.position[1], enemy.position[2])
+      
+      if (this.useInterpolation) {
+        this.setTargetPosition(`enemy_${enemyId}`, targetPos)
+      } else {
+        // Direct position update - no interpolation
+        mesh.position.copy(targetPos)
+      }
+      
+      // Point towards center (0,0,0) like other entities
+      mesh.lookAt(0, 0, 0)
+      
+      // Add combat visual indication if in combat
+      if (enemy.isInCombat) {
+        // Pulsing red effect for combat
+        const pulseFactor = 1.0 + 0.3 * Math.sin(Date.now() * 0.01)
+        mesh.scale.setScalar(pulseFactor * 0.8)
+      } else {
+        // Normal scale when not in combat
+        mesh.scale.set(0.8, 1.2, 0.8)
+      }
+    }
+    
+    // Remove old enemy meshes
+    for (const [enemyId, mesh] of this.enemyMeshes) {
+      if (!enemies.has(enemyId)) {
+        this.scene.remove(mesh)
+        this.enemyMeshes.delete(enemyId)
       }
     }
   }
@@ -618,21 +641,6 @@ export class ThreeRenderer {
     // Render the scene
     this.renderer.render(this.scene, this.camera)
     
-    // Track FPS
-    this.frameCount++
-    const now = performance.now()
-    if (now - this.lastTime >= 1000) { // Update every second
-      this.fps = Math.round((this.frameCount * 1000) / (now - this.lastTime))
-      this.frameCount = 0
-      this.lastTime = now
-      
-      // Update FPS display
-      if (this.fpsElement) {
-        const color = this.fps < 30 ? '#ff4444' : this.fps < 50 ? '#ffaa00' : '#00ff88'
-        this.fpsElement.style.color = color
-        this.fpsElement.textContent = `${this.fps} FPS`
-      }
-    }
   }
   
 
@@ -641,7 +649,6 @@ export class ThreeRenderer {
    */
   startRenderLoop(): void {
     console.log('Starting render loop')
-    this.lastTime = performance.now()
     const animate = () => {
       requestAnimationFrame(animate)
       this.render()
@@ -720,12 +727,6 @@ export class ThreeRenderer {
     }
   }
   
-  /**
-   * Get current FPS
-   */
-  getFPS(): number {
-    return this.fps
-  }
   
   /**
    * Show hover line between player and target port
@@ -764,6 +765,12 @@ export class ThreeRenderer {
     }
     this.hubMeshes.clear()
     
+    // Clean up enemy meshes
+    for (const mesh of this.enemyMeshes.values()) {
+      this.scene.remove(mesh)
+    }
+    this.enemyMeshes.clear()
+    
     // Clean up test cube
     if (this.testCube) {
       this.scene.remove(this.testCube)
@@ -773,10 +780,6 @@ export class ThreeRenderer {
       }
     }
     
-    // Clean up FPS display
-    if (this.fpsElement && this.fpsElement.parentElement) {
-      this.fpsElement.parentElement.removeChild(this.fpsElement)
-    }
     
     // Dispose of geometries
     this.sphereGeometry.dispose()
@@ -787,6 +790,7 @@ export class ThreeRenderer {
     this.portMaterial.dispose()
     this.playerMaterial.dispose()
     this.botMaterial.dispose()
+    this.enemyMaterial.dispose()
     this.hubMaterial.dispose()
     this.lineMaterial.dispose()
     this.hoverLineMaterial.dispose()

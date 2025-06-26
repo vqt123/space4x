@@ -9,6 +9,10 @@ interface NewGameUIProps {
   onTrade: () => void
   onTravel: (portId: number) => void
   onUpgrade: () => void
+  onEngageCombat: (enemyId: number) => void
+  onFireBlast: (enemyId: number) => void
+  onBuyShields: () => void
+  onBuyEnergy: () => void
   onPortHover?: (portId: number) => void
   onPortHoverEnd?: () => void
 }
@@ -27,6 +31,10 @@ export function NewGameUI({
   cooldownRemaining,
   onTrade, 
   onTravel,
+  onEngageCombat,
+  onFireBlast,
+  onBuyShields,
+  onBuyEnergy,
   onPortHover,
   onPortHoverEnd
 }: NewGameUIProps) {
@@ -107,6 +115,8 @@ export function NewGameUI({
         <div><strong>Player:</strong> {player.name}</div>
         <div><strong>Ship:</strong> {player.shipType.name}</div>
         <div><strong>Cargo Holds:</strong> {player.cargoHolds}/{player.shipType.maxCargoHolds}</div>
+        <div><strong>Shields:</strong> <span style={{ color: '#00aaff' }}>{player.shields || 100}/{player.maxShields || 500}</span></div>
+        <div><strong>Energy:</strong> <span style={{ color: '#ffaa00' }}>{player.energy || 200}/{player.maxEnergy || 1000}</span></div>
         <div><strong>Action Points:</strong> {player.actionPoints}</div>
         <div><strong>Credits:</strong> {player.credits}</div>
         <div><strong>Total Profit:</strong> {player.totalProfit}</div>
@@ -206,21 +216,110 @@ export function NewGameUI({
                 </div>
                 <div>
                   {isCurrentPort ? (
-                    <button 
-                      onClick={onTrade}
-                      disabled={!canAct}
-                      style={{
-                        background: canAct ? '#00ff88' : '#666',
-                        color: canAct ? 'black' : '#ccc',
-                        border: 'none',
-                        padding: '8px 16px',
-                        borderRadius: '4px',
-                        cursor: canAct ? 'pointer' : 'not-allowed',
-                        fontWeight: 'bold'
-                      }}
-                    >
-                      Trade (10 AP)
-                    </button>
+                    option.port.name.startsWith('🏭') ? (
+                      // Hub options - show upgrade and purchase buttons
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                        <button 
+                          onClick={onUpgrade}
+                          disabled={!canAct}
+                          style={{
+                            background: canAct ? '#00ff88' : '#666',
+                            color: canAct ? 'black' : '#ccc',
+                            border: 'none',
+                            padding: '6px 12px',
+                            borderRadius: '4px',
+                            cursor: canAct ? 'pointer' : 'not-allowed',
+                            fontSize: '12px',
+                            fontWeight: 'bold'
+                          }}
+                        >
+                          Upgrade Cargo
+                        </button>
+                        <div style={{ display: 'flex', gap: '4px' }}>
+                          <button 
+                            onClick={onBuyShields}
+                            disabled={!canAct || player.shields >= player.maxShields || player.credits < 50}
+                            style={{
+                              background: (canAct && player.shields < player.maxShields && player.credits >= 50) ? '#00aaff' : '#666',
+                              color: (canAct && player.shields < player.maxShields && player.credits >= 50) ? 'white' : '#ccc',
+                              border: 'none',
+                              padding: '4px 8px',
+                              borderRadius: '4px',
+                              cursor: (canAct && player.shields < player.maxShields && player.credits >= 50) ? 'pointer' : 'not-allowed',
+                              fontSize: '10px'
+                            }}
+                          >
+                            +10🛡 (50¢)
+                          </button>
+                          <button 
+                            onClick={onBuyEnergy}
+                            disabled={!canAct || player.energy >= player.maxEnergy || player.credits < 100}
+                            style={{
+                              background: (canAct && player.energy < player.maxEnergy && player.credits >= 100) ? '#ffaa00' : '#666',
+                              color: (canAct && player.energy < player.maxEnergy && player.credits >= 100) ? 'black' : '#ccc',
+                              border: 'none',
+                              padding: '4px 8px',
+                              borderRadius: '4px',
+                              cursor: (canAct && player.energy < player.maxEnergy && player.credits >= 100) ? 'pointer' : 'not-allowed',
+                              fontSize: '10px'
+                            }}
+                          >
+                            +50⚡ (100¢)
+                          </button>
+                        </div>
+                      </div>
+                    ) : (
+                      // Regular port trade
+                      <button 
+                        onClick={onTrade}
+                        disabled={!canAct}
+                        style={{
+                          background: canAct ? '#00ff88' : '#666',
+                          color: canAct ? 'black' : '#ccc',
+                          border: 'none',
+                          padding: '8px 16px',
+                          borderRadius: '4px',
+                          cursor: canAct ? 'pointer' : 'not-allowed',
+                          fontWeight: 'bold'
+                        }}
+                      >
+                        Trade (10 AP)
+                      </button>
+                    )
+                  ) : option.port.name.startsWith('⚔️') ? (
+                    // Enemy combat options
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                      <button 
+                        onClick={() => onEngageCombat(option.port.id - 10000)} // Convert back to enemy ID
+                        disabled={!canAct || player.actionPoints < 10}
+                        style={{
+                          background: (canAct && player.actionPoints >= 10) ? '#ff4444' : '#666',
+                          color: (canAct && player.actionPoints >= 10) ? 'white' : '#ccc',
+                          border: 'none',
+                          padding: '6px 12px',
+                          borderRadius: '4px',
+                          cursor: (canAct && player.actionPoints >= 10) ? 'pointer' : 'not-allowed',
+                          fontSize: '12px'
+                        }}
+                      >
+                        Engage (10 AP)
+                      </button>
+                      <button 
+                        onClick={() => onFireBlast(option.port.id - 10000)} // Convert back to enemy ID
+                        disabled={!canAct || player.actionPoints < 10 || (player.energy || 200) < 50}
+                        style={{
+                          background: (canAct && player.actionPoints >= 10 && (player.energy || 200) >= 50) ? '#ffaa00' : '#666',
+                          color: (canAct && player.actionPoints >= 10 && (player.energy || 200) >= 50) ? 'black' : '#ccc',
+                          border: 'none',
+                          padding: '6px 12px',
+                          borderRadius: '4px',
+                          cursor: (canAct && player.actionPoints >= 10 && (player.energy || 200) >= 50) ? 'pointer' : 'not-allowed',
+                          fontSize: '12px'
+                        }}
+                      >
+                        Fire Blast (10 AP, 50 E)
+                      </button>
+                    </div>
                   ) : (
                     <button 
                       onClick={() => onTravel(option.port.id)}

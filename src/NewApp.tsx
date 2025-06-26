@@ -76,7 +76,6 @@ function NewApp() {
     return () => clearTimeout(timer)
   }, [])
   
-  // FPS tracking is now handled by ThreeRenderer
   
   // Cleanup on unmount
   useEffect(() => {
@@ -179,6 +178,38 @@ function NewApp() {
       setLastActionTime(Date.now())
     }
   }
+
+  const handleEngageCombat = (enemyId: number) => {
+    if (gameClientRef.current) {
+      const action: PlayerAction = { type: 'ENGAGE_COMBAT', targetId: enemyId }
+      gameClientRef.current.sendAction(action)
+      setLastActionTime(Date.now())
+    }
+  }
+
+  const handleFireBlast = (enemyId: number) => {
+    if (gameClientRef.current) {
+      const action: PlayerAction = { type: 'FIRE_BLAST', targetId: enemyId }
+      gameClientRef.current.sendAction(action)
+      setLastActionTime(Date.now())
+    }
+  }
+
+  const handleBuyShields = () => {
+    if (gameClientRef.current) {
+      const action: PlayerAction = { type: 'BUY_SHIELDS' }
+      gameClientRef.current.sendAction(action)
+      setLastActionTime(Date.now())
+    }
+  }
+
+  const handleBuyEnergy = () => {
+    if (gameClientRef.current) {
+      const action: PlayerAction = { type: 'BUY_ENERGY' }
+      gameClientRef.current.sendAction(action)
+      setLastActionTime(Date.now())
+    }
+  }
   
   // Auto-connect when game client is ready
   useEffect(() => {
@@ -243,9 +274,6 @@ function NewApp() {
             <p style={{ marginBottom: '20px', color: '#aaa' }}>
               Strategic 3D space trading with competitive AI
             </p>
-            <div style={{ marginBottom: '20px', color: '#666', fontSize: '12px' }}>
-              Client v1.0.60 | Server v1.0.2
-            </div>
             
             <div style={{ marginBottom: '20px' }}>
               <input
@@ -325,10 +353,10 @@ function NewApp() {
         </div>
       )}
       
-      {/* Camera Mode Indicator - positioned below FPS meter */}
+      {/* Camera Mode Indicator */}
       <div style={{
         position: 'absolute',
-        top: 60,
+        top: 10,
         right: 10,
         background: 'rgba(0, 0, 0, 0.8)',
         color: cameraMode === 'FREE' ? '#00ff88' : '#ffaa00',
@@ -338,7 +366,7 @@ function NewApp() {
         fontSize: '14px',
         fontWeight: 'bold',
         border: '1px solid rgba(255,255,255,0.3)',
-        zIndex: 999  // Lower than FPS meter
+        zIndex: 999
       }}>
         CAM: {cameraMode}
         <div style={{ fontSize: '10px', color: '#aaa', marginTop: '2px' }}>
@@ -358,6 +386,10 @@ function NewApp() {
         onTrade={handleTrade}
         onTravel={handleTravel}
         onUpgrade={handleUpgrade}
+        onEngageCombat={handleEngageCombat}
+        onFireBlast={handleFireBlast}
+        onBuyShields={handleBuyShields}
+        onBuyEnergy={handleBuyEnergy}
         onPortHover={(portId) => gameClientRef.current?.showHoverLine(portId)}
         onPortHoverEnd={() => gameClientRef.current?.hideHoverLine()}
       />
@@ -380,6 +412,22 @@ function NewApp() {
           />
         </>
       )}
+      
+      {/* Version display - always visible at bottom-right */}
+      <div style={{
+        position: 'absolute',
+        bottom: 10,
+        right: 10,
+        background: 'rgba(0, 0, 0, 0.8)',
+        color: '#666',
+        padding: '4px 8px',
+        borderRadius: '4px',
+        fontFamily: 'monospace',
+        fontSize: '10px',
+        zIndex: 1000
+      }}>
+        Client v1.0.69 {gameState.serverVersion && `| Server v${gameState.serverVersion}`}
+      </div>
     </div>
   )
 }

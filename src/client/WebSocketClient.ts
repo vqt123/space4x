@@ -18,6 +18,7 @@ export class WebSocketClient {
       tick: 0,
       players: new Map(),
       bots: new Map(),
+      enemies: new Map(),
       ports: new Map(),
       hubs: new Map(),
       leaderboard: []
@@ -46,9 +47,12 @@ export class WebSocketClient {
         })
         
         // Game joined successfully
-        this.socket.on('game_joined', (data: { playerId: string, playerName: string }) => {
+        this.socket.on('game_joined', (data: { playerId: string, playerName: string, serverVersion?: string }) => {
           console.log(`Joined game as ${data.playerName} (${data.playerId})`)
           this.gameState.myPlayerId = data.playerId
+          if (data.serverVersion) {
+            this.gameState.serverVersion = data.serverVersion
+          }
           resolve()
         })
         
@@ -221,7 +225,7 @@ export class WebSocketClient {
   private handleDynamicStateUpdate(update: DynamicStateUpdate): void {
     // Debug: Log update frequency (less verbose than legacy)
     if (update.tick % 100 === 0) { // Log every 10 seconds
-      console.log(`⚡ OPTIMIZATION: Dynamic update every 100ms - Tick ${update.tick}: ${update.players.length} players, ${update.bots.length} bots, ${update.ports.length} ports`)
+      console.log(`⚡ OPTIMIZATION: Dynamic update every 100ms - Tick ${update.tick}: ${update.players.length} players, ${update.bots.length} bots, ${update.enemies?.length || 0} enemies, ${update.ports.length} ports`)
     }
     
     // Create new Maps to trigger React re-renders
@@ -235,6 +239,13 @@ export class WebSocketClient {
       newBots.set(bot.id, bot)
     }
     
+    const newEnemies = new Map()
+    if (update.enemies) {
+      for (const enemy of update.enemies) {
+        newEnemies.set(enemy.id, enemy)
+      }
+    }
+    
     const newPorts = new Map()
     for (const port of update.ports) {
       newPorts.set(port.id, port)
@@ -246,6 +257,7 @@ export class WebSocketClient {
       tick: update.tick,
       players: newPlayers,
       bots: newBots,
+      enemies: newEnemies,
       ports: newPorts,
       leaderboard: update.leaderboard
     }
