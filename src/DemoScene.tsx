@@ -29,7 +29,7 @@ function DemoScene() {
 
     // Create camera
     const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000)
-    const cameraDistance = 5
+    let cameraDistance = 5
     camera.position.set(0, 0, cameraDistance)
 
     // Create renderer

@@ -62,6 +62,9 @@ export function NewGameUI({
         textAlign: 'center'
       }}>
         <h3>Loading Player Data...</h3>
+        <p style={{ fontSize: '12px', color: '#aaa', marginTop: '10px' }}>
+          If this takes more than a few seconds, try pressing 'C' to toggle camera
+        </p>
       </div>
     )
   }

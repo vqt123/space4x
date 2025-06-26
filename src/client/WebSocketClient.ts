@@ -10,8 +10,9 @@ export class WebSocketClient {
   private onStateUpdateCallbacks: ((state: ClientGameState) => void)[] = []
   private serverUrl: string
   
-  constructor(serverUrl: string = 'http://localhost:3001') {
-    this.serverUrl = serverUrl
+  constructor(serverUrl?: string) {
+    // Always connect directly to server for now - proxy has issues
+    this.serverUrl = serverUrl || 'http://localhost:3001'
     this.gameState = {
       connected: false,
       tick: 0,
@@ -29,11 +30,15 @@ export class WebSocketClient {
   connect(playerName: string): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        this.socket = io(this.serverUrl)
+        console.log('🔌 ATTEMPTING CONNECTION to:', this.serverUrl)
+        this.socket = io(this.serverUrl, {
+          timeout: 10000,
+          transports: ['websocket', 'polling']
+        })
         
         // Connection successful
         this.socket.on('connect', () => {
-          console.log('Connected to Space4X server')
+          console.log('✅ Connected to Space4X server')
           this.gameState.connected = true
           
           // Join the game
@@ -188,16 +193,22 @@ export class WebSocketClient {
   private handleStaticDataUpdate(update: StaticDataUpdate): void {
     console.log(`🔧 OPTIMIZATION: Received static data ONCE: ${update.ports.length} ports, ${update.hubs.length} hubs`)
     
-    // Update ports
-    this.gameState.ports.clear()
+    // Create new Maps to trigger React re-renders
+    const newPorts = new Map()
     for (const port of update.ports) {
-      this.gameState.ports.set(port.id, port)
+      newPorts.set(port.id, port)
     }
     
-    // Update hubs
-    this.gameState.hubs.clear()
+    const newHubs = new Map()
     for (const hub of update.hubs) {
-      this.gameState.hubs.set(hub.id, hub)
+      newHubs.set(hub.id, hub)
+    }
+    
+    // Update state with new objects
+    this.gameState = {
+      ...this.gameState,
+      ports: newPorts,
+      hubs: newHubs
     }
     
     // Notify all callbacks
@@ -213,23 +224,25 @@ export class WebSocketClient {
       console.log(`⚡ OPTIMIZATION: Dynamic update every 100ms - Tick ${update.tick}: ${update.players.length} players, ${update.bots.length} bots (ports/hubs NOT sent!)`)
     }
     
-    // Update tick
-    this.gameState.tick = update.tick
-    
-    // Update players
-    this.gameState.players.clear()
+    // Create new Maps to trigger React re-renders
+    const newPlayers = new Map()
     for (const player of update.players) {
-      this.gameState.players.set(player.id, player)
+      newPlayers.set(player.id, player)
     }
     
-    // Update bots
-    this.gameState.bots.clear()
+    const newBots = new Map()
     for (const bot of update.bots) {
-      this.gameState.bots.set(bot.id, bot)
+      newBots.set(bot.id, bot)
     }
     
-    // Update leaderboard
-    this.gameState.leaderboard = update.leaderboard
+    // Update state with new objects to trigger React re-renders
+    this.gameState = {
+      ...this.gameState,
+      tick: update.tick,
+      players: newPlayers,
+      bots: newBots,
+      leaderboard: update.leaderboard
+    }
     
     // Notify all callbacks
     this.notifyStateUpdate()

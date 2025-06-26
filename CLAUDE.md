@@ -11,6 +11,17 @@ nohup npm --prefix server run dev > server.log 2>&1 &
 bash -c "cd server && npm run dev" > server.log 2>&1 &
 ```
 
+**CRITICAL**: NEVER use `node` commands that run indefinitely without timeouts - they lock up the terminal:
+```bash
+# WRONG - locks terminal:
+node debug_connection.js
+
+# CORRECT - add timeout or run in background:
+timeout 10s node debug_connection.js
+# OR for background processes:
+node debug_connection.js > debug.log 2>&1 & sleep 5 && pkill -f debug_connection
+```
+
 **META-RULE**: When the user says "you forgot X" or points out a repeated mistake, IMMEDIATELY update this CLAUDE.md file to add instructions preventing that mistake in the future. This ensures continuous improvement and prevents wasting the user's time.
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.

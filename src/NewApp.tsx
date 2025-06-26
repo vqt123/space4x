@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { GameClient } from './client/GameClient'
 import { NewGameUI } from './components/NewGameUI'
 import { NewLeaderboard } from './components/NewLeaderboard'
@@ -23,7 +23,9 @@ function NewApp() {
   const [isConnecting, setIsConnecting] = useState(false)
   const [connectionError, setConnectionError] = useState<string | null>(null)
   const [playerName, setPlayerName] = useState('')
-  const [cameraMode, setCameraMode] = useState('FIXED')
+  const [cameraMode, setCameraMode] = useState('FOLLOW')
+  const [myPlayer, setMyPlayer] = useState<any>(undefined)
+  const [gameClientReady, setGameClientReady] = useState(false)
   
   // Initialize game client when canvas is ready
   useEffect(() => {
@@ -37,22 +39,27 @@ function NewApp() {
           const gameClient = new GameClient(canvasRef.current)
           gameClientRef.current = gameClient
           console.log('GameClient created successfully')
+          setGameClientReady(true)
           
           // Set up state update callback
           gameClient.onStateChange((newState) => {
             setGameState(newState)
+            // Update player state separately to trigger React re-renders
+            const newPlayer = gameClient.getMyPlayer()
+            setMyPlayer(newPlayer)
           })
           
           // Set up keyboard listener for camera toggle and interpolation
           const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === 'c' || event.key === 'C') {
               gameClient.toggleCameraMode()
-              setCameraMode(prev => prev === 'FIXED' ? 'FREE' : 'FIXED')
+              setCameraMode(prev => prev === 'FOLLOW' ? 'FREE' : 'FOLLOW')
             } else if (event.key === 'i' || event.key === 'I') {
               gameClient.toggleInterpolation()
             }
           }
           window.addEventListener('keydown', handleKeyDown)
+          
           
           return () => {
             window.removeEventListener('keydown', handleKeyDown)
@@ -83,28 +90,51 @@ function NewApp() {
   
   // Handle connection
   const handleConnect = async () => {
-    console.log('handleConnect called', { playerName, gameClient: !!gameClientRef.current })
-    if (!gameClientRef.current || !playerName.trim()) return
+    console.log('🎯 handleConnect called', { playerName, gameClient: !!gameClientRef.current })
+    if (!playerName.trim()) {
+      console.log('❌ Cannot connect: missing playerName')
+      return
+    }
+    
+    // Wait for GameClient to be created if it's not ready yet
+    if (!gameClientRef.current) {
+      console.log('⏳ GameClient not ready, waiting...')
+      // Wait up to 2 seconds for GameClient to be created
+      for (let i = 0; i < 20; i++) {
+        await new Promise(resolve => setTimeout(resolve, 100))
+        if (gameClientRef.current) break
+      }
+      
+      if (!gameClientRef.current) {
+        console.log('❌ GameClient still not ready after waiting')
+        setConnectionError('Game client failed to initialize')
+        return
+      }
+      console.log('✅ GameClient is now ready')
+    }
     
     setIsConnecting(true)
     setConnectionError(null)
+    console.log('🔄 Set isConnecting=true, connectionError=null')
     
     try {
-      console.log('Attempting to connect...')
+      console.log('🚀 Attempting to connect...')
       await gameClientRef.current.connect(playerName.trim())
-      console.log('Successfully connected to game server')
+      console.log('✅ Successfully connected to game server')
       
       // Force canvas resize after connection (canvas becomes visible)
       setTimeout(() => {
         if (gameClientRef.current) {
-          console.log('Triggering force resize after connection')
+          console.log('📐 Triggering force resize after connection')
           gameClientRef.current.forceResize()
         }
       }, 100)
     } catch (error) {
-      console.error('Failed to connect:', error)
+      console.error('❌ Failed to connect:', error)
       setConnectionError(error instanceof Error ? error.message : 'Connection failed')
+      console.log('🔄 Set connectionError:', error instanceof Error ? error.message : 'Connection failed')
     } finally {
+      console.log('🔄 Setting isConnecting=false')
       setIsConnecting(false)
     }
   }
@@ -147,8 +177,20 @@ function NewApp() {
     }
   }
   
-  // Get current player
-  const myPlayer = gameClientRef.current?.getMyPlayer()
+  // Auto-connect when game client is ready
+  useEffect(() => {
+    if (gameClientReady && !gameState.connected && !isConnecting) {
+      const randomName = `Pilot${Math.floor(Math.random() * 10000)}`
+      setPlayerName(randomName)
+      console.log('🚀 Auto-connecting with username:', randomName)
+      // Small delay to ensure everything is set up
+      setTimeout(() => {
+        console.log('🎮 Calling handleConnect for auto-connection')
+        handleConnect()
+      }, 1000)
+    }
+  }, [gameClientReady])
+  
   
   // Calculate trade options
   const tradeOptions = gameClientRef.current?.calculateTradeOptions() || []
@@ -202,7 +244,7 @@ function NewApp() {
               Strategic 3D space trading with competitive AI
             </p>
             <div style={{ marginBottom: '20px', color: '#666', fontSize: '12px' }}>
-              Client v1.0.37 | Server v1.0.1
+              Client v1.0.54 | Server v1.0.1
             </div>
             
             <div style={{ marginBottom: '20px' }}>
@@ -307,20 +349,7 @@ function NewApp() {
         </div>
       </div>
       
-      {/* Game UI - only show when connected */}
-      {gameState.connected && (
-        <>
-          
-          {/* Cooldown bar at top */}
-          {myPlayer && (
-            <CooldownBar 
-              lastActionTime={Date.now() - cooldownRemaining} 
-              cooldownDuration={500} 
-            />
-          )}
-      
-      
-      {/* Game UI */}
+      {/* Game UI - always show, handles its own loading states */}
       <NewGameUI
         player={myPlayer}
         tradeOptions={tradeOptions}
@@ -331,12 +360,22 @@ function NewApp() {
         onUpgrade={handleUpgrade}
       />
       
-      {/* Leaderboard */}
-      <NewLeaderboard
-        leaderboard={gameState.leaderboard}
-        myPlayerId={gameState.myPlayerId}
-      />
-      
+      {/* Cooldown bar and leaderboard - only show when connected */}
+      {gameState.connected && (
+        <>
+          {/* Cooldown bar at top */}
+          {myPlayer && (
+            <CooldownBar 
+              lastActionTime={Date.now() - cooldownRemaining} 
+              cooldownDuration={500} 
+            />
+          )}
+          
+          {/* Leaderboard */}
+          <NewLeaderboard
+            leaderboard={gameState.leaderboard}
+            myPlayerId={gameState.myPlayerId}
+          />
         </>
       )}
     </div>

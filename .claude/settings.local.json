@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create:*)",
+      "Bash(npm init:*)",
+      "Bash(npm install:*)",
+      "Bash(mkdir:*)",
+      "Bash(npm run dev:*)",
+      "Bash(git reset:*)",
+      "Bash(grep:*)",
+      "Bash(npm run build:*)",
+      "Bash(ss:*)",
+      "Bash(curl:*)",
+      "Bash(npx playwright install:*)",
+      "Bash(node:*)",
+      "Bash(claude mcp:*)",
+      "Bash(npm test)",
+      "Bash(pkill:*)",
+      "Bash(kill:*)"
+    ],
+    "deny": []
+  }
+}

@@ -32,6 +32,7 @@ export class ThreeRenderer {
   // Camera control
   private cameraDistance: number = 30
   private freeCameraMode: boolean = false
+  private followPlayerId: string | null = null
   
   // Mouse controls for free camera
   private isMouseDown: boolean = false
@@ -324,6 +325,11 @@ export class ThreeRenderer {
       console.log('Set debug player ID:', this.debugPlayerId)
     }
     
+    // Store player ID for camera following
+    if (gameState.myPlayerId) {
+      this.followPlayerId = gameState.myPlayerId
+    }
+    
     this.updatePorts(gameState.ports)
     this.updatePlayers(gameState.players)
     this.updateBots(gameState.bots)
@@ -536,7 +542,7 @@ export class ThreeRenderer {
    */
   toggleCameraMode(): void {
     this.freeCameraMode = !this.freeCameraMode
-    console.log(`Camera mode toggled: ${this.freeCameraMode ? 'FREE' : 'FIXED'}`)
+    console.log(`Camera mode toggled: ${this.freeCameraMode ? 'FREE' : 'FOLLOW'}`)
     
     if (this.freeCameraMode) {
       // Initialize free camera position
@@ -546,16 +552,16 @@ export class ThreeRenderer {
       this.camera.lookAt(0, 0, 0)
       console.log('Free camera initialized - you can now drag with mouse to look around')
     } else {
-      console.log('Fixed camera mode - camera stays at center like demo scene')
+      console.log('Follow camera mode - camera follows your player')
     }
   }
 
   /**
-   * Update camera - no interpolation, direct positioning like demo scene
+   * Update camera - no interpolation, direct positioning
    */
   private updateCamera(): void {
     if (this.freeCameraMode) {
-      // Free camera mode - use mouse controls exactly like demo
+      // Free camera mode - use mouse controls
       const x = Math.cos(this.cameraRotationY) * Math.cos(this.cameraRotationX) * this.cameraDistance
       const y = Math.sin(this.cameraRotationX) * this.cameraDistance
       const z = Math.sin(this.cameraRotationY) * Math.cos(this.cameraRotationX) * this.cameraDistance
@@ -563,9 +569,27 @@ export class ThreeRenderer {
       this.camera.position.set(x + this.cameraOffset.x, y + this.cameraOffset.y, z + this.cameraOffset.z)
       this.camera.lookAt(this.cameraOffset)
     } else {
-      // Fixed camera mode - no following, just like demo scene
-      this.camera.position.set(this.cameraOffset.x, this.cameraOffset.y, this.cameraDistance + this.cameraOffset.z)
-      this.camera.lookAt(this.cameraOffset)
+      // Follow camera mode - follow the player
+      if (this.followPlayerId) {
+        const playerMesh = this.playerMeshes.get(this.followPlayerId)
+        if (playerMesh) {
+          // Get player position
+          const playerPos = playerMesh.position
+          
+          // Position camera behind player looking toward center
+          const direction = new THREE.Vector3(0, 0, 0).sub(playerPos).normalize()
+          this.camera.position.copy(playerPos).add(direction.multiplyScalar(this.cameraDistance))
+          this.camera.position.add(this.cameraOffset)
+          
+          // Look at player position offset
+          const lookTarget = playerPos.clone().add(this.cameraOffset)
+          this.camera.lookAt(lookTarget)
+        }
+      } else {
+        // No player to follow - default position
+        this.camera.position.set(this.cameraOffset.x, this.cameraOffset.y, this.cameraDistance + this.cameraOffset.z)
+        this.camera.lookAt(this.cameraOffset)
+      }
     }
   }
   
