@@ -9,7 +9,5 @@ const path = window.location.pathname
 const App = path === '/demo' ? DemoScene : NewApp
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <App />
 )

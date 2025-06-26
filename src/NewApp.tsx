@@ -6,7 +6,6 @@ import { CooldownBar } from './components/CooldownBar'
 import { ClientGameState, PlayerAction } from './types/ClientTypes'
 
 function NewApp() {
-  console.log('NewApp component rendered')
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const gameClientRef = useRef<GameClient | null>(null)
   
@@ -189,7 +188,7 @@ function NewApp() {
         handleConnect()
       }, 1000)
     }
-  }, [gameClientReady])
+  }, [gameClientReady, gameState.connected, isConnecting])
   
   
   // Calculate trade options
@@ -244,7 +243,7 @@ function NewApp() {
               Strategic 3D space trading with competitive AI
             </p>
             <div style={{ marginBottom: '20px', color: '#666', fontSize: '12px' }}>
-              Client v1.0.54 | Server v1.0.1
+              Client v1.0.56 | Server v1.0.1
             </div>
             
             <div style={{ marginBottom: '20px' }}>

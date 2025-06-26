@@ -48,6 +48,7 @@ export interface HubState {
 }
 
 export interface LeaderboardEntry {
+  id: string | number  // string for players (socket ID), number for bots
   rank: number
   name: string
   totalProfit: number

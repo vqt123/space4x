@@ -37,7 +37,7 @@ export function NewLeaderboard({ leaderboard, myPlayerId }: NewLeaderboardProps)
         
         return (
           <div 
-            key={`${entry.isBot ? 'bot' : 'player'}-${entry.name}`}
+            key={`${entry.isBot ? 'bot' : 'player'}-${entry.id}`}
             style={{
               display: 'flex',
               justifyContent: 'space-between',

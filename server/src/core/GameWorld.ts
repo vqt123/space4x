@@ -415,6 +415,7 @@ export class GameWorld {
     this.leaderboard = allEntities
       .sort((a, b) => b.totalProfit - a.totalProfit)
       .map((entity, index) => ({
+        id: entity.id,
         rank: index + 1,
         name: entity.name,
         totalProfit: entity.totalProfit,
