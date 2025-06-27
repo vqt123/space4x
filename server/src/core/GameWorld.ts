@@ -163,6 +163,12 @@ export class GameWorld {
         }
         return this.processTravelAction(player, action.targetId, currentTick)
       
+      case 'HUB_TRAVEL':
+        if (action.targetId === undefined) {
+          return { success: false, error: 'Target hub ID required for hub travel' }
+        }
+        return this.processHubTravelAction(player, action.targetId, currentTick)
+      
       case 'UPGRADE_CARGO':
         return this.processUpgradeAction(player, currentTick)
       
@@ -704,35 +710,129 @@ export class GameWorld {
    * Process travel action
    */
   private processTravelAction(player: ServerPlayer, targetPortId: number, currentTick: number): ActionResult {
-    // Find target port
-    const targetPort = this.ports.find(port => port.id === targetPortId)
+    // Find target port first
+    let targetPort = this.ports.find(port => port.id === targetPortId)
+    let targetHub = null
+    
+    // If not found as port, check if it's a hub
     if (!targetPort) {
-      return { success: false, error: 'Target port not found' }
+      targetHub = this.upgradeHubs.find(hub => hub.id === targetPortId)
+      if (!targetHub) {
+        return { success: false, error: 'Target destination not found' }
+      }
     }
     
-    // Calculate travel cost
-    const distance = player.position.distanceTo(targetPort.position)
+    // Calculate travel cost using the appropriate destination
+    const targetPosition = targetPort ? targetPort.position : targetHub!.position
+    const distance = player.position.distanceTo(targetPosition)
     const travelCost = calculateTravelCost(distance, player.shipType)
-    const totalCost = travelCost + FIXED_TRADE_COST // Travel + Trade cost
+    
+    // For hubs, no trade cost since they don't trade
+    const totalCost = targetPort ? (travelCost + FIXED_TRADE_COST) : travelCost
     
     // Check if player can afford it
     if (player.actionPoints < totalCost) {
-      return { success: false, error: 'Insufficient action points for travel and trade' }
+      const action = targetPort ? 'travel and trade' : 'travel to hub'
+      return { success: false, error: `Insufficient action points for ${action}` }
     }
     
-    // Set up travel
-    player.destinationPort = targetPort
-    player.startPosition = player.position.clone()
+    if (targetPort) {
+      // Set up travel to port
+      player.destinationPort = targetPort
+      player.startPosition = player.position.clone()
+      player.progress = 0
+      player.isMoving = true
+      player.lastActionTick = currentTick
+      
+      return { 
+        success: true,
+        newState: {
+          destinationPort: player.destinationPort,
+          isMoving: player.isMoving,
+          progress: player.progress
+        }
+      }
+    } else {
+      // Travel to hub - complete immediately since no trade involved
+      player.position = targetHub!.position.clone()
+      player.actionPoints -= totalCost
+      player.lastActionTick = currentTick
+      
+      // Update current port to nearest port for UI purposes
+      const nearestPort = this.ports
+        .map(port => ({ port, distance: targetHub!.position.distanceTo(port.position) }))
+        .sort((a, b) => a.distance - b.distance)[0]
+      
+      if (nearestPort) {
+        player.currentPort = nearestPort.port
+      }
+      
+      console.log(`Player ${player.name} traveled to hub ${targetHub!.name}`)
+      
+      return { 
+        success: true,
+        newState: {
+          position: player.position.toArray(),
+          actionPoints: player.actionPoints,
+          currentPort: player.currentPort
+        }
+      }
+    }
+  }
+  
+  /**
+   * Process hub travel action (instant teleport)
+   */
+  private processHubTravelAction(player: ServerPlayer, targetHubId: number, currentTick: number): ActionResult {
+    // Check cooldown (5 ticks = 500ms)
+    if (currentTick - player.lastActionTick < 5) {
+      return { success: false, error: 'Action on cooldown' }
+    }
+    
+    // Find the target hub
+    const targetHub = this.upgradeHubs.find(hub => hub.id === targetHubId)
+    if (!targetHub) {
+      return { success: false, error: 'Hub not found' }
+    }
+    
+    // Check if player has enough action points for hub travel (5 AP)
+    const hubTravelCost = 5
+    if (player.actionPoints < hubTravelCost) {
+      return { success: false, error: 'Not enough action points for hub travel' }
+    }
+    
+    // Deduct action points
+    player.actionPoints -= hubTravelCost
+    
+    // Instant teleport to hub
+    player.position.x = targetHub.position.x
+    player.position.y = targetHub.position.y
+    player.position.z = targetHub.position.z
+    player.isMoving = false
     player.progress = 0
-    player.isMoving = true
+    player.destinationPort = null
+    player.startPosition = null
+    
+    // Update current port to nearest port at hub location (for hub commerce)
+    const nearestPort = this.ports
+      .map(port => ({ port, distance: player.position.distanceTo(port.position) }))
+      .sort((a, b) => a.distance - b.distance)[0]
+    
+    if (nearestPort) {
+      player.currentPort = nearestPort.port
+    }
+    
+    // Set cooldown (5 ticks = 500ms)
     player.lastActionTick = currentTick
+    
+    console.log(`Player ${player.name} instantly teleported to hub ${targetHub.name}`)
     
     return { 
       success: true,
       newState: {
-        destinationPort: player.destinationPort,
-        isMoving: player.isMoving,
-        progress: player.progress
+        position: player.position.toArray(),
+        actionPoints: player.actionPoints,
+        currentPort: player.currentPort
       }
     }
   }

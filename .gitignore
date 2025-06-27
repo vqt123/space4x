@@ -45,4 +45,3 @@ Thumbs.db
 # Test files and logs
 *.log
 screenshot_*.png
-test_browser.js

@@ -123,6 +123,34 @@ export class GameClient {
   }
   
   /**
+   * Get the closest hub to the player
+   */
+  getClosestHub(): { hub: any; distance: number } | null {
+    const gameState = this.getGameState()
+    const myPlayer = this.getMyPlayer()
+    
+    if (!myPlayer || !gameState.hubs.size) {
+      return null
+    }
+    
+    const playerPos = myPlayer.position
+    
+    // Find nearest hub from the hubs map (not ports)
+    const hubs = Array.from(gameState.hubs.values())
+      .map(hub => ({
+        hub,
+        distance: Math.sqrt(
+          Math.pow(hub.position[0] - playerPos[0], 2) +
+          Math.pow(hub.position[1] - playerPos[1], 2) +
+          Math.pow(hub.position[2] - playerPos[2], 2)
+        )
+      }))
+      .sort((a, b) => a.distance - b.distance)
+    
+    return hubs.length > 0 ? hubs[0] : null
+  }
+
+  /**
    * Calculate trade options for UI (client-side calculation)
    */
   calculateTradeOptions(): TradeOption[] {
@@ -149,19 +177,7 @@ export class GameClient {
         )
       }))
       .sort((a, b) => a.distance - b.distance)
-      .slice(0, 4) // Take 4 ports to leave room for 1 hub
-    
-    // Find closest hub
-    const nearestHub = Array.from(gameState.hubs.values())
-      .map(hub => ({
-        hub,
-        distance: Math.sqrt(
-          Math.pow(hub.position[0] - playerPos[0], 2) +
-          Math.pow(hub.position[1] - playerPos[1], 2) +
-          Math.pow(hub.position[2] - playerPos[2], 2)
-        )
-      }))
-      .sort((a, b) => a.distance - b.distance)[0]
+      .slice(0, 5) // Take 5 ports now that hub is separate
     
     // Add current port as trade option if at port
     const currentPort = gameState.ports.get(currentPortId)
@@ -194,7 +210,10 @@ export class GameClient {
     }
 
     // Find nearby enemies (within 20 units) and add them as combat options
-    const nearbyEnemies = Array.from(gameState.enemies.values())
+    const allEnemies = Array.from(gameState.enemies.values())
+    console.log('🎯 Total enemies in game:', allEnemies.length)
+    
+    const nearbyEnemies = allEnemies
       .map(enemy => ({
         enemy,
         distance: Math.sqrt(
@@ -206,6 +225,8 @@ export class GameClient {
       .filter(({ distance }) => distance <= 20) // Only show enemies within 20 units
       .sort((a, b) => a.distance - b.distance)
       .slice(0, 2) // Show max 2 enemies to avoid clutter
+    
+    console.log('🎯 Nearby enemies within 20 units:', nearbyEnemies.length)
 
     // Add nearby enemies as combat options
     for (const { enemy, distance } of nearbyEnemies) {
@@ -231,30 +252,6 @@ export class GameClient {
       })
     }
     
-    // Add closest hub as travel option AT THE TOP
-    if (nearestHub) {
-      const travelCost = this.calculateTravelCost(nearestHub.distance, myPlayer.shipType)
-      
-      // Create hub as a special port option for UI display
-      const hubAsPort = {
-        id: nearestHub.hub.id,
-        position: nearestHub.hub.position,
-        name: `🏭 ${nearestHub.hub.name}`, // Add hub icon
-        remainingCargo: 999, // Hubs don't deplete
-        maxCargo: 999,
-        efficiency: 1.0 // Full efficiency for upgrades
-      }
-      
-      // Add hub at the beginning of the options array
-      options.unshift({
-        port: hubAsPort,
-        distance: nearestHub.distance,
-        travelCost,
-        profit: 0, // Hubs are for upgrades, not trading
-        totalCost: travelCost,
-        profitPerAction: 0
-      })
-    }
     
     return options
   }

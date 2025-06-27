@@ -181,6 +181,7 @@ function NewApp() {
 
   const handleEngageCombat = (enemyId: number) => {
     if (gameClientRef.current) {
+      console.log('🔥 Engaging combat with enemy ID:', enemyId)
       const action: PlayerAction = { type: 'ENGAGE_COMBAT', targetId: enemyId }
       gameClientRef.current.sendAction(action)
       setLastActionTime(Date.now())
@@ -210,6 +211,14 @@ function NewApp() {
       setLastActionTime(Date.now())
     }
   }
+
+  const handleHubTravel = (hubId: number) => {
+    if (gameClientRef.current) {
+      const action: PlayerAction = { type: 'HUB_TRAVEL', targetId: hubId }
+      gameClientRef.current.sendAction(action)
+      setLastActionTime(Date.now())
+    }
+  }
   
   // Auto-connect when game client is ready
   useEffect(() => {
@@ -226,8 +235,9 @@ function NewApp() {
   }, [gameClientReady, gameState.connected, isConnecting])
   
   
-  // Calculate trade options
+  // Calculate trade options and get closest hub
   const tradeOptions = gameClientRef.current?.calculateTradeOptions() || []
+  const closestHub = gameClientRef.current?.getClosestHub()
   
   // Always render the canvas, but show/hide UI based on connection state
   return (
@@ -381,6 +391,7 @@ function NewApp() {
       <NewGameUI
         player={myPlayer}
         tradeOptions={tradeOptions}
+        closestHub={closestHub}
         isConnected={gameState.connected}
         cooldownRemaining={0}
         onTrade={handleTrade}
@@ -390,6 +401,7 @@ function NewApp() {
         onFireBlast={handleFireBlast}
         onBuyShields={handleBuyShields}
         onBuyEnergy={handleBuyEnergy}
+        onHubTravel={handleHubTravel}
         onPortHover={(portId) => gameClientRef.current?.showHoverLine(portId)}
         onPortHoverEnd={() => gameClientRef.current?.hideHoverLine()}
       />
@@ -426,7 +438,7 @@ function NewApp() {
         fontSize: '10px',
         zIndex: 1000
       }}>
-        Client v1.0.69 {gameState.serverVersion && `| Server v${gameState.serverVersion}`}
+        Client v1.0.76 {gameState.serverVersion && `| Server v${gameState.serverVersion}`}
       </div>
     </div>
   )

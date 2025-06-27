@@ -185,7 +185,7 @@ export interface LeaderboardEntry {
  * Network message interfaces
  */
 export interface PlayerAction {
-  type: 'TRADE' | 'TRAVEL' | 'UPGRADE_CARGO' | 'ENGAGE_COMBAT' | 'FIRE_BLAST' | 'BUY_SHIELDS' | 'BUY_ENERGY'
+  type: 'TRADE' | 'TRAVEL' | 'HUB_TRAVEL' | 'UPGRADE_CARGO' | 'ENGAGE_COMBAT' | 'FIRE_BLAST' | 'BUY_SHIELDS' | 'BUY_ENERGY'
   targetId?: number
 }
 

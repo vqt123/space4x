@@ -4,6 +4,7 @@ import { PlayerState, TradeOption } from '../types/ClientTypes'
 interface NewGameUIProps {
   player: PlayerState | undefined
   tradeOptions: TradeOption[]
+  closestHub: { hub: any; distance: number } | null
   isConnected: boolean
   cooldownRemaining: number
   onTrade: () => void
@@ -13,6 +14,7 @@ interface NewGameUIProps {
   onFireBlast: (enemyId: number) => void
   onBuyShields: () => void
   onBuyEnergy: () => void
+  onHubTravel: (hubId: number) => void
   onPortHover?: (portId: number) => void
   onPortHoverEnd?: () => void
 }
@@ -27,14 +29,17 @@ function getProfitTradeColor(efficiency: number): string {
 export function NewGameUI({ 
   player, 
   tradeOptions, 
+  closestHub,
   isConnected, 
   cooldownRemaining,
   onTrade, 
   onTravel,
+  onUpgrade,
   onEngageCombat,
   onFireBlast,
   onBuyShields,
   onBuyEnergy,
+  onHubTravel,
   onPortHover,
   onPortHoverEnd
 }: NewGameUIProps) {
@@ -155,6 +160,115 @@ export function NewGameUI({
         </div>
       )}
       
+      {/* Closest Hub Section */}
+      {closestHub && (
+        <>
+          <h4 style={{ color: '#00aaff', margin: '15px 0 10px 0' }}>
+            Closest Hub:
+          </h4>
+          
+          <div style={{ 
+            margin: '10px 0', 
+            padding: '12px', 
+            background: 'rgba(0, 170, 255, 0.15)',
+            border: '1px solid #00aaff',
+            borderRadius: '6px'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+              <div style={{ flex: 1 }}>
+                <strong style={{ color: '#00aaff' }}>
+                  🏭 {closestHub.hub.name}
+                </strong>
+                <div style={{ fontSize: '12px', color: '#aaa' }}>
+                  Distance: {closestHub.distance.toFixed(1)} units
+                </div>
+                <div style={{ margin: '8px 0', fontSize: '14px' }}>
+                  <div style={{ color: '#00aaff', fontSize: '14px' }}>
+                    ⚡ Instant teleport to hub for upgrades
+                  </div>
+                </div>
+              </div>
+              <div>
+                {player && Math.sqrt(
+                  Math.pow(closestHub.hub.position[0] - player.position[0], 2) +
+                  Math.pow(closestHub.hub.position[1] - player.position[1], 2) +
+                  Math.pow(closestHub.hub.position[2] - player.position[2], 2)
+                ) < 0.25 ? (
+                  // At hub - show upgrade and purchase buttons
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <button 
+                      onClick={onUpgrade}
+                      disabled={!player || player.actionPoints < 10}
+                      style={{
+                        background: (player && player.actionPoints >= 10) ? '#00ff88' : '#666',
+                        color: (player && player.actionPoints >= 10) ? 'black' : '#ccc',
+                        border: 'none',
+                        padding: '6px 12px',
+                        borderRadius: '4px',
+                        cursor: (player && player.actionPoints >= 10) ? 'pointer' : 'not-allowed',
+                        fontSize: '12px',
+                        fontWeight: 'bold'
+                      }}
+                    >
+                      Upgrade Cargo
+                    </button>
+                    <div style={{ display: 'flex', gap: '4px' }}>
+                      <button 
+                        onClick={onBuyShields}
+                        disabled={!player || player.actionPoints < 10 || player.shields >= player.maxShields || player.credits < 50}
+                        style={{
+                          background: (player && player.actionPoints >= 10 && player.shields < player.maxShields && player.credits >= 50) ? '#00aaff' : '#666',
+                          color: (player && player.actionPoints >= 10 && player.shields < player.maxShields && player.credits >= 50) ? 'white' : '#ccc',
+                          border: 'none',
+                          padding: '4px 8px',
+                          borderRadius: '4px',
+                          cursor: (player && player.actionPoints >= 10 && player.shields < player.maxShields && player.credits >= 50) ? 'pointer' : 'not-allowed',
+                          fontSize: '10px'
+                        }}
+                      >
+                        +10🛡 (50¢)
+                      </button>
+                      <button 
+                        onClick={onBuyEnergy}
+                        disabled={!player || player.actionPoints < 10 || player.energy >= player.maxEnergy || player.credits < 100}
+                        style={{
+                          background: (player && player.actionPoints >= 10 && player.energy < player.maxEnergy && player.credits >= 100) ? '#ffaa00' : '#666',
+                          color: (player && player.actionPoints >= 10 && player.energy < player.maxEnergy && player.credits >= 100) ? 'black' : '#ccc',
+                          border: 'none',
+                          padding: '4px 8px',
+                          borderRadius: '4px',
+                          cursor: (player && player.actionPoints >= 10 && player.energy < player.maxEnergy && player.credits >= 100) ? 'pointer' : 'not-allowed',
+                          fontSize: '10px'
+                        }}
+                      >
+                        +50⚡ (100¢)
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  // Not at hub - show teleport button
+                  <button 
+                    onClick={() => onHubTravel(closestHub.hub.id)}
+                    disabled={!player || player.actionPoints < 5}
+                    style={{
+                      background: (player && player.actionPoints >= 5) ? '#00aaff' : '#666',
+                      color: (player && player.actionPoints >= 5) ? 'white' : '#ccc',
+                      border: 'none',
+                      padding: '8px 16px',
+                      borderRadius: '4px',
+                      cursor: (player && player.actionPoints >= 5) ? 'pointer' : 'not-allowed',
+                      fontWeight: 'bold'
+                    }}
+                  >
+                    Teleport (5 AP)
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+      
       {/* Trade Options */}
       <h4 style={{ color: '#00ff88', margin: '15px 0 10px 0' }}>
         Trade Options:
@@ -216,59 +330,7 @@ export function NewGameUI({
                 </div>
                 <div>
                   {isCurrentPort ? (
-                    option.port.name.startsWith('🏭') ? (
-                      // Hub options - show upgrade and purchase buttons
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                        <button 
-                          onClick={onUpgrade}
-                          disabled={!canAct}
-                          style={{
-                            background: canAct ? '#00ff88' : '#666',
-                            color: canAct ? 'black' : '#ccc',
-                            border: 'none',
-                            padding: '6px 12px',
-                            borderRadius: '4px',
-                            cursor: canAct ? 'pointer' : 'not-allowed',
-                            fontSize: '12px',
-                            fontWeight: 'bold'
-                          }}
-                        >
-                          Upgrade Cargo
-                        </button>
-                        <div style={{ display: 'flex', gap: '4px' }}>
-                          <button 
-                            onClick={onBuyShields}
-                            disabled={!canAct || player.shields >= player.maxShields || player.credits < 50}
-                            style={{
-                              background: (canAct && player.shields < player.maxShields && player.credits >= 50) ? '#00aaff' : '#666',
-                              color: (canAct && player.shields < player.maxShields && player.credits >= 50) ? 'white' : '#ccc',
-                              border: 'none',
-                              padding: '4px 8px',
-                              borderRadius: '4px',
-                              cursor: (canAct && player.shields < player.maxShields && player.credits >= 50) ? 'pointer' : 'not-allowed',
-                              fontSize: '10px'
-                            }}
-                          >
-                            +10🛡 (50¢)
-                          </button>
-                          <button 
-                            onClick={onBuyEnergy}
-                            disabled={!canAct || player.energy >= player.maxEnergy || player.credits < 100}
-                            style={{
-                              background: (canAct && player.energy < player.maxEnergy && player.credits >= 100) ? '#ffaa00' : '#666',
-                              color: (canAct && player.energy < player.maxEnergy && player.credits >= 100) ? 'black' : '#ccc',
-                              border: 'none',
-                              padding: '4px 8px',
-                              borderRadius: '4px',
-                              cursor: (canAct && player.energy < player.maxEnergy && player.credits >= 100) ? 'pointer' : 'not-allowed',
-                              fontSize: '10px'
-                            }}
-                          >
-                            +50⚡ (100¢)
-                          </button>
-                        </div>
-                      </div>
-                    ) : (
+                    (
                       // Regular port trade
                       <button 
                         onClick={onTrade}
